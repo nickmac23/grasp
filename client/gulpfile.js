@@ -6,12 +6,28 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var order = require('gulp-order');
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  sass: ['./scss/**/*.scss'],
+  javascript: ['./www/js/*.js']
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['sass', 'js']);
+
+var javascriptFiles = [
+  'js/someFile.js'
+]
+
+gulp.task('js', function() {
+  gulp.src('./www/js/*.js')
+  .pipe(order([
+    'www/js/app.js',
+    'www/js/someFile.js'
+    ], { base: './' }))
+        .pipe(concat('scripts.min.js'))
+  .pipe(gulp.dest('./dist'))
+});
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
@@ -28,6 +44,7 @@ gulp.task('sass', function(done) {
 
 gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.javascript, ['js']);
 });
 
 gulp.task('install', ['git-check'], function() {
