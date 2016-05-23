@@ -10,7 +10,7 @@ var order = require('gulp-order');
 
 var paths = {
   sass: ['./scss/**/*.scss'],
-  javascript: ['./dist/*.js']
+  javascript: ['./project/*.js']
 };
 
 gulp.task('default', ['sass', 'js']);
@@ -20,10 +20,10 @@ var javascriptFiles = [
 ]
 
 gulp.task('js', function() {
-  gulp.src('./dist/*.js')
+  gulp.src('./project/*.js')
   .pipe(order([
-    'dist/app.js',
-    'dist/someFile.js'
+    'project/app.js',
+    'project/routes.js'
     ], { base: './' }))
         .pipe(concat('scripts.min.js'))
   .pipe(gulp.dest('./www/js'))
