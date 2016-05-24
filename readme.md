@@ -1,9 +1,12 @@
 # Welcome To Panic Button! #
 
+Production Web App: https://panic-button-c784e.firebaseapp.com/
+Production API: https://panic-button-g20.herokuapp.com/
+
 ### To setup the application on your local machine... ###
 
 1. Follow the instructions in the client readme.
-1. 
+1.
 ```
 npm install
 knex --knexfile ./server/knexfile.js migrate:latest
@@ -18,8 +21,10 @@ echo JWT_SECRET=$(node -e "require('crypto').randomBytes(48, function(ex, buf) {
 heroku create <app-name>
 heroku addons:create heroku-postgresql:hobby-dev
 git push heroku master
-heroku set:JWT_SECRET=$(node -e "require('crypto').randomBytes(48, function(ex, buf) { console.log(buf.toString('hex')) });")
-heroku set:NODE_ENV="production"
+heroku config:set JWT_SECRET=$(node -e "require('crypto').randomBytes(48, function(ex, buf) { console.log(buf.toString('hex')) });")
+heroku config:set NODE_ENV="production"
+heroku run knex --knexfile ./server/knexfile.js migrate:latest
+heroku run knex --knexfile ./server/knexfile.js seed:run
 heroku open
 ```
 
