@@ -9,7 +9,7 @@ var sh = require('shelljs');
 var order = require('gulp-order');
 var paths = {
   sass: ['./scss/*.scss'],
-  javascript: ['./project/*.js']
+  javascript: ['./project/**/*.js']
 };
 
 gulp.task('default', ['sass', 'js']);
@@ -19,7 +19,7 @@ var javascriptFiles = [
 ]
 
 gulp.task('js', function() {
-  gulp.src('./project/*.js')
+  gulp.src(['./project/**/*.js'])
   .pipe(order([
     'project/app.js',
     'project/routes.js',
