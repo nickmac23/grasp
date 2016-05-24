@@ -33,3 +33,18 @@ heroku open
 cd /client/www
 firebase deploy
 ```
+
+### To start up your work on your client side env use these commands: ###
+
+gulp:
+```
+gulp watch
+```
+firebase
+```
+firebase serve
+```
+ionic
+```
+ionic run ios --livereload --consolelogs
+```
