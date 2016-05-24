@@ -22,7 +22,11 @@ gulp.task('js', function() {
   gulp.src('./project/*.js')
   .pipe(order([
     'project/app.js',
-    'project/routes.js'
+    'project/routes.js',
+    'project/landing.js',
+    'project/dashboard.js',
+    'project/lecture.student.js',
+    'project/lecture.teacher.js',
     ], { base: './' }))
         .pipe(concat('scripts.min.js'))
   .pipe(gulp.dest('./www/js')).on('error', gutil.log)
