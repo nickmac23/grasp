@@ -3,12 +3,16 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var knex = require('./db/config')
+var cors = require('cors');
+var jwt = require('jsonwebtoken');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var api = require('./routes/api');
 var app = express();
+
+app.use(cors());
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -22,6 +26,7 @@ app.use(function(req, res, next){
 
 // Set user object on request
 app.use(function(req, res, next){
+
   var token = req.headers.authentication;
   if(token){
     var decoded = jwt.verify(token, process.env.JWT_SECRET);
