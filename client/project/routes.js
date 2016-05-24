@@ -12,7 +12,7 @@
   ];
 
   function setupRoutes($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider)  {
-    // $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise("/");
 
     $stateProvider
@@ -24,9 +24,9 @@
         url: '/lecture',
         template: "<lecture-student></lecture-student>"
       })
-      .state('dashboard', {
-        url: '/dashboard',
-        template: "<h1>Dash Board</h1>"
+      .state('teacher', {
+        url: '/teacher',
+        template: "<lecture-teacher></lecture-teacher>"
       })
   }
 })();
