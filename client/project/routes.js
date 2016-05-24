@@ -20,17 +20,13 @@
         url: '/',
         template: "<landing-directive></landing-directive>"
       })
-      .state('lecture', {
+      .state('student', {
         url: '/lecture',
-        template: "<lecture-time></lecture-time>"
+        template: "<lecture-student></lecture-student>"
       })
       .state('dashboard', {
         url: '/dashboard',
         template: "<h1>Dash Board</h1>"
-      })
-      .state('student', {
-        url: '/student',
-        template: "<h1>student</h1>"
       })
   }
 })();

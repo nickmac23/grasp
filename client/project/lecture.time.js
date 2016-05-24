@@ -2,7 +2,7 @@
   'use strict';
 
     angular.module('panic')
-      .directive('lectureTime', lectureDirective);
+      .directive('lectureStudent', lectureDirective);
 
       function lectureDirective (){
         return {

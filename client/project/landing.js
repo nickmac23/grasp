@@ -26,7 +26,8 @@
         function classCodeSubmit (form) {
           //do stuff with the class code
           console.log('class code', vm.classCode);
-          $state.go('lecture');
+          //why is this undefined?!
+          $state.go('student');
         }
       }
 
