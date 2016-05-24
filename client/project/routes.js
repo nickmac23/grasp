@@ -18,7 +18,11 @@
     $stateProvider
       .state('landing', {
         url: '/',
-        template: "<h1>Landing</h1>"
+        template: "<h1>Landing Pages</h1>"
+      })
+      .state('home', {
+        url: '/home',
+        template: "<h1>Home</h1>"
       })
   }
 })();
