@@ -7,7 +7,7 @@
   function directive () {
     return {
       scope: {},
-      template: '<button ng-click="sock()">sock</button><div google-chart chart="pieChart"></div>',
+      template: '<button ng-click="sock()">sock</button><div google-chart chart="pieChart" id="pieChart"></div>',
       controller: controller,
     }
     function controller ($scope, $rootScope) {
@@ -49,16 +49,9 @@
           "isStacked": "true",
           "fill": 20,
           "displayExactValues": true,
-          "vAxis": {
-            "title": "Sales unit",
-            "gridlines": {
-              "count": 10
-            }
           },
-          "hAxis": {
-            "title": "Date"
-          }
-        }
+
+
 
         $scope.pieChart = pieChart;
     }

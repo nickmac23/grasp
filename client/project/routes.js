@@ -3,7 +3,6 @@
 
   angular.module('panic')
   .config(setupRoutes)
-
   setupRoutes.$inject = [
     '$stateProvider',
     '$urlRouterProvider',
