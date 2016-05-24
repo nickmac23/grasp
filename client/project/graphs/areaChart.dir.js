@@ -5,7 +5,7 @@
   .directive('areaChart', directive)
 
   function directive () {
-
+    console.log("chart");
     return {
       scope: {},
       template: '<div google-chart chart="areaChart"></div>',
