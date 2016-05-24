@@ -5,31 +5,26 @@
   .directive('areaChart', directive)
 
   function directive () {
+
     return {
       scope: {},
       template: '<div google-chart chart="areaChart"></div>',
       controller: controller,
     }
 
-    function controller ($scope) {
-      var i = 1;
-      var D = 0;
-      var N = 100;
-      var G = 0;
-      // $scope.voter = voter;
+    function controller ($scope, $rootScope) {
+      // var socket = io.connect('http://localhost:3000/');
+      var i = 0;
+
       $scope.className = 'class'
 
-      // function voter () {
-      //   D += 5
-      //   G += 10
-      //   N -= 15
-      //   areaChart.options.title = $scope.className
-      //   areaChart.data.rows.push({c: [{v: i + 'min' }, {v: D}, {v: N}, {v: G}] })
-      //   $scope.vote[0]= { 'c': [ { 'v': 'dafuq' }, {'v' : D} ] }
-      //   $scope.vote[1] = { 'c': [ { 'v': 'novote'}, {'v' : N} ] }
-      //   $scope.vote[2] = { 'c': [ { 'v':  'gotit'}, {'v' : G } ] }
-      //   i+=10
-      // }
+      $rootScope.$on('area', function (event, data) {
+        var total = data.d + data.n + data.g;
+        var d = data.d/total * 100;
+        var n = data.n/total * 100;
+        var g = data.g/total * 100;
+        areaChart.data.rows.push({c: [{v: data.time + 'min' }, {v: d}, {v: n}, {v: g}] })
+      })
 
       var areaChart = {};
       areaChart.type = "AreaChart";

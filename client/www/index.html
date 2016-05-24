@@ -21,6 +21,7 @@
     <!-- your app's js -->
     <script src="js/scripts.min.js"></script>
 
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="lib/angular-google-chart/ng-google-chart.js"></script>
   </head>
 
@@ -34,6 +35,7 @@
       </ion-header-bar> -->
       <ion-content>
         <ui-view></ui-view>
+        <area-chart></area-chart>
         <pie-chart></pie-chart>
       </ion-content>
     </ion-pane>
