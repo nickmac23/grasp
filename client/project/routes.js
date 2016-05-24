@@ -33,11 +33,11 @@
         template: "<dashboard></dashboard>"
       })
       .state('dashboard.classes', {
-        url: '/dashboard/classes',
+        url: '/classes',
         templateUrl: "partials/dashboard.classes.html"
       })
       .state('dashboard.lectures', {
-        url: '/dashboard/lectures',
+        url: '/lectures',
         templateUrl: "partials/dashboard.lectures.html"
       })
   }
