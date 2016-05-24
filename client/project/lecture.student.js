@@ -8,7 +8,7 @@
         return {
           restrict: "E",
           scope: {},
-          templateUrl: "partials/lecture.time.html",
+          templateUrl: "partials/lecture.student.html",
           controller: lectureController,
           controllerAs: "vm"
         }
