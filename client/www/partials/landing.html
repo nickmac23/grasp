@@ -1,8 +1,8 @@
 <main class="container col-sx-9">
   <h2 class="text-center">Join A Class</h2>
-  
-  <form name="classCodeForm" ng-submit="vm.classCodeSubmit(classCodeForm)">
-    <input type="text" placeholder="class code" ng-bind="vm.classCode">
+
+  <form name="form" ng-submit="vm.classCodeSubmit()">
+    <input type="text" placeholder="class code" ng-model="frm.classCode">
     <input type="submit" value="go to class" class="btn btn-success">
   </form>
 
