@@ -28,5 +28,17 @@
         url: '/teacher',
         template: "<lecture-teacher></lecture-teacher>"
       })
+      .state('dashboard', {
+        url: '/dashboard',
+        template: "<dashboard></dashboard>"
+      })
+      .state('dashboard.classes', {
+        url: '/dashboard/classes',
+        templateUrl: "partials/dashboard.classes.html"
+      })
+      .state('dashboard.lectures', {
+        url: '/dashboard/lectures',
+        templateUrl: "partials/dashboard.lectures.html"
+      })
   }
 })();
