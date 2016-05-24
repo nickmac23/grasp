@@ -5,7 +5,7 @@ exports.up = function(knex, Promise) {
     table.text('description').defaultTo(null);
     table.timestamp('created_at').defaultTo(knex.fn.now());
 
-    table.integer('participant_id')
+    table.integer('instructor_id')
          .unsigned()
          .notNullable()
          .references("id")
@@ -19,7 +19,7 @@ exports.up = function(knex, Promise) {
          .inTable('classes')
          .onDelete('cascade');
 
-    table.index(['participant_id', 'class_id'], 'lecture');
+    table.index(['instructor_id', 'class_id'], 'lecture');
 
   })
 };

@@ -10,6 +10,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var api = require('./routes/api');
+var lectures = require('./routes/lectures');
 var app = express();
 
 app.use(cors());
@@ -45,9 +46,9 @@ app.use(function(req, res, next){
 });
 
 app.use('/', routes);
-app.use('/api/v1/auth', auth);
-app.use('/users', users);
 app.use('/api', api);
+app.use('/api/v1/auth', auth);
+app.use('/api/v1/lectures', lectures);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

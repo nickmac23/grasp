@@ -69,7 +69,7 @@ router.post('/login', function(req, res, next) {
 
 router.get('/me', function(req, res, next){
   if (req.user) {
-    res.json(req.user)
+    res.json(req.user);
   }else{
     res.status(200).send({});
   }
