@@ -6,15 +6,43 @@ var knex = require('./db/config')
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
+var auth = require('./routes/auth');
+var api = require('./routes/api');
 var app = express();
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Set api url
+app.use(function(req, res, next){
+  req.v1ApiURL = req.protocol+'://'+req.get('host')+'/api/v1';
+  next();
+});
+
+// Set user object on request
+app.use(function(req, res, next){
+  var token = req.headers.authentication;
+  if(token){
+    var decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(decoded);
+    knex('users').where({id: decoded.userId}).first().then(function(user){
+      delete user.password;
+      req.user = user;
+      next();
+    }).catch(function(err){
+      console.log(err);
+      next();
+    })
+  }else{
+    next();
+  }
+});
+
 app.use('/', routes);
+app.use('/api/v1/auth', auth);
 app.use('/users', users);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
