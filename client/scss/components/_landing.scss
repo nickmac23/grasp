@@ -58,3 +58,23 @@ h3 {
   text-decoration:none;
 	top:1px;
 }
+
+input[type="text"],input[type="email"], input[type="password"]  {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: none;
+    transition: ease all 0.4s;
+}
+
+input[type="text"]:focus ,input[type="email"]:focus, input[type="password"]:focus  {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 2px solid $lightGreen;
+    transform-origin: 294px center 0px;
+    transition: ease all 0.4s;
+    -webkit-animation:inputHighlighter 0.3s ease;
+    -moz-animation:inputHighlighter 0.3s ease;
+    animation:inputHighlighter 0.3s ease;
+}
