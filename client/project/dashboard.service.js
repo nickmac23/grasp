@@ -17,7 +17,6 @@
       return $http.get(res.data.participations)
     })
 
-
     var dashboardFactory = {
       getClass: getClass
     }
@@ -25,9 +24,16 @@
     return dashboardFactory
 
     function getClass(){
-      return $http.get(AUTH_ENDPOINTS).then(function (res){
-        console.log('back', res);
-        return res;
+      return AUTH_ENDPOINTS.then(function(AUTH_ENDPOINTS){
+        if(AUTH_ENDPOINTS.status === 400){
+          return AUTH_ENDPOINTS.data
+        } else {
+          return $http.get(AUTH_ENDPOINTS).then(function (res){
+            return res
+          }).catch(function (err){
+            return err;
+          })
+        }
       })
     }
 
