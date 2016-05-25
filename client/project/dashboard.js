@@ -25,11 +25,13 @@
         var vm = this;
         vm.session = authService.session;
 
-        // dashboardService.getClass().then(function (res){
-        //   console.log('in directive',res);
-        //   vm.class = res;
-        // })
+        dashboardService.getClass()
+        .then(function (res){
+          console.log('in directive',res);
+          vm.class = res;
+        })
 
       }
 
 }());
+//
