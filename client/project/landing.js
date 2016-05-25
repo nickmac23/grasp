@@ -5,6 +5,7 @@
       .directive('landingDirective', landingDirective);
 
       function landingDirective (){
+        console.log('in landing');
         return {
           restrict: "E",
           scope: {},
@@ -15,18 +16,18 @@
       }
 
       landingController.$inject = [
+        '$scope',
         '$log',
         '$state'
       ];
 
-      function landingController($log, $state) {
+      function landingController($scope, $log, $state) {
         var vm = this;
         vm.classCodeSubmit = classCodeSubmit;
 
-        function classCodeSubmit (form) {
-          //do stuff with the class code
-          console.log('class code', vm.classCode);
-          //why is this undefined?!
+        function classCodeSubmit () {
+          console.log('class code', $scope.frm);
+          $scope.frm = {}
           $state.go('student');
         }
       }

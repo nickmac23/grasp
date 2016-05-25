@@ -11,8 +11,8 @@
     '$httpProvider',
   ];
 
-  function setupRoutes($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider)  {
-    console.log('her');
+
+  function setupRoutes($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise("/");
     $stateProvider
