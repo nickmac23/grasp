@@ -12,8 +12,7 @@
   ];
 
   function setupRoutes($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
-    console.log('in routes');
-    // $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise("/");
     $stateProvider
       .state('landing', {

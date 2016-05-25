@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('panic', ['googlechart'])
+  angular.module('panic')
   .directive('areaChart', directive)
 
   function directive () {
