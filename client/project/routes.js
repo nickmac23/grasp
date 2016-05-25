@@ -14,7 +14,7 @@
   console.log('routes');
 
   function setupRoutes($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
-    $httpProvider.interceptors.push("AuthInterceptorService");
+    // $httpProvider.interceptors.push("AuthInterceptorService");
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise("/");
     $stateProvider
