@@ -21,6 +21,7 @@ var javascriptFiles = [
 gulp.task('js', function() {
   gulp.src(['./project/**/*.js'])
   .pipe(order([
+
     'project/app.js',
     'project/auth/auth.service.js',
     'project/dashboard.service.js',

@@ -4,16 +4,15 @@
   angular.module('panic')
   .factory('ChartFactory', factory)
 
-  factory.$inject = ['$http', '$rootScope', '$location']
+  factory.$inject = ['$http', '$rootScope',  '$location']
 
   function factory ($http, $rootScope, $location) {
-
-    $rootScope.$on( "$stateChangeStart", function(event, next, current) {
-      console.log($location);
-        console.log('here');
+    $rootScope.$on( "$stateChangeSuccess", function(event, next, current) {
+      console.log($route.current.params);
     })
 
     var service = {
+      lectureId: 'dogs'
     }
     return service
 
