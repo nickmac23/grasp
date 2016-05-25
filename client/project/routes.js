@@ -11,10 +11,8 @@
     '$httpProvider',
   ];
 
-  console.log('routes');
-
   function setupRoutes($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
-    // $httpProvider.interceptors.push("AuthInterceptorService");
+    $httpProvider.interceptors.push("AuthInterceptorService");
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise("/");
     $stateProvider
@@ -25,7 +23,10 @@
       })
       .state('student', {
         url: '/lecture/:id',
-        template: "<lecture-student></lecture-student>"
+        template: "<lecture-student></lecture-student>",
+        resolve: {
+          user: getMe
+        }
       })
       .state('teacher', {
         url: '/teacher/:id',
@@ -44,11 +45,17 @@
         url: '/classes',
         templateUrl: "partials/dashboard.classes.html",
         loggedInOnly: true,
+        resolve: {
+          user: getMe
+        }
       })
       .state('dashboard.lectures', {
         url: '/lectures',
         templateUrl: "partials/dashboard.lectures.html",
-        loggedInOnly: true
+        loggedInOnly: true,
+        resolve: {
+          user: getMe
+        }
       })
 
   }

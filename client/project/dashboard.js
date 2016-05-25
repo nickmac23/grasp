@@ -16,11 +16,19 @@
 
       dashboardController.$inject = [
         '$log',
-        '$state'
+        '$state',
+        'dashboardService',
+        'authService'
       ];
 
-      function dashboardController($log, $state) {
+      function dashboardController($log, $state, dashboardService, authService) {
         var vm = this;
+        vm.session = authService.session;
+
+        // dashboardService.getClass().then(function (res){
+        //   console.log('in directive',res);
+        //   vm.class = res;
+        // })
 
       }
 

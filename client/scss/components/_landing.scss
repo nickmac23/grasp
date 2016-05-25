@@ -1,0 +1,77 @@
+@import 'components/variables';
+
+body {
+  font-family: 'Source Sans Pro';
+  background-image: url('../img/background_black.jpg');
+  margin: 10px;
+}
+
+.container-fluid {
+  min-height: 80vh;
+  padding: 5px;
+  background-color: $background;
+}
+
+h1 {
+  font-family: "Montserrat", sans-serif;
+}
+
+h2 {
+  font-family: "Montserrat", sans-serif;
+  color: $green;
+}
+
+h3 {
+  font-family: "Montserrat", sans-serif;
+}
+
+.btn {
+  text-align: center;
+  margin: 0px 5px 5px 0px;
+	background-color:$green;
+  border: none;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:10px 20px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px $blue;
+  border-radius: 2px;
+}
+
+.btn:hover {
+  background-color: $lightGreen;
+  border-color: $lightGreen;
+  text-decoration:none;
+  color: white;
+}
+.btn:visited {
+  background-color: $green;
+  border-color: $lightGreen;
+  text-decoration:none;
+  color: white;
+}
+.btn:active {
+	position:relative;
+  text-decoration:none;
+	top:1px;
+}
+
+input[type="text"],input[type="email"], input[type="password"]  {
+    border: 0;
+    outline: 0;
+    background: darken($background, 7%);
+    border-bottom: none;
+    transition: ease all 0.4s;
+}
+
+input[type="text"]:focus ,input[type="email"]:focus, input[type="password"]:focus  {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 2px solid $lightGreen;
+    // transform-origin: 294px center 0px;
+    transition: ease all 0.4s;
+}

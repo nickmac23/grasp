@@ -1,4 +1,8 @@
-<main class="container col-sx-10">
-  <button class="btn btn-danger" ng-click='vm.vote(1)'>I dont undestand</button>
-  <button class="btn btn-success" ng-click='vm.vote(3)'>Got it!</button>
+<main class="container-fluid">
+  <div class="col-xs-5 col-xs-offset-4">
+    <h2>Hey <span ng-bind="vm.session.currentUser.name"></span></h2>
+    <button class="secondaryButton" ng-click='vm.vote(1)'>I dont undestand</button>
+    <br>
+    <button class="primaryButton" ng-click='vm.vote(3)'>Got it!</button>
+  </div>
 </main>
