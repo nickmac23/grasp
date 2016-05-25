@@ -40,8 +40,3 @@ exports.seed = function(knex, Promise) {
     })
   }
 };
-
-//Statuses
-// 'I don\'t get it'
-// 'Undecided'
-// 'I get it'
