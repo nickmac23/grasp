@@ -9,9 +9,8 @@ Production API: https://panic-button-g20.herokuapp.com/
 1.
 ```
 npm install
-createdb panic-button
 knex --knexfile ./server/knexfile.js migrate:latest
-knex --knexfile ./server/knexfile.js seed:run
+knex --kenxfile ./server/knexfile.js seed:run
 touch .env
 echo JWT_SECRET=$(node -e "require('crypto').randomBytes(48, function(ex, buf) { console.log(buf.toString('hex')) });") >> .env
 ```
