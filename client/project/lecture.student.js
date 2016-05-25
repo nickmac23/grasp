@@ -19,7 +19,15 @@
       ];
 
       function lectureController($log, $state) {
+        var socket = io.connect('http://localhost:3000/');
         var vm = this;
+        this.vote = vote;
+        var lectureId = $state.params.id
+
+        function vote (status) {
+          console.log('vote!');
+          socket.emit('chart', {lectureId: lectureId, user_id: 1, status: status} )
+        }
 
       }
 
