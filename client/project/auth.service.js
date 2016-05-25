@@ -27,12 +27,14 @@
 
     function login (user) {
       return $http.post(AUTH_ENDPOINTS.login, user).then(function (res){
+        $window.localStorage.setItem('token', res.data.token)
         return res.data
       })
     }
 
     function signup (user) {
       return $http.post(AUTH_ENDPOINTS.signup, user).then(function (res){
+        $window.localStorage.setItem('token', res.data.token)
         return res.data
       })
     }

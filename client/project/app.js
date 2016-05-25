@@ -17,18 +17,19 @@
      return 'https://panic-button-g20.herokuapp.com'
    }
 
-   routeEvent.$inject = ['$rootScope', '$state'];
+   routeEvent.$inject = ['$rootScope', '$state', '$window'];
 
-   function routeEvent($rootScope, $state){
+   function routeEvent($rootScope, $state, $window){
      $rootScope.$on('$stateChangeStart', function(event, state){
-       if(!localStorage.getItem('token') && state.loggedInOnly){
+       if(!$window.localStorage.getItem('token') && state.loggedInOnly){
          console.log('preventingDefault');
          event.preventDefault();
-        //  $state.go('/');
+         $state.go('landing');
        }
-       if(localStorage.getItem('token') && state.loggedOutOnly){
+       if($window.localStorage.getItem('token') && state.loggedOutOnly){
+         console.log('loogedOutOnly');
          event.preventDefault();
-        //  $state.go('posts');
+         $state.go('dashboard');
        }
      })
    }
