@@ -53,7 +53,6 @@
 
   getMe.$inject = ['authService'];
   function getMe(authService) {
-    console.log('in get me fn');
     return authService.me();
   }
 
