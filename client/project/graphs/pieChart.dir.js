@@ -10,10 +10,10 @@
       template: '<button ng-click="sock()">sock</button><div google-chart chart="pieChart" id="pieChart"></div>',
       controller: controller,
     }
-    function controller ($scope, $rootScope, ChartFactory) {
+    function controller ($scope, $rootScope, $state) {
       var socket = io.connect('http://localhost:3000/');
       var pieChart = {};
-      var lectureId = ChartFactory.lectureId;
+      var lectureId = $state.params.id;
 
       socket.emit('set', lectureId)
 

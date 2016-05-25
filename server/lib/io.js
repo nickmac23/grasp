@@ -11,8 +11,9 @@ io.on('connection', function (socket) {
     lectureRoute = lectureId
     socket.emit(lectureRoute, data)
   })
-  
-  socket.on('chart', function(data){
+
+  socket.on('chart', function(lectureId){
+    lectureRoute = lectureId
     data = {}
     data.d = Math.floor(Math.random() * (30 - 0 + 1) + 0)
     data.n = Math.floor(Math.random() * (30 - 0 + 1) + 0)
