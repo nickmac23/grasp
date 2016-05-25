@@ -10,7 +10,8 @@ router.get('/', function(req, res, next) {
 router.get('/v1', function(req, res, next) {
   var response = {
     auth: req.v1ApiURL + '/auth',
-    lectures: req.v1ApiURL + '/lectures'
+    // lectures: req.v1ApiURL + '/lectures',
+    usersClasses: req.v1ApiURL + '/users/:userId/classes'
   }
 
   res.json(response);
