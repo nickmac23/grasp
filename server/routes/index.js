@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.json({ message: 'The api can be found at /api' });
+  res.json({ api: req.protocol+'://'+req.get('host')+'/api' });
 });
 
 module.exports = router;

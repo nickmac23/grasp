@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.timestamp('created_at').defaultTo(knex.fn.now());
 
-    table.integer('understanding_status_id')
+    table.integer('status_id')
          .notNullable()
          .references("id")
          .inTable('understanding_statuses')
