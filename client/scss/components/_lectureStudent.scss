@@ -1,0 +1,65 @@
+@import 'components/variables';
+
+.primaryButton {
+  text-align: center;
+  margin: 0px 5px 5px 0px;
+	background-color: $green;
+  border: none;
+	display:inline-block;
+	cursor:pointer;
+	color: $white;
+	font-family:Arial;
+	font-size:17px;
+	padding:10px 10px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px $blue;
+  border-radius: 2px;
+}
+.primaryButton:hover {
+  background-color: $lightGreen;
+  border-color: $lightGreen;
+  text-decoration:none;
+  color: $white;
+}
+.primaryButton:visited {
+  background-color: $green;
+  border-color: $lightGreen;
+  text-decoration:none;
+  color: $white;
+}
+.primaryButton:active {
+	position:relative;
+  text-decoration:none;
+	top:1px;
+}
+.secondaryButton {
+  text-align: center;
+  margin: 0px 5px 5px 0px;
+	background-color: $grey;
+  border: none;
+	display:inline-block;
+	cursor:pointer;
+	color:$white;
+	font-family:Arial;
+	font-size:17px;
+	padding: 10px 10px;
+	text-decoration:none;
+  border-radius: 2px;
+}
+.secondaryButton:hover {
+  background-color: $lightGreen;
+  border-color: $lightGreen;
+  text-decoration:none;
+  color: $white;
+}
+.secondaryButton:visited {
+  background-color: $grey;
+  border-color: $lightGreen;
+  text-decoration:none;
+  color: $white;
+}
+.secondaryButton:active {
+	position:relative;
+  text-decoration:none;
+	top:1px;
+}

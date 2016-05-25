@@ -12,7 +12,7 @@ var paths = {
   javascript: ['./project/**/*.js']
 };
 
-gulp.task('default', ['sass', 'js']);
+gulp.task('default', ['sass', 'watch', 'js']);
 
 var javascriptFiles = [
   'js/someFile.js'
@@ -23,6 +23,7 @@ gulp.task('js', function() {
   .pipe(order([
     'project/app.js',
     'project/auth/auth.service.js',
+    'project/dashboard.service.js',
     'project/routes.js',
     'project/landing.js',
     'project/dashboard.js',
@@ -33,20 +34,31 @@ gulp.task('js', function() {
   .pipe(gulp.dest('./www/js')).on('error', gutil.log)
 });
 
-gulp.task('sass', function(done) {
-  gulp.src('./scss/*.scss')
-    .pipe(sass())
-    .on('error', sass.logError)
-    .pipe(gulp.dest('./www/css/'))
-    .pipe(minifyCss({
-      keepSpecialComments: 0
-    }))
-    .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/css/')).on('error', gutil.log)
+// gulp.task('sass', function(done) {
+//   gulp.src('./scss/style.scss')
+//     .pipe(sass())
+//     .on('error', sass.logError)
+//     .pipe(gulp.dest('./www/css/'))
+//     .pipe(minifyCss({
+//       keepSpecialComments: 0
+//     }))
+    // .pipe(rename({ extname: '.min.css' }))
+//     .pipe(gulp.dest('./www/css/')).on('error', gutil.log)
+// });
+
+gulp.task('sass', function(){
+
+  gulp.src('./scss/style.scss')
+  .pipe(sass({
+    outputStyle: 'compressed'
+  })).on('error', sass.logError)
+  .pipe(gulp.dest('./www/css/'));
 });
 
+
 gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass']);
+  // gulp.watch(paths.sass, ['sass']);
+  gulp.watch('./scss/**/*.scss', ['sass']);
   gulp.watch(paths.javascript, ['js']);
 });
 

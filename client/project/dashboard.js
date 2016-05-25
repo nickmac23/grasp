@@ -16,10 +16,11 @@
 
       dashboardController.$inject = [
         '$log',
-        '$state'
+        '$state',
+        'dashboardService',
       ];
 
-      function dashboardController($log, $state) {
+      function dashboardController($log, $state, dashboardService) {
         var vm = this;
 
       }

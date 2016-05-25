@@ -1,0 +1,60 @@
+@import 'components/variables';
+
+body {
+  font-family: 'Source Sans Pro';
+  background-image: url('../img/background_black.jpg');
+  margin: 10px;
+}
+
+.container-fluid {
+  min-height: 80vh;
+  padding: 5px;
+  background-color: rgb(245, 245, 245);
+}
+
+h1 {
+  font-family: "Montserrat", sans-serif;
+}
+
+h2 {
+  font-family: "Montserrat", sans-serif;
+  color: $green;
+}
+
+h3 {
+  font-family: "Montserrat", sans-serif;
+}
+
+.btn {
+  text-align: center;
+  margin: 0px 5px 5px 0px;
+	background-color:$green;
+  border: none;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:10px 20px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px $blue;
+  border-radius: 2px;
+}
+
+.btn:hover {
+  background-color: $lightGreen;
+  border-color: $lightGreen;
+  text-decoration:none;
+  color: white;
+}
+.btn:visited {
+  background-color: $green;
+  border-color: $lightGreen;
+  text-decoration:none;
+  color: white;
+}
+.btn:active {
+	position:relative;
+  text-decoration:none;
+	top:1px;
+}
