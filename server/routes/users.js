@@ -11,8 +11,7 @@ router.use("*", function(req, res, next){
 })
 
 router.get('/participations', function(req, res, next){
-  req.user = req.user || {};
-  var userId = req.user.id || 1;
+  var userId = req.user.id;
   knex('users')
     .select('classes.id',
             'classes.name as class_name',
