@@ -53,18 +53,9 @@
 
   }
 
-<<<<<<< HEAD
-
-  // getMe.$inject = ['authService'];
-  // function getMe(authService) {
-  //   console.log('in get me fn');
-  //   return authService.me();
-  // }
-=======
   getMe.$inject = ['authService'];
   function getMe(authService) {
     return authService.me();
   }
->>>>>>> 77c18c50580a6592069a05476ade2bac32faceca
 
 })();
