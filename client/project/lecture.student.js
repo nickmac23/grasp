@@ -25,7 +25,6 @@
         var lectureId = $state.params.id
 
         function vote (status) {
-          console.log('vote!');
           socket.emit('chart', {lectureId: lectureId, user_id: 1, status: status} )
         }
 

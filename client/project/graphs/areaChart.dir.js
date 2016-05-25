@@ -17,7 +17,6 @@
       $scope.className = 'class'
 
       $rootScope.$on(lectureId, function (event, data) {
-        console.log('area', data);
         for (var i = 0; i < data.length; i++) {
           var roster = data[i].roster
           var time = data[i].time
@@ -41,7 +40,6 @@
           d = d/students * 100;
           u = u/students * 100;
           g = g/students * 100;
-
           areaChart.data.rows.push({c: [{v: time }, {v: d}, {v: u}, {v: g}] })
         }
       })
