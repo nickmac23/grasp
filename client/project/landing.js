@@ -5,6 +5,7 @@
       .directive('landingDirective', landingDirective);
 
       function landingDirective (){
+        console.log('in landing');
         return {
           restrict: "E",
           scope: {},

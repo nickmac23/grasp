@@ -11,10 +11,9 @@
     '$httpProvider',
   ];
 
-  function setupRoutes($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider)  {
+  function setupRoutes($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise("/");
-
     $stateProvider
       .state('landing', {
         url: '/',
