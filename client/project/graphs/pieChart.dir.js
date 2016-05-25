@@ -22,11 +22,34 @@
       }
 
       socket.on(lectureId, function (data) {
+        console.log(data);
         if (!(data === null)) {
-          $scope.vote[0]= { 'c': [ { 'v': 'dafuq' }, {'v' : data.d} ] }
-          $scope.vote[1] = { 'c': [ { 'v': 'novote'}, {'v' : data.n} ] }
-          $scope.vote[2] = { 'c': [ { 'v':  'gotit'}, {'v' : data.g } ] }
-          $rootScope.$emit(lectureId, data)
+          var roster = data[0].roster
+          console.log(roster);
+          var students = roster.length;
+          var g = 0 ;
+          var u = 0 ;
+          var d = 0 ;
+          for (var i = 0; i < roster.length; i++) {
+            switch (roster[i].status_id) {
+              case 1:
+                g++
+                break;
+              case 2:
+                u++
+                break;
+              case 3:
+                d++;
+                break;
+            }
+          }
+            $scope.vote[0]= { 'c': [ { 'v': 'I dont get it' }, {'v' : d} ] }
+            $scope.vote[1] = { 'c': [ { 'v': 'undecided'}, {'v' : u} ] }
+            $scope.vote[2] = { 'c': [ { 'v':  'I get it'}, {'v' : g } ] }
+          // $rootScope.$emit(lectureId, data)
+          console.log(g);
+          console.log(u);
+          console.log(d);
           $scope.$apply()
         }
       })

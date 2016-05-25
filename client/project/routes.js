@@ -24,7 +24,7 @@
         loggedOutOnly: true
       })
       .state('student', {
-        url: '/lecture',
+        url: '/lecture/:id',
         template: "<lecture-student></lecture-student>"
       })
       .state('teacher', {
