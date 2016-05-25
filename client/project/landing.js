@@ -17,10 +17,11 @@
       landingController.$inject = [
         '$scope',
         '$log',
-        '$state'
+        '$state',
+        'authService'
       ];
 
-      function landingController($scope, $log, $state) {
+      function landingController($scope, $log, $state, authService) {
         var vm = this;
         vm.classCodeSubmit = classCodeSubmit;
         vm.loginSubmit = loginSubmit;
@@ -34,6 +35,8 @@
 
         function loginSubmit () {
           console.log("login", vm.login);
+          var user = angular.copy(vm.login)
+          authService.login(user);
           $state.go('student');
 
         }
