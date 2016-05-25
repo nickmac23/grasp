@@ -1,8 +1,9 @@
 (function() {
   'use strict'
 
-  angular.module('panic')
+  angular.module('panic', ['ui.router'])
   .config(setupRoutes)
+
   setupRoutes.$inject = [
     '$stateProvider',
     '$urlRouterProvider',
@@ -11,9 +12,9 @@
   ];
 
   function setupRoutes($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider)  {
+    console.log('her');
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise("/");
-
     $stateProvider
       .state('landing', {
         url: '/',
@@ -40,4 +41,5 @@
         templateUrl: "partials/dashboard.lectures.html"
       })
   }
+
 })();

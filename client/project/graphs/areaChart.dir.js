@@ -13,7 +13,6 @@
     }
 
     function controller ($scope, $rootScope) {
-      // var socket = io.connect('http://localhost:3000/');
       var i = 0;
 
       $scope.className = 'class'
