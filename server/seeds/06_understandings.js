@@ -13,6 +13,14 @@ exports.seed = function(knex, Promise) {
       insertUnderstandings('Angular Stuff', "I don't get it", 'Bob', new Date(Date.now()+15000)),
       insertUnderstandings('Angular Stuff', 'I get it', 'Bob', new Date(Date.now()+200000)),
       insertUnderstandings('Angular Stuff', "I don't get it", 'Bob', new Date(Date.now()+350000))
+      insertUnderstandings('Sockets Stuff', 'Undecided', 'Dave', new Date()),
+      insertUnderstandings('Sockets Stuff', "I don't get it", 'Dave', new Date(Date.now()+10000)),
+      insertUnderstandings('Sockets Stuff', 'I get it', 'Dave', new Date(Date.now()+50000)),
+      insertUnderstandings('Sockets Stuff', "I don't get it", 'Dave', new Date(Date.now()+70000)),
+      insertUnderstandings('Sockets Stuff', 'Undecided', 'Bob', new Date()),
+      insertUnderstandings('Sockets Stuff', "I don't get it", 'Bob', new Date(Date.now()+15000)),
+      insertUnderstandings('Sockets Stuff', 'I get it', 'Bob', new Date(Date.now()+200000)),
+      insertUnderstandings('Sockets Stuff', "I don't get it", 'Bob', new Date(Date.now()+350000))
     );
   });
   function insertUnderstandings(lectureName, status, userName, timestamp){

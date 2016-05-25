@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
     table.string('name').notNullable();
     table.text('description').defaultTo(null);
     table.timestamp('created_at').defaultTo(knex.fn.now());
+    table.boolean('is_active').defaultTo(false);
 
     table.integer('instructor_id')
          .unsigned()
