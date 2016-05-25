@@ -10,23 +10,31 @@
       template: '<button ng-click="sock()">sock</button><div google-chart chart="pieChart" id="pieChart"></div>',
       controller: controller,
     }
-    function controller ($scope, $rootScope) {
+    function controller ($scope, $rootScope, ChartFactory) {
       var socket = io.connect('http://localhost:3000/');
       var pieChart = {};
+      var lectureId = ChartFactory.lectureId;
+
+      socket.emit('set', lectureId)
+
       $scope.sock = function () {
-        socket.emit('chart', 1)
+        socket.emit('chart', lectureId)
       }
-      socket.on('pie', function (data) {
-        if (data === null) {
-          console.log('nope');
-        } else {
-        $scope.vote[0]= { 'c': [ { 'v': 'dafuq' }, {'v' : data.d} ] }
-        $scope.vote[1] = { 'c': [ { 'v': 'novote'}, {'v' : data.n} ] }
-        $scope.vote[2] = { 'c': [ { 'v':  'gotit'}, {'v' : data.g } ] }
-        $rootScope.$emit('area', data)
-        $scope.$apply()
-      }
+
+      socket.on(lectureId, function (data) {
+        if (!(data === null)) {
+          $scope.vote[0]= { 'c': [ { 'v': 'dafuq' }, {'v' : data.d} ] }
+          $scope.vote[1] = { 'c': [ { 'v': 'novote'}, {'v' : data.n} ] }
+          $scope.vote[2] = { 'c': [ { 'v':  'gotit'}, {'v' : data.g } ] }
+          $rootScope.$emit(lectureId, data)
+          $scope.$apply()
+        }
       })
+
+      $scope.$on('$destroy', function (event) {
+        socket.removeAllListeners();
+      });
+
       pieChart.type = 'PieChart';
       pieChart.displayed = false;
       pieChart.data = {}

@@ -5,19 +5,18 @@
   .directive('areaChart', directive)
 
   function directive () {
-    console.log("chart");
     return {
       scope: {},
       template: '<div google-chart chart="areaChart"></div>',
       controller: controller,
     }
 
-    function controller ($scope, $rootScope) {
+    function controller ($scope, $rootScope, ChartFactory) {
       var i = 0;
-
+      var lectureId = ChartFactory.lectureId
       $scope.className = 'class'
 
-      $rootScope.$on('area', function (event, data) {
+      $rootScope.$on(lectureId, function (event, data) {
         var total = data.d + data.n + data.g;
         var d = data.d/total * 100;
         var n = data.n/total * 100;
