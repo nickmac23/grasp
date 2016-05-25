@@ -9,7 +9,7 @@ body {
 .container-fluid {
   min-height: 80vh;
   padding: 5px;
-  background-color: rgb(245, 245, 245);
+  background-color: $background;
 }
 
 h1 {
@@ -62,7 +62,7 @@ h3 {
 input[type="text"],input[type="email"], input[type="password"]  {
     border: 0;
     outline: 0;
-    background: transparent;
+    background: darken($background, 7%);
     border-bottom: none;
     transition: ease all 0.4s;
 }
@@ -72,9 +72,6 @@ input[type="text"]:focus ,input[type="email"]:focus, input[type="password"]:focu
     outline: 0;
     background: transparent;
     border-bottom: 2px solid $lightGreen;
-    transform-origin: 294px center 0px;
+    // transform-origin: 294px center 0px;
     transition: ease all 0.4s;
-    -webkit-animation:inputHighlighter 0.3s ease;
-    -moz-animation:inputHighlighter 0.3s ease;
-    animation:inputHighlighter 0.3s ease;
 }

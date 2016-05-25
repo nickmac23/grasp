@@ -13,25 +13,24 @@
   ];
 
   function dashboardFactory ($log, $http, $state, $window, API_URL) {
-    var AUTH_ENDPOINTS;
-    $http.get(API_URL).then(function (res){
-      console.log('in dashboard factory', res.data);
-      return $http.get(res.data.lectures)
-    }).then(function (res){
-      console.log('res', res);
-      AUTH_ENDPOINTS = res.data;
+    var AUTH_ENDPOINTS = $http.get(API_URL).then(function (res){
+      return $http.get(res.data.participations)
     })
 
+
     var dashboardFactory = {
-      getClass: getClass,
-      getLectures: getLectures
+      getClass: getClass
     }
 
     return dashboardFactory
 
-    function getClass(userId) {
-
+    function getClass(){
+      return $http.get(AUTH_ENDPOINTS).then(function (res){
+        console.log('back', res);
+        return res;
+      })
     }
+
 
   }
 }());
