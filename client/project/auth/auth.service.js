@@ -20,10 +20,14 @@
       AUTH_ENDPOINTS = res.data;
     })
 
-    return {
+    var authFactory = {
+      session: {currentUser: null},
       login: login,
       signup: signup,
+      me: me
     }
+
+    return authFactory
 
     function login (user) {
       return $http.post(AUTH_ENDPOINTS.login, user).then(function (res){
@@ -39,7 +43,17 @@
       })
     }
 
-
+    function me(){
+      console.log('in service me', AUTH_ENDPOINTS.me);
+      return $http.get(AUTH_ENDPOINTS.me).then(function(res){
+        console.log('me', res);
+        authFactory.session.currentUser = Object.keys(res.data).length > 0 ? res.data : null;
+        console.log('AuthFactory me()' + authFactory.session);
+        return authFactory.session;
+      }).catch(function (err){
+        console.log(err);
+        return Promise.reject(err);
+      })
+    }
   }
-
 }());

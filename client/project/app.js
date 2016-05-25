@@ -22,12 +22,10 @@
    function routeEvent($rootScope, $state, $window){
      $rootScope.$on('$stateChangeStart', function(event, state){
        if(!$window.localStorage.getItem('token') && state.loggedInOnly){
-         console.log('preventingDefault');
          event.preventDefault();
          $state.go('landing');
        }
        if($window.localStorage.getItem('token') && state.loggedOutOnly){
-         console.log('loogedOutOnly');
          event.preventDefault();
          $state.go('dashboard');
        }

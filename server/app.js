@@ -30,7 +30,12 @@ app.use(function(req, res, next){
 
   var token = req.headers.authentication;
   if(token){
-    var decoded = jwt.verify(token, process.env.JWT_SECRET);
+    try {
+      var decoded = jwt.verify(token, process.env.JWT_SECRET);
+    }catch(e){
+      console.log(e);
+      return res.status(401).send({errors: ["Invalid token"]})
+    }
     console.log(decoded);
     knex('users').where({id: decoded.userId}).first().then(function(user){
       delete user.password;

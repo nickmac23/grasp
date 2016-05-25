@@ -12,8 +12,10 @@
   ];
 
   function setupRoutes($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+    $httpProvider.interceptors.push("AuthInterceptorService");
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise("/");
+
     $stateProvider
       .state('landing', {
         url: '/',
@@ -32,7 +34,10 @@
       .state('dashboard', {
         url: '/dashboard',
         template: "<dashboard></dashboard>",
-        loggedInOnly: true
+        loggedInOnly: true,
+        resolve: {
+          user: getMe
+        }
       })
       .state('dashboard.classes', {
         url: '/classes',
@@ -45,4 +50,11 @@
         loggedInOnly: true
       })
   }
+
+  getMe.$inject = ['authService'];
+  function getMe(authService) {
+    console.log('in get me fn');
+    return authService.me();
+  }
+
 })();
