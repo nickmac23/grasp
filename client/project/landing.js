@@ -34,16 +34,17 @@
         }
 
         function loginSubmit () {
-          console.log("login", vm.login);
           var user = angular.copy(vm.login)
-          authService.login(user);
-          $state.go('student');
-
+          authService.login(user).then(function (res){
+            $state.go('student');
+          })
         }
 
         function signupSubmit (){
-          console.log("signup", vm.signup);
-          $state.go('student');
+          var user = angular.copy(vm.signup);
+          authService.signup(user).then(function (res){
+            $state.go('student');
+          })
 
         }
 

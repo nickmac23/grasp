@@ -13,9 +13,11 @@
   ];
 
   function authFactory ($log, $http, $state, $window, API_URL) {
-    console.log('in service');
-    var URL = $http.get(API_URL).then(function (res){
-      console.log('URL IS',res.data);
+    var AUTH_ENDPOINTS;
+    $http.get(API_URL).then(function (res){
+      return $http.get(res.data.auth)
+    }).then(function (res){
+      AUTH_ENDPOINTS = res.data;
     })
 
     return {
@@ -23,15 +25,16 @@
       signup: signup,
     }
 
-    function login (data) {
-      console.log('in service loging',data);
-      return $http.post(API_URL)
+    function login (user) {
+      return $http.post(AUTH_ENDPOINTS.login, user).then(function (res){
+        return res.data
+      })
     }
 
-    function signup (data) {
-      console.log('in service signup',data);
-      return $http.post(API_URL)
-
+    function signup (user) {
+      return $http.post(AUTH_ENDPOINTS.signup, user).then(function (res){
+        return res.data
+      })
     }
 
 
