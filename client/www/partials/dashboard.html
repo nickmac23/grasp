@@ -1,5 +1,5 @@
 <main class="container-fluid">
-  <h3>In dashboard</h3>
+  <h3>Hey <span ng-bind="vm.session.currentUser.name"></span></h3>
   <a ui-sref=".classes" class="primaryButton">Classes</a>
   <a ui-sref=".lectures" class="secondaryButton">Lectures</a>
   <div ui-view></div>

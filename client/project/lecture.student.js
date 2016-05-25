@@ -15,12 +15,14 @@
 
       lectureController.$inject = [
         '$log',
-        '$state'
+        '$state',
+        'authService'
       ];
 
-      function lectureController($log, $state) {
+      function lectureController($log, $state, authService) {
         var vm = this;
-
+        vm.session = authService.session;
+        
       }
 
 }());

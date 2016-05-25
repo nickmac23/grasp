@@ -18,11 +18,17 @@
         '$log',
         '$state',
         'dashboardService',
+        'authService'
       ];
 
-      function dashboardController($log, $state, dashboardService) {
+      function dashboardController($log, $state, dashboardService, authService) {
         var vm = this;
+        vm.session = authService.session;
 
+        dashboardService.getClass(vm.session.currentUser.id)
+          .then(function (res){
+            console.log('Back in dash directive', res);
+          })
       }
 
 }());

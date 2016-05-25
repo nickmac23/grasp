@@ -23,10 +23,15 @@
     })
 
     var dashboardFactory = {
-
+      getClass: getClass,
+      getLectures: getLectures
     }
 
     return dashboardFactory
+
+    function getClass(userId) {
+
+    }
 
   }
 }());

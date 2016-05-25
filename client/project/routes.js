@@ -23,7 +23,10 @@
       })
       .state('student', {
         url: '/lecture',
-        template: "<lecture-student></lecture-student>"
+        template: "<lecture-student></lecture-student>",
+        resolve: {
+          user: getMe
+        }
       })
       .state('teacher', {
         url: '/teacher/:id',
@@ -42,11 +45,17 @@
         url: '/classes',
         templateUrl: "partials/dashboard.classes.html",
         loggedInOnly: true,
+        resolve: {
+          user: getMe
+        }
       })
       .state('dashboard.lectures', {
         url: '/lectures',
         templateUrl: "partials/dashboard.lectures.html",
-        loggedInOnly: true
+        loggedInOnly: true,
+        resolve: {
+          user: getMe
+        }
       })
 
   }
