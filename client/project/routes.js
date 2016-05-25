@@ -28,7 +28,7 @@
         template: "<lecture-student></lecture-student>"
       })
       .state('teacher', {
-        url: '/teacher',
+        url: '/teacher/:id',
         template: "<lecture-teacher></lecture-teacher>",
         // loggedInOnly: true
       })
