@@ -5,7 +5,6 @@
       .directive('landingDirective', landingDirective);
 
       function landingDirective (){
-        console.log('in landing');
         return {
           restrict: "E",
           scope: {},
@@ -18,18 +17,36 @@
       landingController.$inject = [
         '$scope',
         '$log',
-        '$state'
+        '$state',
+        'authService'
       ];
 
-      function landingController($scope, $log, $state) {
+      function landingController($scope, $log, $state, authService) {
         var vm = this;
         vm.classCodeSubmit = classCodeSubmit;
+        vm.loginSubmit = loginSubmit;
+        vm.signupSubmit = signupSubmit;
 
         function classCodeSubmit () {
-          console.log('class code', $scope.frm);
-          $scope.frm = {}
+          console.log('class code', vm.classCode);
+          vm.frm = {}
           $state.go('student');
         }
+
+        function loginSubmit () {
+          var user = angular.copy(vm.login)
+          authService.login(user).then(function (res){
+            $state.go('dashboard');
+          })
+        }
+
+        function signupSubmit (){
+          var user = angular.copy(vm.signup);
+          authService.signup(user).then(function (res){
+            $state.go('dashboard');
+          })
+        }
+
       }
 
 }());
