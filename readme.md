@@ -8,13 +8,11 @@ Production API: https://panic-button-g20.herokuapp.com/
 1. Follow the instructions in the client readme.
 1.
 ```
-// From the project route directory...
 npm install
 knex --knexfile ./server/knexfile.js migrate:latest
 knex --kenxfile ./server/knexfile.js seed:run
 touch .env
 echo JWT_SECRET=$(node -e "require('crypto').randomBytes(48, function(ex, buf) { console.log(buf.toString('hex')) });") >> .env
-echo .env >> .gitignore
 ```
 
 
