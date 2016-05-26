@@ -41,22 +41,34 @@
           user: getMe
         }
       })
-      .state('dashboard.classes', {
-        url: '/classes',
-        templateUrl: "partials/dashboard.classes.html",
+      .state('classInfo', {
+        url: '/:classId/info',
+        templateUrl: "partials/dashboard.info.html",
         loggedInOnly: true,
+        parent: 'dashboard',
         resolve: {
           user: getMe
         }
       })
-      .state('dashboard.lectures', {
-        url: '/lectures',
-        templateUrl: "partials/dashboard.lectures.html",
-        loggedInOnly: true,
-        resolve: {
-          user: getMe
-        }
-      })
+      // .state('dashboard.teaching', {
+      //   url: '/teaching',
+      //   templateUrl: "partials/dashboard.teaching.html",
+      //   loggedInOnly: true,
+      //   parent: 'dashboard',
+      //   resolve: {
+      //     user: getMe
+      //   }
+      // })
+
+      // .state('dashboard.attending', {
+      //   url: '/attending',
+      //   templateUrl: "partials/dashboard.attending.html",
+      //   loggedInOnly: true,
+      //   parent: 'dashboard',
+      //   resolve: {
+      //     user: getMe
+      //   }
+      // })
 
   }
 

@@ -18,25 +18,25 @@
     })
 
     var dashboardFactory = {
-      getClass: getClass
+      getClass: getClass,
+      getClassInfo: getClassInfo
     }
 
     return dashboardFactory
 
     function getClass(){
-      return AUTH_ENDPOINTS.then(function(AUTH_ENDPOINTS){
-        if(AUTH_ENDPOINTS.status === 400){
-          return AUTH_ENDPOINTS.data
-        } else {
-          return $http.get(AUTH_ENDPOINTS).then(function (res){
-            return res
-          }).catch(function (err){
-            return err;
-          })
-        }
+      return AUTH_ENDPOINTS.then(function(res){
+        return res.data
+        }).catch(function (err){
+          return err;
+        })
+      }
+
+    function getClassInfo (url) {
+      return $http.get(url).then(function (res) {
+        return res
       })
     }
-
 
   }
 }());
