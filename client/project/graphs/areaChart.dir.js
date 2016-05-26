@@ -18,12 +18,20 @@
 
       $rootScope.$on(lectureId, function (event, data) {
         var students = Object.keys(data).length
+        var timeStamp = [];
+        var g = 0 ;
+        var u = 1;
+        var d = 0 ;
+        var tf = 0;
         for (var user in data ) {
-          var g = 0 ;
-          var u = students;
-          var d = 0 ;
           for (var i = 0; i < data[user].length; i++) {
-            if (data[user][i-1]== 2) {
+
+            if (i > 0) {
+              var dif = (new Date(data[user][i - 1].created_at).getTime() - new Date(data[user][i].created_at).getTime()) % 6000 )
+             if(dif > 0 );
+                ts = dif
+            }
+            if (data[user][0]) {
               u--
             } if (data[user][i-1] == 1) {
               d--
@@ -45,9 +53,7 @@
             d = d/students * 100;
             u = u/students * 100;
             g = g/students * 100;
-            console.log(i, 'd', d);
-            console.log('u', u);
-            console.log('g', g);
+
           }
           // areaChart.data.rows.push({c: [{v: time }, {v: d}, {v: u}, {v: g}] })
         }
