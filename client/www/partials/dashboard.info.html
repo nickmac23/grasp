@@ -5,10 +5,11 @@
 
   <h3 ng-show="vm.info.lectures">All Your Lectures:</h3>
     <button ng-if="vm.currentClass.attributes.instructor" type="button" class="primaryButton" data-toggle="modal" data-target="#lectureModal">Add A Lecture</button>
-  <div ng-repeat="lecture in vm.info.lectures">
+  <div ng-repeat="lecture in vm.info.lectures" class="well">
     <h4 ng-bind="lecture.attributes.name"></h4>
     <p ng-bind="lecture.attributes.description"></p>
     <p ng-bind="lecture.attributes.created_at | amCalendar"></p>
+    <button ng-show="lecture.attributes.is_active" ui-sref="student({id:lecture.attributes.lecture_id})">Join Lecture</button>
   </div>
 
   <h3 ng-show="vm.info.participants">All Students:</h3>
