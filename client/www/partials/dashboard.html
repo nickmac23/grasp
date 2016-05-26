@@ -5,7 +5,12 @@
     <button type="button" class="primaryButton" data-toggle="modal" data-target="#myModal">Add A Class</button>
     <h3>Teaching</h3>
     <ul>
-      <li ng-repeat="class in vm.teaching"><a ui-sref="classInfo({ classId: class.attributes.id})"><h4 ng-bind="class.attributes.class_name" ng-click="vm.getInfo(class)" ui-sref-opts="{reload:true}"></h4></a></li>
+      <li ng-repeat="class in vm.teaching">
+        <a ui-sref="classInfo({ classId: class.attributes.id})">
+          <h4 ng-bind="class.attributes.class_name" ng-click="vm.getInfo(class)" ui-sref-opts="{reload:true}">
+          </h4>
+        </a>
+      </li>
     </ul>
     <h3>Attending</h3>
     <ul>
@@ -26,7 +31,7 @@
           <h4 class="modal-title" id="myModalLabel">Add A Class</h4>
         </div>
         <div class="modal-body">
-          <form name="myForm" novalidate ng-submit="vm.addClass(myForm)">
+            <form name="myForm" novalidate ng-submit="vm.addClass(myForm)">
               <fieldset class="form-group" ng-class="{'has-error': myForm.name.$invalid && myForm.name.$touched, 'has-success': myForm.name.$valid}">
               <label class="control-label">Name</label>
               <input type="text" class="form-control" name="name" ng-model="vm.class.name" required placeholder="Enter the name of your posting.">
