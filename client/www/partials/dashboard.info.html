@@ -9,7 +9,7 @@
     <h4 ng-bind="lecture.attributes.name"></h4>
     <p ng-bind="lecture.attributes.description"></p>
     <p ng-bind="lecture.attributes.created_at | amCalendar"></p>
-    <button ng-show="lecture.attributes.is_active" ui-sref="student({id:lecture.attributes.lecture_id})">Join Lecture</button>
+    <button ng-show="lecture.attributes.is_active" ui-sref="student({id:lecture.attributes.lecture_id})" ng-click="vm.setPreviousPage(vm.currentClass.attributes.id)">Join Lecture</button>
   </div>
 
   <h3 ng-show="vm.info.participants">All Students:</h3>
@@ -45,7 +45,7 @@
                 </fieldset>
                 <div class="modal-footer">
                   <button type="button" class="btn" data-dismiss="modal" ng-click="vm.formClose(frm)">Close</button>
-                  <button type="submit" class="btn" data-toggle="modal" data-target="#lectureModal" ng-disabled="frm.$invalid">Add Class</button>
+                  <button type="submit" class="btn" data-toggle="modal" data-target="#lectureModal" ng-disabled="frm.$invalid">Add a Lecture</button>
                 </div>
               </form>
           </div>

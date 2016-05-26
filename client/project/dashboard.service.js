@@ -25,19 +25,24 @@
     _classes._teaching = [];
     _classes._attending = [];
 
+    var _previousPage;
+
 
     var dashboardFactory = {
       getClasses: getClasses,
       getClassInfo: getClassInfo,
       addClass: addClass,
       addLecture: addLecture,
+      setPreviousPage: setPreviousPage,
+      getPreviousPage: getPreviousPage
     }
 
     return dashboardFactory
 
     function getClasses(){
       return AUTH_ENDPOINTS.then(function(res){
-
+        _classes._teaching = [];
+        _classes._attending = [];
         for (var i = 0; i < res.data.length; i++) {
           if(res.data[i].attributes.instructor){
             _classes._teaching.push(res.data[i]);
@@ -45,7 +50,6 @@
             _classes._attending.push(res.data[i]);
           }
         }
-        console.log(_classes);
         return _classes;
         }).catch(function (err){
           return err;
@@ -62,23 +66,26 @@
       return POST_CLASSES_ENDPOINTS.then(function (res){
         return $http.post(res, newClass)
         .then(function(res){
-          console.log(res);
-          console.log('in add class', res.data[0]);
-          _classes._teaching.push(res.data[0])
-          console.log(_classes);
+          _classes._teaching.push(res.data)
           return _classes
         })
       })
     }
 
     function addLecture (newLecture, url) {
-      console.log(newLecture);
-      console.log(url);
       return $http.post(url, newLecture)
       .then(function (res) {
-        console.log('Back from server lecture',res);
-        return
+        return res.data;
       })
+    }
+
+    function setPreviousPage (id){
+      _previousPage = id;
+      return
+    }
+
+    function getPreviousPage () {
+      return _previousPage
     }
 
   }

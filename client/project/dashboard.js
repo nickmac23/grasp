@@ -32,23 +32,26 @@
         vm.addLecture = addLecture;
         vm.currentClass;
         vm.logout = logout;
+        vm.setPreviousPage = setPreviousPage;
 
         dashboardService.getClasses()
         .then(function (res){
           vm.teaching = res._teaching;
           vm.attending = res._attending;
-
-          for (var i = 0; i < res._teaching.length; i++) {
-            if(+res._teaching[i].attributes.id === +$state.params.classId) {
-              vm.currentClass = res._teaching[i];
-              return getInfo(res._teaching[i]);
+          if(res._teaching.length > 0){
+            for (var i = 0; i < res._teaching.length; i++) {
+              if(+res._teaching[i].attributes.id === +$state.params.classId) {
+                vm.currentClass = res._teaching[i];
+                return getInfo(res._teaching[i]);
+              }
             }
           }
-
-          for (var i = 0; i < res._attending.length; i++) {
-            if(+res._attending[i].attributes.id === +$state.params.classId) {
-              vm.currentClass = res._attending[i];
-              return getInfo(res._attending[i]);
+          if(res._teaching.length > 0){
+            for (var i = 0; i < res._attending.length; i++) {
+              if(+res._attending[i].attributes.id === +$state.params.classId) {
+                vm.currentClass = res._attending[i];
+                return getInfo(res._attending[i]);
+              }
             }
           }
         })
@@ -57,7 +60,6 @@
           vm.currentClass = currentClass;
           return dashboardService.getClassInfo(currentClass.links.summary)
           .then(function(res) {
-            console.log(res);
             vm.links = res.links;
             vm.info = res.attributes;
             return
@@ -69,9 +71,15 @@
           myForm.$setPristine();
           myForm.$setUntouched();
           vm.class = {};
-          return dashboardService.addClass(newClass).then(function(res){
-            //// TODO: waiting for api change to correct class format
+          return dashboardService.addClass(newClass)
+          .then(function(res){
+            return res
           });
+        }
+
+        function setPreviousPage(id){
+          dashboardService.setPreviousPage(id);
+          return
         }
 
         function addLecture (form) {
@@ -79,7 +87,11 @@
           form.$setPristine();
           form.$setUntouched();
           vm.lecture = {};
-          return dashboardService.addLecture(newLecture, vm.links.lectures.post);
+          return dashboardService.addLecture(newLecture, vm.links.lectures.post)
+          .then(function(res){
+            vm.info.lectures.push(res);
+            return
+          });
         }
 
         function formClose (form) {
