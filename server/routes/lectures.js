@@ -57,14 +57,4 @@ router.get('/:id/understandings', function(req, res, next) {
     })
 });
 
-router.post('/', function (req, res, next) {
-  var user = req.user;
-  return knex('lectures').insert(req.body)
-      .returning('*')
-      .then(function (newLecture) {
-        res.json(newLecture);
-      })
-
-});
-
 module.exports = router;
