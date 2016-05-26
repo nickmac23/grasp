@@ -13,9 +13,11 @@
   ];
 
   function dashboardFactory ($log, $http, $state, $window, API_URL) {
-    var AUTH_ENDPOINTS = $http.get(API_URL).then(function (res){
-      return $http.get(res.data.participations)
-    })
+    var getParticipants = function () {
+      return $http.get(API_URL).then(function (res){
+        return $http.get(res.data.participations)
+      })
+    }
 
     var POST_CLASSES_ENDPOINTS = $http.get(API_URL).then(function (res){
       return res.data.classes.post
@@ -40,7 +42,7 @@
     return dashboardFactory
 
     function getClasses(){
-      return AUTH_ENDPOINTS.then(function(res){
+      return getParticipants().then(function(res){
         _classes._teaching = [];
         _classes._attending = [];
         for (var i = 0; i < res.data.length; i++) {
