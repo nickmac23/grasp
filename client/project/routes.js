@@ -15,6 +15,7 @@
     $httpProvider.interceptors.push("AuthInterceptorService");
     $locationProvider.html5Mode(true);
     $urlRouterProvider.otherwise("/");
+
     $stateProvider
       .state('landing', {
         url: '/',
@@ -41,23 +42,15 @@
           user: getMe
         }
       })
-      .state('dashboard.classes', {
-        url: '/classes',
-        templateUrl: "partials/dashboard.classes.html",
+      .state('classInfo', {
+        url: '/:classId',
+        templateUrl: "partials/dashboard.info.html",
         loggedInOnly: true,
+        parent: 'dashboard',
         resolve: {
           user: getMe
         }
       })
-      .state('dashboard.lectures', {
-        url: '/lectures',
-        templateUrl: "partials/dashboard.lectures.html",
-        loggedInOnly: true,
-        resolve: {
-          user: getMe
-        }
-      })
-
   }
 
   getMe.$inject = ['authService'];
