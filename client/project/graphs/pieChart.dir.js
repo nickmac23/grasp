@@ -21,13 +21,13 @@
       })
 
       ChartFactory.graphData().then( function(data) {
-        if (!(data === null)) {
-
+        var dat = data.students
+        if (!(dat === null)) {
           var g = 0 ;
           var u = 0 ;
           var d = 0 ;
-          for (var user in data ) {
-            switch (data[user][data[user].length - 1].status_id) {
+          for (var user in dat ) {
+            switch (dat[user][dat[user].length - 1].status_id) {
               case 1:
                 d++
                 break;

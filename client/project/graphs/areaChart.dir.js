@@ -17,46 +17,25 @@
       $scope.className = 'class'
 
       $rootScope.$on(lectureId, function (event, data) {
-        var students = Object.keys(data).length
-        var timeStamp = [];
-        var g = 0 ;
-        var u = 1;
-        var d = 0 ;
-        var tf = 0;
-        for (var user in data ) {
-          for (var i = 0; i < data[user].length; i++) {
+          // var students = Object.keys(data).length
+        var students = data.students
+        var timeStart = new Date(data.lecture_start).getTime();
+        var timeArray =[]
+        var timeData = {};
 
-            if (i > 0) {
-              var dif = (new Date(data[user][i - 1].created_at).getTime() - new Date(data[user][i].created_at).getTime()) % 6000 )
-             if(dif > 0 );
-                ts = dif
-            }
-            if (data[user][0]) {
-              u--
-            } if (data[user][i-1] == 1) {
-              d--
-            } if (data[user][i-1] == 3) {
-              g--
-            }
-            switch (data[user][i].status_id) {
-              case 1:
-                d++
-                break;
-              case 2:
-               u++
-               break;
-              case 3:
-                g++
-                break;
-            }
-
-            d = d/students * 100;
-            u = u/students * 100;
-            g = g/students * 100;
-
+        for (var user in students ) {
+          for (var i = 0; i < students[user].length; i++) {
+            var dif = (Math.floor((+timeStart - +new Date(students[user][i].created_at).getTime())/6))
+            timeData[dif] = students[user][i].status_id
           }
-          // areaChart.data.rows.push({c: [{v: time }, {v: d}, {v: u}, {v: g}] })
+          timeArray.push(timeData)
         }
+        console.log(timeArray);
+        // for (var time in timeData) {
+        //   areaChart.data.rows.push({c: [{v: time }, {v: d}, {v: u}, {v: g}] })
+        //
+        // }
+        areaChart.data.rows.push({c: [{v: time }, {v: timeData[time].d}, {v: timeData[time].u}, {v: timeData[time].g}] })
       })
 
       var areaChart = {};

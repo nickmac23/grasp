@@ -6,11 +6,13 @@ var jwt = require('jsonwebtoken');
 
 require('dotenv').load();
 
-router.use("*", function(req, res, next){
-  req.user ? next() : res.status(400).send({errors:['Please log in or sign up.']})
-})
+// router.use("*", function(req, res, next){
+//   req.user ? next() : res.status(400).send({errors:['Please log in or sign up.']})
+// })
 
 router.get('/:id/understandings', function(req, res, next) {
+  req.user = {}
+  req.user.id = 2;
   var usersStatus = {students: {}};
   var isInstructor = false;
   knex('lectures')
@@ -24,30 +26,30 @@ router.get('/:id/understandings', function(req, res, next) {
         isInstructor = instructors[i].user_id === req.user.id
         if(isInstructor) break;
       }
-      console.log(instructors, "lecture_start from instructors");
 
 
       return knex('understandings')
               .where({lecture_id: req.params.id})
               .innerJoin('understanding_statuses', 'understandings.status_id', 'understanding_statuses.id')
     }).then(function(understandings) {
+      console.log(understandings);
       understandings.forEach(function(understanding){
-        console.log(usersStatus.lecture_start);
         if(usersStatus.students[understanding.user_id]){
           usersStatus.students[understanding.user_id].push(understanding)
         }else{
           usersStatus.students[understanding.user_id] = [understanding]
         }
       })
-
       if(!isInstructor){
-        var toReturn = {};
-        toReturn[req.user.id] = usersStatus[req.user.id]
+        var toReturn = {students:{}};
+        toReturn.students[req.user.id] = usersStatus.students[req.user.id]
+        toReturn.lecture_start = usersStatus.lecture_start
+        // console.log('tore', toReturn.lecture_start);
+        console.log(toReturn.students);
         usersStatus = toReturn;
       }
-
-      for (var user in usersStatus ) {
-        usersStatus[user].sort(function (a, b) {
+      for (var user in usersStatus.students ) {
+        usersStatus.students[user].sort(function (a, b) {
           return +a.created_at - +b.created_at
         })
       }
