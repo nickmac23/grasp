@@ -25,12 +25,16 @@
     _classes._teaching = [];
     _classes._attending = [];
 
+    var _previousPage;
+
 
     var dashboardFactory = {
       getClasses: getClasses,
       getClassInfo: getClassInfo,
       addClass: addClass,
       addLecture: addLecture,
+      setPreviousPage: setPreviousPage,
+      getPreviousPage: getPreviousPage
     }
 
     return dashboardFactory
@@ -62,23 +66,26 @@
       return POST_CLASSES_ENDPOINTS.then(function (res){
         return $http.post(res, newClass)
         .then(function(res){
-          console.log(res);
-          console.log('in add class', res.data[0]);
-          _classes._teaching.push(res.data[0])
-          console.log(_classes);
+          _classes._teaching.push(res.data)
           return _classes
         })
       })
     }
 
     function addLecture (newLecture, url) {
-      // console.log(newLecture);
-      // console.log(url);
       return $http.post(url, newLecture)
       .then(function (res) {
-        // console.log('Back from server lecture',res);
         return res;
       })
+    }
+
+    function setPreviousPage (id){
+      _previousPage = id;
+      return
+    }
+
+    function getPreviousPage () {
+      return _previousPage
     }
 
   }

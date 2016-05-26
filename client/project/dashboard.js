@@ -32,6 +32,7 @@
         vm.addLecture = addLecture;
         vm.currentClass;
         vm.logout = logout;
+        vm.setPreviousPage = setPreviousPage;
 
         dashboardService.getClasses()
         .then(function (res){
@@ -72,8 +73,13 @@
           myForm.$setUntouched();
           vm.class = {};
           return dashboardService.addClass(newClass).then(function(res){
-            //// TODO: waiting for api change to correct class format
+            console.log('res', res);
           });
+        }
+
+        function setPreviousPage(id){
+          console.log(id);
+          dashboardService.setPreviousPage(id);
         }
 
         function addLecture (form) {
