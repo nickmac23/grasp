@@ -12,7 +12,7 @@ require('dotenv').load();
 
 router.get('/:id/understandings', function(req, res, next) {
   req.user = {}
-  req.user.id = 2;
+  req.user.id = 1;
   var usersStatus = {students: {}};
   var isInstructor = false;
   knex('lectures')
@@ -29,9 +29,13 @@ router.get('/:id/understandings', function(req, res, next) {
 
 
       return knex('understandings')
+              .select("understandings.*", 'understanding_statuses.status')
               .where({lecture_id: req.params.id})
               .innerJoin('understanding_statuses', 'understandings.status_id', 'understanding_statuses.id')
     }).then(function(understandings) {
+
+      console.log(JSON.stringify(understandings, null, '  '));
+
       understandings.forEach(function(understanding){
         if(usersStatus.students[understanding.user_id]){
           usersStatus.students[understanding.user_id].push(understanding)
@@ -47,15 +51,18 @@ router.get('/:id/understandings', function(req, res, next) {
         usersStatus = toReturn;
       }
       for (var user in usersStatus.students ) {
-        console.log('check', usersStatus.students);
-        usersStatus.students[user].sort(function (a, b) {
-          return +a.created_at - +b.created_at
+        console.log('students****', usersStatus.students[user]);
+        usersStatus.students[user].sort(function(a, b){
+          return new Date(a.created_at) - new Date(b.created_at)
         })
+        // usersStatus.students[user].sort(function (a, b) {
+        //   return +a.created_at - +b.created_at
+        // })
       }
-
       res.json(usersStatus);
       usersStatus = {};
     })
 });
+
 
 module.exports = router;
