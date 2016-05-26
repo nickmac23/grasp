@@ -37,7 +37,8 @@
 
     function getClasses(){
       return AUTH_ENDPOINTS.then(function(res){
-
+        _classes._teaching = [];
+        _classes._attending = [];
         for (var i = 0; i < res.data.length; i++) {
           if(res.data[i].attributes.instructor){
             _classes._teaching.push(res.data[i]);

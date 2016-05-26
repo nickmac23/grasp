@@ -44,7 +44,7 @@
                 return getInfo(res._teaching[i]);
               }
             }
-          }          
+          }
           if(res._teaching.length > 0){
             for (var i = 0; i < res._attending.length; i++) {
               if(+res._attending[i].attributes.id === +$state.params.classId) {
@@ -55,6 +55,7 @@
           }
         })
 
+        //gets the lectures
         function getInfo (currentClass){
           vm.currentClass = currentClass;
           return dashboardService.getClassInfo(currentClass.links.summary)
