@@ -7,17 +7,41 @@ var jwt = require('jsonwebtoken');
 require('dotenv').load();
 
 router.get('/:id/understandings', function(req, res, next) {
-  var usersStatus = {};
-  knex('understandings').where({lecture_id: req.params.id})
-  .innerJoin('understanding_statuses', 'understandings.status_id', 'understanding_statuses.id')
-  .then(function(understandings) {
+  var usersStatus = {students: {}};
+  var isInstructor = false;
+  knex('lectures')
+    .select('participants.user_id', 'lectures.created_at as lecture_start')
+    .where({"lectures.id": req.params.id, 'participants.instructor': true})
+    .innerJoin('classes', 'lectures.class_id', 'classes.id')
+    .innerJoin('participants', 'classes.id', 'participants.class_id')
+    .then(function (instructors) {
+      for (var i = 0; i < instructors.length; i++) {
+        usersStatus.lecture_start = instructors[0].lecture_start;
+        isInstructor = instructors[i].user_id === req.user.id
+        if(isInstructor) break;
+      }
+      console.log(instructors, "lecture_start from instructors");
+
+
+      return knex('understandings')
+              .where({lecture_id: req.params.id})
+              .innerJoin('understanding_statuses', 'understandings.status_id', 'understanding_statuses.id')
+    }).then(function(understandings) {
       understandings.forEach(function(understanding){
-        if(usersStatus[understanding.user_id]){
-          usersStatus[understanding.user_id].push(understanding)
+        console.log(usersStatus.lecture_start);
+        if(usersStatus.students[understanding.user_id]){
+          usersStatus.students[understanding.user_id].push(understanding)
         }else{
-          usersStatus[understanding.user_id] = [understanding]
+          usersStatus.students[understanding.user_id] = [understanding]
         }
       })
+
+
+      if(!isInstructor){
+        var toReturn = {};
+        toReturn[req.user.id] = usersStatus[req.user.id]
+        usersStatus = toReturn;
+      }
       res.json(usersStatus);
       usersStatus = {};
     })
