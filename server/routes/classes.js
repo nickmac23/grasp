@@ -210,6 +210,8 @@ router.delete('/:id/participants/:participantId', isInstructor, function(req,res
 router.post('/:id/lectures', isInstructor, function (req, res, next) {
   var user = req.user;
   var lecture = req.body;
+  toReturn = { attributes: {},
+               links: {} };
   var errors = [];
 
   if(!lecture.name) errors.push('please enter a lecture name');
@@ -217,12 +219,32 @@ router.post('/:id/lectures', isInstructor, function (req, res, next) {
   if(errors.length > 0) return res.status(400).send({errors: errors});
 
   lecture.class_id = req.params.id;
-
-  knex('participants').where('user_id', req.user.id).first().then(function(participant){
+  knex('classes')
+    .where({'classes.id': req.params.id})
+    .innerJoin('lectures', 'classes.id', 'lectures.class_id')
+    .then(function (classLectures) {
+      var lecture = classLectures.find(function (lecture) {
+        return lecture.name.toLowerCase() === req.body.name.toLowerCase()
+      })
+      if (lecture) return Promise.reject(["Lecture name already exists in this class."])
+      return knex('participants').where('user_id', req.user.id).first();
+    }).then(function(participant){
     lecture.instructor_id = participant.id;
     return knex('lectures').insert(lecture).returning('*');
   }).then(function (newLecture) {
-    res.json(newLecture);
+    newLecture = newLecture[0];
+    newLecture.lecture_id = newLecture.id;
+    console.log(newLecture);
+    delete newLecture.id;
+    delete newLecture.class_id;
+    delete newLecture.instructor_id;
+    toReturn.links = {
+      understandings: req.v1ApiURL + '/lectures/' + newLecture.lecture_id + '/understandings'
+    }
+    toReturn.attributes = newLecture
+    res.json(toReturn);
+  }).catch(function (err) {
+    res.status(400).send({errors: err})
   })
 
 });
