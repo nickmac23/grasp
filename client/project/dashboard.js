@@ -31,7 +31,7 @@
         vm.addLecture = addLecture;
         vm.currentClass;
 
-        dashboardService.getClass()
+        dashboardService.getClasses()
         .then(function (res){
           vm.teaching = [];
           vm.attending = [];
@@ -56,15 +56,14 @@
           vm.currentClass = currentClass;
           return dashboardService.getClassInfo(currentClass.links.summary)
           .then(function(res) {
-            console.log('New res', res);  
-            vm.info.lectures = res.lectures;
-            vm.info.participants = res.participants;
+            vm.info = res.attributes;
             return
           })
         }
 
         function addClass (myForm){
           var newClass = angular.copy(vm.class)
+          console.log('angular',newClass);
           myForm.$setPristine();
           myForm.$setUntouched();
           vm.class = {};

@@ -14,7 +14,6 @@
     <p ng-bind="students.attributes.email"></p>
   </div>
 
-
     <!-- Modal -->
     <div class="modal fade" id="lectureModal" tabindex="-1" role="dialog" aria-labelledby="lectureModalLabel">
       <div class="modal-dialog" role="document">
@@ -27,14 +26,14 @@
             <form name="frm" novalidate ng-submit="vm.addLecture(frm)">
                 <fieldset class="form-group" ng-class="{'has-error': frm.name.$invalid && frm.name.$touched, 'has-success': frm.name.$valid}">
                 <label class="control-label">Name</label>
-                <input type="text" class="form-control" name="name" ng-model="vm.class.name" required placeholder="Enter the name of your posting.">
+                <input type="text" class="form-control" name="name" ng-model="vm.lecture.name" required placeholder="Enter the name of your posting.">
                 <div ng-messages="frm.name.$error" ng-if="frm.name.$touched">
                     <p ng-message="required" class="control-label">A name is required.</p>
                 </div>
                 </fieldset>
                 <fieldset class="form-group" ng-class="{'has-error': frm.description.$invalid && frm.description.$touched, 'has-success': frm.description.$valid}">
                 <label class="control-label">Description</label>
-                <input type="text" class="form-control" name="description" ng-model="vm.class.description" required ng-minlength="3" placeholder="Enter the description of the posting.">
+                <input type="text" class="form-control" name="description" ng-model="vm.lecture.description" required ng-minlength="3" placeholder="Enter the description of the posting.">
                 <div ng-messages="frm.description.$error" ng-if="frm.description.$touched">
                     <p ng-message="minlength" class="control-label">Description is too short.</p>
                     <p ng-message="required" class="control-label">Desription is required.</p>

@@ -14,20 +14,23 @@
 
   function dashboardFactory ($log, $http, $state, $window, API_URL) {
     var AUTH_ENDPOINTS = $http.get(API_URL).then(function (res){
-      console.log('in service ', res.data);
       return $http.get(res.data.participations)
     })
 
+    var POST_CLASSES_ENDPOINTS = $http.get(API_URL).then(function (res){
+      return res.data.classes.post
+    })
+
     var dashboardFactory = {
-      getClass: getClass,
+      getClasses: getClasses,
       getClassInfo: getClassInfo,
       addClass: addClass,
-      addLecture: addLecture
+      // addLecture: addLecture
     }
 
     return dashboardFactory
 
-    function getClass(){
+    function getClasses(){
       return AUTH_ENDPOINTS.then(function(res){
         return res.data
         }).catch(function (err){
@@ -42,12 +45,18 @@
     }
 
     function addClass(newClass) {
-      return
+      console.log('newClass',newClass);
+      return POST_CLASSES_ENDPOINTS.then(function (res){
+        return $http.post(res, newClass)
+        .then(function(res){
+          console.log('return from server add class', res);
+          return res
+        })
+      })
     }
-
-    function addLecture (newLecture) {
-      return
-    }
+    // function addLecture (newLecture) {
+    //   return
+    // }
 
   }
 }());
