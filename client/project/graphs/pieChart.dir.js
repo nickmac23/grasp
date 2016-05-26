@@ -11,13 +11,43 @@
       controller: controller,
     }
     function controller ($scope, $rootScope, $state, ChartFactory) {
-      var socket = io.connect('http://localhost:3000/');
+      var socket = io.connect('http://Nick-MacBook-Air.local:3000');
       var pieChart = {};
-      var lectureId = $state.params.id;
+      var lecture_id = $state.params.id;
+      var students = 0;
       ChartFactory.graphData();
-      socket.emit('set', lectureId)
-      socket.on(2, function (data) {
-        console.log(data);
+
+
+      socket.on(lecture_id, function (data) {
+        if (data.class) {
+
+          console.log(data);
+        } else {
+          switch (data.lastStatus) {
+            case 1:
+                var g = 0
+              break
+            case 2:
+                var u = 0
+              break
+            case 3:
+                var d = 0
+              break
+          }
+          switch (data.status_id) {
+            case 1:
+                var g = 1
+              break
+            case 3:
+                var d = 1
+              break
+          }
+          $rootScope.$emit(lecture_id, data)
+          $scope.vote[0]= { 'c': [ { 'v': 'I dont get it' }, {'v' : d} ] }
+          $scope.vote[1] = { 'c': [ { 'v': 'undecided'}, {'v' : u} ] }
+          $scope.vote[2] = { 'c': [ { 'v':  'I get it'}, {'v' : g } ] }
+          $scope.$apply()
+        }
       })
 
       ChartFactory.graphData().then( function(data) {
@@ -42,7 +72,7 @@
             $scope.vote[0]= { 'c': [ { 'v': 'I dont get it' }, {'v' : d} ] }
             $scope.vote[1] = { 'c': [ { 'v': 'undecided'}, {'v' : u} ] }
             $scope.vote[2] = { 'c': [ { 'v':  'I get it'}, {'v' : g } ] }
-          $rootScope.$emit(lectureId, data)
+          $rootScope.$emit(lecture_id, data)
         }
       })
 

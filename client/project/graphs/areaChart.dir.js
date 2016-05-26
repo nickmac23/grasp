@@ -13,10 +13,10 @@
 
     function controller ($scope, $rootScope, ChartFactory) {
       var i = 0;
-      var lectureId = ChartFactory.lectureId
+      var lecture_id = ChartFactory.lecture_id
       $scope.className = 'class'
 
-      $rootScope.$on(lectureId, function (event, data) {
+      $rootScope.$on(lecture_id, function (event, data) {
           // var students = Object.keys(data).length
         var students = data.students
         var timeStart = new Date(data.lecture_start).getTime();

@@ -32,7 +32,6 @@ router.get('/:id/understandings', function(req, res, next) {
               .where({lecture_id: req.params.id})
               .innerJoin('understanding_statuses', 'understandings.status_id', 'understanding_statuses.id')
     }).then(function(understandings) {
-      console.log(understandings);
       understandings.forEach(function(understanding){
         if(usersStatus.students[understanding.user_id]){
           usersStatus.students[understanding.user_id].push(understanding)
@@ -45,10 +44,10 @@ router.get('/:id/understandings', function(req, res, next) {
         toReturn.students[req.user.id] = usersStatus.students[req.user.id]
         toReturn.lecture_start = usersStatus.lecture_start
         // console.log('tore', toReturn.lecture_start);
-        console.log(toReturn.students);
         usersStatus = toReturn;
       }
       for (var user in usersStatus.students ) {
+        console.log('check', usersStatus.students);
         usersStatus.students[user].sort(function (a, b) {
           return +a.created_at - +b.created_at
         })

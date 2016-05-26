@@ -3,21 +3,24 @@ var knex = require('../db/config');
 
 var i = 0;
 var data = null;
-var array = [];
+var classRosters = {}
 
-// every time a socket connection is made, this function is called
+
+
 io.on('connection', function (socket) {
 
-  socket.on('set', function (lectureId) {
-    // lectureData(lectureId).then( function (res) {
-      // console.log(res);
-      socket.emit(lectureId, lectureId)
-    // })
+  socket.on('set', function (data) {
+    knex('understandings').insert(data)
+    .then( function (res) {
+      io.sockets.emit(data.lecture_id, {class: classRosters[data.lecture_id]})
     })
-
+  })
   socket.on('chart', function(data){
-    console.log(data.lectureId);
-    socket.emit(2, data)
+    knex('understandings').insert(data)
+    .then( function (res) {
+
+    }
+    io.sockets.emit(data.lecture_id, data)
   })
 
     socket.on('disconnect', function(){
