@@ -25,7 +25,7 @@
       getClasses: getClasses,
       getClassInfo: getClassInfo,
       addClass: addClass,
-      // addLecture: addLecture
+      addLecture: addLecture
     }
 
     return dashboardFactory
@@ -34,6 +34,7 @@
       return AUTH_ENDPOINTS.then(function(res){
         return res.data
         }).catch(function (err){
+          //need to create variable in service for updates
           return err;
         })
       }
@@ -45,18 +46,24 @@
     }
 
     function addClass(newClass) {
-      console.log('newClass',newClass);
       return POST_CLASSES_ENDPOINTS.then(function (res){
         return $http.post(res, newClass)
         .then(function(res){
-          console.log('return from server add class', res);
+          //need to add to a variable in service for updates
           return res
         })
       })
     }
-    // function addLecture (newLecture) {
-    //   return
-    // }
+
+    function addLecture (newLecture, url) {
+      console.log(newLecture);
+      console.log(url);
+      return $http.post(url, newLecture)
+      .then(function (res) {
+        console.log('Back from server lecture',res);
+        return
+      })
+    }
 
   }
 }());

@@ -56,6 +56,8 @@
           vm.currentClass = currentClass;
           return dashboardService.getClassInfo(currentClass.links.summary)
           .then(function(res) {
+            console.log(res);
+            vm.links = res.links;
             vm.info = res.attributes;
             return
           })
@@ -63,7 +65,6 @@
 
         function addClass (myForm){
           var newClass = angular.copy(vm.class)
-          console.log('angular',newClass);
           myForm.$setPristine();
           myForm.$setUntouched();
           vm.class = {};
@@ -75,7 +76,7 @@
           form.$setPristine();
           form.$setUntouched();
           vm.lecture = {};
-          return dashboardService.addLecture(newLecture);
+          return dashboardService.addLecture(newLecture, vm.links.lectures.post);
         }
 
         function formClose (form) {
