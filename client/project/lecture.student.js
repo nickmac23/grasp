@@ -22,12 +22,15 @@
       function lectureController($log, $state, authService) {
         var socket = io.connect('http://localhost:3000/');
         var vm = this;
-        var lectureId = $state.params.id
+        var lecture_id = $state.params.id
+        var lastStatus = 2;
         vm.session = authService.session;
         this.vote = vote;
+        socket.emit('set', {lecture_id: +lecture_id, user_id: 1, status_id: lastStatus})
 
-        function vote (status) {
-          socket.emit('chart', {lectureId: lectureId, user_id: 1, status: status} )
+        function vote (status_id) {
+          socket.emit('chart', {lecture_id: lecture_id, user_id: 1, status: status_id, lastStatus: lastStatus} )
+          lastStatus= status_id
         }
 
       }

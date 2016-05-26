@@ -13,44 +13,29 @@
 
     function controller ($scope, $rootScope, ChartFactory) {
       var i = 0;
-      var lectureId = ChartFactory.lectureId
+      var lecture_id = ChartFactory.lecture_id
       $scope.className = 'class'
 
-      $rootScope.$on(lectureId, function (event, data) {
-        var students = Object.keys(data).length
-        for (var user in data ) {
-          var g = 0 ;
-          var u = students;
-          var d = 0 ;
-          for (var i = 0; i < data[user].length; i++) {
-            if (data[user][i-1]== 2) {
-              u--
-            } if (data[user][i-1] == 1) {
-              d--
-            } if (data[user][i-1] == 3) {
-              g--
-            }
-            switch (data[user][i].status_id) {
-              case 1:
-                d++
-                break;
-              case 2:
-               u++
-               break;
-              case 3:
-                g++
-                break;
-            }
+      $rootScope.$on(lecture_id, function (event, data) {
+          // var students = Object.keys(data).length
+        var students = data.students
+        var timeStart = new Date(data.lecture_start).getTime();
+        var timeArray =[]
+        var timeData = {};
 
-            d = d/students * 100;
-            u = u/students * 100;
-            g = g/students * 100;
-            console.log(i, 'd', d);
-            console.log('u', u);
-            console.log('g', g);
+        for (var user in students ) {
+          for (var i = 0; i < students[user].length; i++) {
+            var dif = (Math.floor((+timeStart - +new Date(students[user][i].created_at).getTime())/6))
+            timeData[dif] = students[user][i].status_id
           }
-          // areaChart.data.rows.push({c: [{v: time }, {v: d}, {v: u}, {v: g}] })
+          timeArray.push(timeData)
         }
+        console.log(timeArray);
+        // for (var time in timeData) {
+        //   areaChart.data.rows.push({c: [{v: time }, {v: d}, {v: u}, {v: g}] })
+        //
+        // }
+        areaChart.data.rows.push({c: [{v: time }, {v: timeData[time].d}, {v: timeData[time].u}, {v: timeData[time].g}] })
       })
 
       var areaChart = {};

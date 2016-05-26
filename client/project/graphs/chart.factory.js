@@ -12,13 +12,13 @@
     })
 
     var service = {
-      lectureId: $state.params.id,
+      lecture_id: $state.params.id,
       graphData: graphData,
     }
     return service
 
     function graphData () {
-      return $http.get(API_URL + '/lectures/'+service.lectureId+'/understandings')
+      return $http.get(API_URL + '/lectures/'+service.lecture_id+'/understandings')
       .then( function (res) {
         return res.data
       })
