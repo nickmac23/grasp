@@ -35,22 +35,20 @@
 
         dashboardService.getClasses()
         .then(function (res){
-          console.log('all classes',res);
-          vm.teaching = [];
-          vm.attending = [];
-          for (var i = 0; i < res.length; i++) {
-            if(res[i].attributes.instructor){
-              vm.teaching.push(res[i]);
-            } else {
-              vm.attending.push(res[i]);
+          vm.teaching = res._teaching;
+          vm.attending = res._attending;
+
+          for (var i = 0; i < res._teaching.length; i++) {
+            if(+res._teaching[i].attributes.id === +$state.params.classId) {
+              vm.currentClass = res._teaching[i];
+              return getInfo(res._teaching[i]);
             }
           }
-          return res
-        }).then(function (res){
-          for (var i = 0; i < res.length; i++) {
-            if(+res[i].attributes.id === +$state.params.classId) {
-              vm.currentClass = res[i];
-              return getInfo(res[i])
+
+          for (var i = 0; i < res._attending.length; i++) {
+            if(+res._attending[i].attributes.id === +$state.params.classId) {
+              vm.currentClass = res._attending[i];
+              return getInfo(res._attending[i]);
             }
           }
         })
@@ -59,7 +57,7 @@
           vm.currentClass = currentClass;
           return dashboardService.getClassInfo(currentClass.links.summary)
           .then(function(res) {
-            console.log(res);
+            // console.log(res);
             vm.links = res.links;
             vm.info = res.attributes;
             return
@@ -67,11 +65,14 @@
         }
 
         function addClass (myForm){
+          console.log("ad class in controller");
           var newClass = angular.copy(vm.class)
           myForm.$setPristine();
           myForm.$setUntouched();
           vm.class = {};
-          return dashboardService.addClass(newClass)
+          return dashboardService.addClass(newClass).then(function(res){
+            console.log(res);
+          });
         }
 
         function addLecture (form) {
