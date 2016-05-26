@@ -7,6 +7,8 @@ var jwt = require('jsonwebtoken');
 require('dotenv').load();
 
 router.get('/:id/understandings', function(req, res, next) {
+  req.user = {};
+  req.user.id = 5;
   var usersStatus = {students: {}};
   var isInstructor = false;
   knex('lectures')
@@ -36,12 +38,18 @@ router.get('/:id/understandings', function(req, res, next) {
         }
       })
 
-
       if(!isInstructor){
         var toReturn = {};
         toReturn[req.user.id] = usersStatus[req.user.id]
         usersStatus = toReturn;
       }
+
+      for (var user in usersStatus ) {
+        usersStatus[user].sort(function (a, b) {
+          return +a.created_at - +b.created_at
+        })
+      }
+
       res.json(usersStatus);
       usersStatus = {};
     })

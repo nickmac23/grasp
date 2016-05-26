@@ -17,30 +17,39 @@
       $scope.className = 'class'
 
       $rootScope.$on(lectureId, function (event, data) {
-        for (var i = 0; i < data.length; i++) {
-          var roster = data[i].roster
-          var time = data[i].time
-          var students = roster.length;
+        var students = Object.keys(data).length
+        for (var user in data ) {
           var g = 0 ;
-          var u = 0 ;
+          var u = students;
           var d = 0 ;
-          for (var i = 0; i < roster.length; i++) {
-            switch (roster[i].status_id) {
+          for (var i = 0; i < data[user].length; i++) {
+            if (data[user][i-1]== 2) {
+              u--
+            } if (data[user][i-1] == 1) {
+              d--
+            } if (data[user][i-1] == 3) {
+              g--
+            }
+            switch (data[user][i].status_id) {
               case 1:
-                g++
+                d++
                 break;
               case 2:
-                u++
-                break;
+               u++
+               break;
               case 3:
-                d++;
+                g++
                 break;
             }
+
+            d = d/students * 100;
+            u = u/students * 100;
+            g = g/students * 100;
+            console.log(i, 'd', d);
+            console.log('u', u);
+            console.log('g', g);
           }
-          d = d/students * 100;
-          u = u/students * 100;
-          g = g/students * 100;
-          areaChart.data.rows.push({c: [{v: time }, {v: d}, {v: u}, {v: g}] })
+          // areaChart.data.rows.push({c: [{v: time }, {v: d}, {v: u}, {v: g}] })
         }
       })
 
