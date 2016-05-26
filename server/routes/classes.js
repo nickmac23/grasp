@@ -8,7 +8,7 @@ require('dotenv').load();
 
 router.use("*", function(req, res, next){
   req.user ? next() : res.status(400).send({errors:['Please log in or sign up.']})
-})
+});
 
 router.get('/:id/summary', function(req, res, next){
   var result = {};
@@ -51,5 +51,31 @@ router.get('/:id/summary', function(req, res, next){
       res.json(result);
     })
 })
+
+router.post('/', function (req, res, next) {
+  var user = req.user;
+    return knex('classes').insert(req.body)
+        .returning('*')
+        .then(function (newClass) {
+          res.json(newClass);
+        })
+
+});
+
+router.post('/:id/participants', function (req, res, next) {
+  knex('users').where('email', req.body.email).first().then(function(user){
+    return knex('participants').insert({ user_id: user.id, class_id: req.params.id, instructor: !!req.body.instructor })
+        .returning('*')
+  }).then(function (newParticipant) {
+    newParticipant = newParticipant[0];
+    result = {
+      attributes: newParticipant,
+      links: {
+        delete: req.v1ApiURL + '/'+req.params.id+'/participants/'+newParticipant.id
+      }
+    }
+    res.json(result)
+  })
+});
 
 module.exports = router;
