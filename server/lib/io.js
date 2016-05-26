@@ -16,10 +16,10 @@ io.on('connection', function (socket) {
     })
   })
   socket.on('chart', function(data){
-    knex('understandings').insert(data)
-    .then( function (res) {
-
-    }
+    // knex('understandings').insert(data)
+    // .then( function (res) {
+    //
+    // }
     io.sockets.emit(data.lecture_id, data)
   })
 
