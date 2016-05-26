@@ -54,7 +54,10 @@ router.get('/:id/summary', function(req, res, next){
       result.attributes.participants = participants.map(function(participant){
         return {
           attributes: participant,
-          links: {}
+          links: {
+            post: req.v1ApiURL + '/classes/' + req.params.id + '/participants',
+            delete: req.v1ApiURL + '/classes/' + req.params.id + '/participants/' + participant.id
+          }
         }
       })
       console.log(participants);
@@ -112,6 +115,14 @@ router.post('/:id/participants', isInstructor, function (req, res, next) {
     res.status(400).send({errors:[err]})
   })
 });
+
+router.delete('/:id/participants/:participantId', isInstructor, function(req,res,next){
+  return knex('participants').where({ 'id': req.params.participantId, 'class_id': req.params.id }).del()
+    .returning('*')
+    .then(function (participant) {
+      res.json(participant)
+    })
+})
 
 router.post('/:id/lectures', isInstructor, function (req, res, next) {
   var user = req.user;
