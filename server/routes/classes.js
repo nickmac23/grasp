@@ -7,7 +7,8 @@ var jwt = require('jsonwebtoken');
 require('dotenv').load();
 
 function isInstructor(req, res, next){
-  knex('participants').where({ 'user_id': req.body.user_id, 'class_id': req.params.id }).first().then(function(participant){
+  knex('participants').where({ 'user_id': req.user.id, 'class_id': req.params.id }).first().then(function(participant){
+    console.log(participant, 'participant from isInstructor func');
     if(participant.instructor) return next();
     res.status(400).send({errors: ["Please login as an instructor."]})
   }).catch(function(err){
@@ -75,13 +76,20 @@ router.post('/', function (req, res, next) {
         .then(function (newClass) {
           res.json(newClass);
         })
-
 });
 
 router.post('/:id/participants', isInstructor, function (req, res, next) {
   knex('users').where('email', req.body.email).first().then(function(user){
-    return knex('participants').insert({ user_id: user.id, class_id: req.params.id, instructor: !!req.body.instructor })
-        .returning('*')
+    return knex('participants').where({'user_id': user.id, 'class_id': req.params.id}).count("id");
+  }).then(function(count){
+    console.log(count);
+    if(count === 0){
+      return Promise.reject("This user is already participating in the class.")
+    }else{
+      return knex('participants')
+              .insert({ user_id: user.id, class_id: req.params.id, instructor: !!req.body.instructor })
+              .returning('*');
+    }
   }).then(function (newParticipant) {
     newParticipant = newParticipant[0];
     result = {
@@ -91,12 +99,15 @@ router.post('/:id/participants', isInstructor, function (req, res, next) {
       }
     }
     res.json(result)
+  }).catch(function(err){
+    res.status(400).send({errors:[err]})
   })
 });
 
 router.post('/:id/lectures', isInstructor, function (req, res, next) {
   var user = req.user;
   var lecture = req.body;
+  var errors = [];
 
   if(!lecture.name) errors.push('please enter a lecture name');
   if(!lecture.description) errors.push('please enter a description');
