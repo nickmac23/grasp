@@ -42,7 +42,7 @@
         }
       })
       .state('classInfo', {
-        url: '/:classId/info',
+        url: '/:classId',
         templateUrl: "partials/dashboard.info.html",
         loggedInOnly: true,
         parent: 'dashboard',

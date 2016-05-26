@@ -38,16 +38,20 @@
               vm.attending.push(res[i]);
             }
           }
+          return res
+        }).then(function (res){
+          for (var i = 0; i < res.length; i++) {
+            if(+res[i].attributes.id === +$state.params.classId) {
+              return getInfo(res[i].links.summary)
+            }
+          }
         })
 
         function getInfo (url){
           return dashboardService.getClassInfo(url)
           .then(function(res) {
-            console.log('info',res.data);
-            console.log('lecture', res.data.lectures);
-            vm.info.lectures = res.data.lectures;
-            vm.info.participants = res.data.participants;
-            console.log('info participants', vm.info.participants );
+            vm.info.lectures = res.lectures;
+            vm.info.participants = res.participants;
             return
           })
         }
@@ -55,4 +59,3 @@
       }
 
 }());
-//

@@ -19,7 +19,7 @@
 
     var dashboardFactory = {
       getClass: getClass,
-      getClassInfo: getClassInfo
+      getClassInfo: getClassInfo,
     }
 
     return dashboardFactory
@@ -34,9 +34,10 @@
 
     function getClassInfo (url) {
       return $http.get(url).then(function (res) {
-        return res
+        return res.data
       })
     }
+
 
   }
 }());
