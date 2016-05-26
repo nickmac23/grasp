@@ -60,7 +60,6 @@
           vm.currentClass = currentClass;
           return dashboardService.getClassInfo(currentClass.links.summary)
           .then(function(res) {
-            console.log(res);
             vm.links = res.links;
             vm.info = res.attributes;
             return
@@ -82,7 +81,12 @@
           form.$setPristine();
           form.$setUntouched();
           vm.lecture = {};
-          return dashboardService.addLecture(newLecture, vm.links.lectures.post);
+          console.log("info", vm.info);
+          return dashboardService.addLecture(newLecture, vm.links.lectures.post).then(function(res){
+            console.log('res', res);
+            console.log('vm.info', vm.info);
+            vm.info.lectures.push(res.data[0]);
+          });
         }
 
         function formClose (form) {

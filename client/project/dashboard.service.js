@@ -46,7 +46,6 @@
             _classes._attending.push(res.data[i]);
           }
         }
-        console.log(_classes);
         return _classes;
         }).catch(function (err){
           return err;
@@ -73,12 +72,12 @@
     }
 
     function addLecture (newLecture, url) {
-      console.log(newLecture);
-      console.log(url);
+      // console.log(newLecture);
+      // console.log(url);
       return $http.post(url, newLecture)
       .then(function (res) {
-        console.log('Back from server lecture',res);
-        return
+        // console.log('Back from server lecture',res);
+        return res;
       })
     }
 
