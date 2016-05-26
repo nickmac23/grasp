@@ -8,7 +8,6 @@ require('dotenv').load();
 
 function isInstructor(req, res, next){
   knex('participants').where({ 'user_id': req.user.id, 'class_id': req.params.id }).first().then(function(participant){
-    console.log(participant, 'participant from isInstructor func');
     if(participant.instructor) return next();
     res.status(400).send({errors: ["Please login as an instructor."]})
   }).catch(function(err){
@@ -79,15 +78,24 @@ router.post('/', function (req, res, next) {
 });
 
 router.post('/:id/participants', isInstructor, function (req, res, next) {
-  knex('users').where('email', req.body.email).first().then(function(user){
-    return knex('participants').where({'user_id': user.id, 'class_id': req.params.id}).count("id");
-  }).then(function(count){
-    console.log(count);
-    if(count === 0){
+  var participant = req.body
+  var errors = [];
+  var personToAdd;
+
+  if(!participant.email) errors.push('Please enter an email');
+  if(errors.length > 0) return res.status(400).send({errors: errors});
+
+  knex('users').where('email', req.body.email.toLowerCase()).first().then(function(user){
+    if(!user) return Promise.reject("This user is has not signed up.");
+    personToAdd = user;
+    return knex('participants').where({'user_id': user.id, 'class_id': req.params.id}).count("id").first();
+  }).then(function(result){
+    count = +result.count
+    if(count > 0){
       return Promise.reject("This user is already participating in the class.")
     }else{
       return knex('participants')
-              .insert({ user_id: user.id, class_id: req.params.id, instructor: !!req.body.instructor })
+              .insert({ user_id: personToAdd.id, class_id: req.params.id, instructor: !!req.body.instructor })
               .returning('*');
     }
   }).then(function (newParticipant) {
@@ -100,6 +108,7 @@ router.post('/:id/participants', isInstructor, function (req, res, next) {
     }
     res.json(result)
   }).catch(function(err){
+    console.log(err);
     res.status(400).send({errors:[err]})
   })
 });
