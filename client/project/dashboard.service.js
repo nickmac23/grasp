@@ -75,7 +75,9 @@
     function addLecture (newLecture, url) {
       return $http.post(url, newLecture)
       .then(function (res) {
-        return res;
+        console.log('added lecture', res.data);
+
+        return res.data;
       })
     }
 

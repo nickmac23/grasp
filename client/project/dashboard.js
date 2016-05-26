@@ -56,7 +56,6 @@
           }
         })
 
-        //gets the lectures
         function getInfo (currentClass){
           vm.currentClass = currentClass;
           return dashboardService.getClassInfo(currentClass.links.summary)
@@ -72,14 +71,15 @@
           myForm.$setPristine();
           myForm.$setUntouched();
           vm.class = {};
-          return dashboardService.addClass(newClass).then(function(res){
-            console.log('res', res);
+          return dashboardService.addClass(newClass)
+          .then(function(res){
+            return res
           });
         }
 
         function setPreviousPage(id){
-          console.log(id);
           dashboardService.setPreviousPage(id);
+          return
         }
 
         function addLecture (form) {
@@ -87,11 +87,10 @@
           form.$setPristine();
           form.$setUntouched();
           vm.lecture = {};
-          console.log("info", vm.info);
-          return dashboardService.addLecture(newLecture, vm.links.lectures.post).then(function(res){
-            console.log('res', res);
-            console.log('vm.info', vm.info);
-            vm.info.lectures.push(res.data[0]);
+          return dashboardService.addLecture(newLecture, vm.links.lectures.post)
+          .then(function(res){
+            vm.info.lectures.push(res);
+            return
           });
         }
 
