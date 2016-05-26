@@ -5,15 +5,6 @@ var i = 0;
 var data = null;
 var array = [];
 
-function lectureData (lectureId){
-  return 1
-}
-function lectureUpdate (data){
-  knex('understandings').where({lecture_id: data.lectureId})
-  .innerJoin('understanding_statuses', 'understandings.status_id', 'understanding_statuses.id')
-  .then(function(understandings) {
-  })
-}
 // every time a socket connection is made, this function is called
 io.on('connection', function (socket) {
 
@@ -22,12 +13,11 @@ io.on('connection', function (socket) {
       // console.log(res);
       socket.emit(lectureId, lectureId)
     // })
-  })
+    })
 
   socket.on('chart', function(data){
-    // lectureUpdate(data).then( function (res) {
-    //   io.sockets.emit(data.lectureId, data)
-    // })
+    console.log(data.lectureId);
+    socket.emit(2, data)
   })
 
     socket.on('disconnect', function(){

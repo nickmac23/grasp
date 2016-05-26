@@ -20,7 +20,7 @@
     function graphData () {
       return $http.get(API_URL + '/lectures/'+service.lectureId+'/understandings')
       .then( function (res) {
-        console.log(res);
+        return res.data
       })
     }
   }

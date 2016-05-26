@@ -6,44 +6,55 @@ var jwt = require('jsonwebtoken');
 
 require('dotenv').load();
 
+router.use("*", function(req, res, next){
+  req.user ? next() : res.status(400).send({errors:['Please log in or sign up.']})
+})
+
 router.get('/:id/understandings', function(req, res, next) {
-  console.log('here');
-  var check = false;
-  array = [];
-  knex('understandings').where({lecture_id: req.params.id})
-  .innerJoin('understanding_statuses', 'understandings.status_id', 'understanding_statuses.id')
-  .then(function(understanding) {
-      var str = '' + understanding[0].created_at
-      str = str.split(' ')
-      console.log(str[4]);
-      array.push({time: str[4],
-                  roster: [{user_id: understanding[0].user_id,
-                            status_id: understanding[0].status_id
-                          }]
-                })
-      for (var i = 1; i < understanding.length; i++) {
-        check = false
-        str = '' + understanding[i].created_at
-        str = str.split(' ')
-        for (var j = 0; j < array.length; j++) {
-          if (array[j].time == str[4]) {
-            array[j].roster.push({user_id: understanding[i].user_id,
-                      status_id: understanding[i].status_id
-                    })
-            check = true
-          }
-        }
-        if (!check) {
-          array.push({time: understanding[i].created_at,
-                      roster: [{user_id: understanding[i].user_id,
-                                status_id: understanding[i].status_id
-                              }]
-                    })
-        }
+  var usersStatus = {students: {}};
+  var isInstructor = false;
+  knex('lectures')
+    .select('participants.user_id', 'lectures.created_at as lecture_start')
+    .where({"lectures.id": req.params.id, 'participants.instructor': true})
+    .innerJoin('classes', 'lectures.class_id', 'classes.id')
+    .innerJoin('participants', 'classes.id', 'participants.class_id')
+    .then(function (instructors) {
+      for (var i = 0; i < instructors.length; i++) {
+        usersStatus.lecture_start = instructors[0].lecture_start;
+        isInstructor = instructors[i].user_id === req.user.id
+        if(isInstructor) break;
       }
-      res.json(array);
+      console.log(instructors, "lecture_start from instructors");
+
+
+      return knex('understandings')
+              .where({lecture_id: req.params.id})
+              .innerJoin('understanding_statuses', 'understandings.status_id', 'understanding_statuses.id')
+    }).then(function(understandings) {
+      understandings.forEach(function(understanding){
+        console.log(usersStatus.lecture_start);
+        if(usersStatus.students[understanding.user_id]){
+          usersStatus.students[understanding.user_id].push(understanding)
+        }else{
+          usersStatus.students[understanding.user_id] = [understanding]
+        }
+      })
+
+      if(!isInstructor){
+        var toReturn = {};
+        toReturn[req.user.id] = usersStatus[req.user.id]
+        usersStatus = toReturn;
+      }
+
+      for (var user in usersStatus ) {
+        usersStatus[user].sort(function (a, b) {
+          return +a.created_at - +b.created_at
+        })
+      }
+
+      res.json(usersStatus);
+      usersStatus = {};
     })
 });
-
 
 module.exports = router;

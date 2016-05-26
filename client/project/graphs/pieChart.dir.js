@@ -7,7 +7,7 @@
   function directive () {
     return {
       scope: {},
-      template: '<button ng-click="sock()">sock</button><div google-chart chart="pieChart" id="pieChart"></div>',
+      template: '<div google-chart chart="pieChart" id="pieChart"></div>',
       controller: controller,
     }
     function controller ($scope, $rootScope, $state, ChartFactory) {
@@ -16,38 +16,35 @@
       var lectureId = $state.params.id;
       ChartFactory.graphData();
       socket.emit('set', lectureId)
+      socket.on(2, function (data) {
+        console.log(data);
+      })
 
-      // $scope.sock = function () {
-      //   socket.emit('chart', lectureId)
-      // }
+      ChartFactory.graphData().then( function(data) {
+        if (!(data === null)) {
 
-      // socket.on(lectureId, function (data) {
-      //   if (!(data === null)) {
-      //     var roster = data[data.length-1].roster
-      //     var students = roster.length;
-      //     var g = 0 ;
-      //     var u = 0 ;
-      //     var d = 0 ;
-      //     for (var i = 0; i < roster.length; i++) {
-      //       switch (roster[i].status_id) {
-      //         case 1:
-      //           g++
-      //           break;
-      //         case 2:
-      //           u++
-      //           break;
-      //         case 3:
-      //           d++;
-      //           break;
-      //       }
-      //     }
-      //       $scope.vote[0]= { 'c': [ { 'v': 'I dont get it' }, {'v' : d} ] }
-      //       $scope.vote[1] = { 'c': [ { 'v': 'undecided'}, {'v' : u} ] }
-      //       $scope.vote[2] = { 'c': [ { 'v':  'I get it'}, {'v' : g } ] }
-      //     $rootScope.$emit(lectureId, data)
-      //     $scope.$apply()
-      //   }
-      // })
+          var g = 0 ;
+          var u = 0 ;
+          var d = 0 ;
+          for (var user in data ) {
+            switch (data[user][data[user].length - 1].status_id) {
+              case 1:
+                d++
+                break;
+              case 2:
+                u++
+                break;
+              case 3:
+                g++;
+                break;
+            }
+          }
+            $scope.vote[0]= { 'c': [ { 'v': 'I dont get it' }, {'v' : d} ] }
+            $scope.vote[1] = { 'c': [ { 'v': 'undecided'}, {'v' : u} ] }
+            $scope.vote[2] = { 'c': [ { 'v':  'I get it'}, {'v' : g } ] }
+          $rootScope.$emit(lectureId, data)
+        }
+      })
 
       $scope.$on('$destroy', function (event) {
         socket.removeAllListeners();

@@ -27,7 +27,6 @@
         this.vote = vote;
 
         function vote (status) {
-          console.log('vote!');
           socket.emit('chart', {lectureId: lectureId, user_id: 1, status: status} )
         }
 
