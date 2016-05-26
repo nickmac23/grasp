@@ -22,21 +22,20 @@
 
       ChartFactory.graphData().then( function(data) {
         if (!(data === null)) {
-          var roster = data[data.length-1].roster
-          var students = roster.length;
+
           var g = 0 ;
           var u = 0 ;
           var d = 0 ;
-          for (var i = 0; i < roster.length; i++) {
-            switch (roster[i].status_id) {
+          for (var user in data ) {
+            switch (data[user][data[user].length - 1].status_id) {
               case 1:
-                g++
+                d++
                 break;
               case 2:
                 u++
                 break;
               case 3:
-                d++;
+                g++;
                 break;
             }
           }

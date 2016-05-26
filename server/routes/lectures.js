@@ -18,6 +18,11 @@ router.get('/:id/understandings', function(req, res, next) {
           usersStatus[understanding.user_id] = [understanding]
         }
       })
+      for (var user in usersStatus ) {
+        usersStatus[user].sort(function (a, b) {
+          return +a.created_at - +b.created_at
+        })
+      }
       res.json(usersStatus);
       usersStatus = {};
     })
