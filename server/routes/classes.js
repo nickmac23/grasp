@@ -20,8 +20,73 @@ router.use("*", function(req, res, next){
   req.user ? next() : res.status(400).send({errors:['Please log in or sign up.']})
 });
 
+
+// Add Class
+router.post('/', function (req, res, next) {
+  var user = req.user;
+  var errors = [];
+  var toReturn = { attributes: {},
+                   links: {} };
+
+  if(!req.body.name) errors.push('Please enter an class name');
+  if(!req.body.description) errors.push('Please enter an class description');
+  if(errors.length > 0) return res.status(400).send({errors: errors});
+
+  knex('users').where({ 'users.id': user.id })
+    .innerJoin('participants', 'users.id', 'participants.user_id')
+    .innerJoin('classes', 'participants.class_id', 'classes.id')
+    .then(function (classes) {
+
+      var currentClass = classes.find(function(currentClass){
+        return currentClass.name.toLowerCase() === req.body.name.toLowerCase();
+      });
+
+      if(currentClass){
+        errors.push("Class name already exists.")
+        return Promise.reject(errors);
+      }
+      return knex('classes').insert(req.body)
+      .returning('*')
+    }).then(function (newClass) {
+      newClass = newClass[0];
+      toReturn.attributes = newClass;
+      toReturn.attributes.lectures = [];
+      return knex('participants').insert({ user_id: user.id, class_id: newClass.id, instructor: true }).returning("*")
+    }).then(function(participant){
+      participant = participant[0];
+      newParticipant = { attributes: {},
+                         links: {} };
+
+      participant.participant_id = participant.id;
+      participant.id = user.id;
+      newParticipant.attributes = participant;
+      newParticipant.attributes.name = user.name;
+      newParticipant.attributes.email = user.email;
+      newParticipant.attributes.id = user.id;
+      newParticipant.links = {
+        delete: req.v1ApiURL + '/classes/' + req.params.id + '/participants/' + participant.participant_id
+      }
+
+      toReturn.attributes.participants = [newParticipant];
+      toReturn.links = {
+        lectures: {
+          post: req.v1ApiURL + "/classes/"+req.params.id+"/lectures"
+        },
+        participants: {
+          post: req.v1ApiURL + '/classes/' + req.params.id + '/participants'
+        }
+      }
+
+      res.json(toReturn);
+    }).catch(function(err){
+      console.log(err);
+      res.status(400).send({errors: errors});
+    })
+});
+
 router.get('/:id/summary', function(req, res, next){
-  var result = {attributes:{}};
+  var result = {attributes:{},
+                links:{} };
   knex('classes')
     .select('lectures.id as lecture_id',
             'lectures.name',
@@ -55,7 +120,6 @@ router.get('/:id/summary', function(req, res, next){
         return {
           attributes: participant,
           links: {
-            post: req.v1ApiURL + '/classes/' + req.params.id + '/participants',
             delete: req.v1ApiURL + '/classes/' + req.params.id + '/participants/' + participant.id
           }
         }
@@ -65,20 +129,15 @@ router.get('/:id/summary', function(req, res, next){
       result.links = {
         lectures: {
           post: req.v1ApiURL + "/classes/"+req.params.id+"/lectures"
+        },
+        participants: {
+          post: req.v1ApiURL + '/classes/' + req.params.id + '/participants'
         }
       }
       res.json(result);
     })
 })
 
-router.post('/', function (req, res, next) {
-  var user = req.user;
-    return knex('classes').insert(req.body)
-        .returning('*')
-        .then(function (newClass) {
-          res.json(newClass);
-        })
-});
 
 router.post('/:id/participants', isInstructor, function (req, res, next) {
   var participant = req.body
