@@ -6,9 +6,9 @@ var jwt = require('jsonwebtoken');
 
 require('dotenv').load();
 
-// router.use("*", function(req, res, next){
-//   req.user ? next() : res.status(400).send({errors:['Please log in or sign up.']})
-// })
+router.use("*", function(req, res, next){
+  req.user ? next() : res.status(400).send({errors:['Please log in or sign up.']})
+})
 
 router.get('/participations', function(req, res, next) {
     var userId = req.user.id;
