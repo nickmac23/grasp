@@ -21,6 +21,8 @@
       return res.data.classes.post
     })
 
+    // var _classes = 
+
     var dashboardFactory = {
       getClasses: getClasses,
       getClassInfo: getClassInfo,
