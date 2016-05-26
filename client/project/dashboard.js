@@ -37,18 +37,20 @@
         .then(function (res){
           vm.teaching = res._teaching;
           vm.attending = res._attending;
-
-          for (var i = 0; i < res._teaching.length; i++) {
-            if(+res._teaching[i].attributes.id === +$state.params.classId) {
-              vm.currentClass = res._teaching[i];
-              return getInfo(res._teaching[i]);
+          if(res._teaching.length > 0){
+            for (var i = 0; i < res._teaching.length; i++) {
+              if(+res._teaching[i].attributes.id === +$state.params.classId) {
+                vm.currentClass = res._teaching[i];
+                return getInfo(res._teaching[i]);
+              }
             }
-          }
-
-          for (var i = 0; i < res._attending.length; i++) {
-            if(+res._attending[i].attributes.id === +$state.params.classId) {
-              vm.currentClass = res._attending[i];
-              return getInfo(res._attending[i]);
+          }          
+          if(res._teaching.length > 0){
+            for (var i = 0; i < res._attending.length; i++) {
+              if(+res._attending[i].attributes.id === +$state.params.classId) {
+                vm.currentClass = res._attending[i];
+                return getInfo(res._attending[i]);
+              }
             }
           }
         })
