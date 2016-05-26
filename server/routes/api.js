@@ -11,7 +11,10 @@ router.get('/v1', function(req, res, next) {
   var response = {
     auth: req.v1ApiURL + '/auth',
     // lectures: req.v1ApiURL + '/lectures',
-    participations: req.v1ApiURL + '/users/participations'
+    participations: req.v1ApiURL + '/users/participations',
+    classes: {
+      post: req.v1ApiURL + '/classes'
+    }
   }
 
   res.json(response);

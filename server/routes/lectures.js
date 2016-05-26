@@ -58,5 +58,4 @@ router.get('/:id/understandings', function(req, res, next) {
     })
 });
 
-
 module.exports = router;
