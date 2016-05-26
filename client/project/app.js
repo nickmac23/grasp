@@ -4,7 +4,9 @@
 
   var dependencies = [
     'ui.router',
-    'googlechart'
+    'googlechart',
+    'ngAnimate',
+    'ngMessages',
   ]
 
   angular.module('panic', dependencies)

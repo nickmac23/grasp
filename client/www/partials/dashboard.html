@@ -1,6 +1,6 @@
-<main class="container col-sx-10">
-  <h3>In dashboard</h3>
-  <a ui-sref=".classes" class="btn btn-primary">Classes</a>
-  <a ui-sref=".lectures" class="btn btn-success">Lectures</a>
+<main class="container-fluid">
+  <h3>Hey <span ng-bind="vm.session.currentUser.name"></span></h3>
+  <a ui-sref=".classes" class="primaryButton">Classes</a>
+  <a ui-sref=".lectures" class="secondaryButton">Lectures</a>
   <div ui-view></div>
 </main>

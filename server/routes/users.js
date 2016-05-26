@@ -10,31 +10,34 @@ router.use("*", function(req, res, next){
   req.user ? next() : res.status(400).send({errors:['Please log in or sign up.']})
 })
 
-router.get('/participations', function(req, res, next){
-  req.user = req.user || {};
-  var userId = req.user.id || 1;
-  knex('users')
-    .select('classes.id',
+router.get('/participations', function(req, res, next) {
+    var userId = req.user.id;
+    knex('users')
+        .select('classes.id',
             'classes.name as class_name',
             'classes.description as class_description',
             'participants.instructor')
-    .where('users.id', userId)
-    .innerJoin('participants', 'participants.user_id', 'users.id')
-    .innerJoin('classes', 'participants.class_id', 'classes.id')
-    .then(function(classes){
+        .where('users.id', userId)
+        .innerJoin('participants', 'participants.user_id', 'users.id')
+        .innerJoin('classes', 'participants.class_id', 'classes.id')
+        .then(function(classes) {
+            if (classes.length === 0) {
+                return res.status(400).json({
+                    error: "You are not signed up for any classes."
+                })
+            } else {
 
-      console.log(classes);
-      classes = classes.map(function (classObj) {
-        var obj = {};
-        obj.attributes = classObj;
-        obj.links = {
-          summary: req.v1ApiURL + "/classes/"+classObj.id+"/summary"
-        }
-        return obj
-      })
-
-      res.json(classes);
-    })
+                classes = classes.map(function(classObj) {
+                    var obj = {};
+                    obj.attributes = classObj;
+                    obj.links = {
+                        summary: req.v1ApiURL + "/classes/" + classObj.id + "/summary"
+                    }
+                    return obj
+                })
+                res.json(classes);
+            }
+        })
 });
 
 // router.get('/:userId/classes', function(req, res, next) {

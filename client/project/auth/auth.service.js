@@ -13,9 +13,7 @@
   ];
 
   function authFactory ($log, $http, $state, $window, API_URL) {
-    console.log(API_URL);
     var AUTH_ENDPOINTS = $http.get(API_URL).then(function (res){
-      console.log(res);
       return $http.get(res.data.auth)
     })
 

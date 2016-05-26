@@ -15,17 +15,18 @@
 
       lectureController.$inject = [
         '$log',
-        '$state'
+        '$state',
+        'authService'
       ];
 
-      function lectureController($log, $state) {
+      function lectureController($log, $state, authService) {
         var socket = io.connect('http://localhost:3000/');
         var vm = this;
-        this.vote = vote;
         var lectureId = $state.params.id
+        vm.session = authService.session;
+        this.vote = vote;
 
         function vote (status) {
-          console.log('vote!');
           socket.emit('chart', {lectureId: lectureId, user_id: 1, status: status} )
         }
 
