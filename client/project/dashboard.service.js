@@ -14,12 +14,15 @@
 
   function dashboardFactory ($log, $http, $state, $window, API_URL) {
     var AUTH_ENDPOINTS = $http.get(API_URL).then(function (res){
+      console.log('in service ', res.data);
       return $http.get(res.data.participations)
     })
 
     var dashboardFactory = {
       getClass: getClass,
       getClassInfo: getClassInfo,
+      addClass: addClass,
+      addLecture: addLecture
     }
 
     return dashboardFactory
@@ -38,6 +41,13 @@
       })
     }
 
+    function addClass(newClass) {
+      return
+    }
+
+    function addLecture (newLecture) {
+      return
+    }
 
   }
 }());
