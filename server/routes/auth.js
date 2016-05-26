@@ -24,7 +24,7 @@ router.post('/signup', function(req, res, next) {
   if(errors.length > 0) return res.status(400).send({errors: errors});
 
   var password = bcrypt.hashSync(newUser.password, 10);
-  knex('users').insert({name: newUser.name, password: password, email:newUser.email})
+  knex('users').insert({name: newUser.name, password: password, email:newUser.email.toLowerCase()})
                .returning('*')
                .then(function(users){
     var userId = {userId: users[0].id}
@@ -49,7 +49,7 @@ router.post('/login', function(req, res, next) {
   if(!user.password) errors.push('please enter a password');
   if(errors.length > 0) return res.status(400).send({errors: errors});
 
-  knex('users').where('email', user.email)
+  knex('users').where('email', user.email.toLowerCase())
     .first()
     .then(function(dbUser){
       console.log(dbUser);
