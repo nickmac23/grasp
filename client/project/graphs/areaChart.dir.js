@@ -12,31 +12,39 @@
     }
 
     function controller ($scope, $rootScope, ChartFactory) {
-      var i = 0;
-      var lecture_id = ChartFactory.lecture_id
-      $scope.className = 'class'
 
-      $rootScope.$on(lecture_id, function (event, data) {
-          // var students = Object.keys(data).length
-        var students = data.students
-        var timeStart = new Date(data.lecture_start).getTime();
-        var timeArray =[]
-        var timeData = {};
-
-        for (var user in students ) {
-          for (var i = 0; i < students[user].length; i++) {
-            var dif = (Math.floor((+timeStart - +new Date(students[user][i].created_at).getTime())/6))
-            timeData[dif] = students[user][i].status_id
-          }
-          timeArray.push(timeData)
-        }
-        console.log(timeArray);
-        // for (var time in timeData) {
-        //   areaChart.data.rows.push({c: [{v: time }, {v: d}, {v: u}, {v: g}] })
-        //
-        // }
-        areaChart.data.rows.push({c: [{v: time }, {v: timeData[time].d}, {v: timeData[time].u}, {v: timeData[time].g}] })
+      $scope.$watch(function(){
+        return ChartFactory.graphData;
+      },
+      function (newValue) {
+        graph(newValue);
+      }, true);
+      $scope.$on(2, function ( data){
+        console.log('i amd from socket', data);
       })
+      // $scope.$watch(
+      //   // This function returns the value being watched. It is called for each turn of the $digest loop
+      //   function() { return ChartFactory.graphData; },
+      //   // This is the change listener, called when the value returned from the above function changes
+      //   function(newValue, oldValue) {
+      //     if ( newValue !== oldValue ) {
+      //       // Only increment the counter if the value changed
+      //       graph(ChartFactory.graphData);
+      //       console.log("Graph reloaded");
+      //     }
+      //   }
+      // );
+
+      function graph (tally) {
+        areaChart.data.rows = []
+        for (var time in tally) {
+          var total = tally[time]['1'] + tally[time]['2'] + tally[time]['3']
+          var d = tally[time][1]/total * 100
+          var u = tally[time][2]/total * 100
+          var g = tally[time][3]/total * 100
+          areaChart.data.rows.push({c: [{v: time }, {v: d}, {v: u}, {v: g}] })
+        }
+      }
 
       var areaChart = {};
       areaChart.type = "AreaChart";
@@ -70,9 +78,10 @@
         }
       };
       $scope.areaChart = areaChart;
-
     }
   }
+
+
 
 
 }());

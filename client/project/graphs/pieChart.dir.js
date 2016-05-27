@@ -14,32 +14,45 @@
       var socket = io.connect('http://Nick-MacBook-Air.local:3000');
       var pieChart = {};
       var lecture_id = $state.params.id;
-      var students = 0;
-      ChartFactory.graphData();
+      var students = [];
+      var g = 0;
+      var d = 0;
+      var u = 0;
 
 
       socket.on(lecture_id, function (data) {
+        console.log(data);
         if (data.class) {
+          var check = true
+          for (let i = 0; i < students.length; i++) {
+            if (students[i] === data.class) {
+                check = false
+            }
+          }
+          if (check) {
+            u++
+            students.push(data.class)
+            check = true
+          }
 
-          console.log(data);
         } else {
           switch (data.lastStatus) {
             case 1:
-                var g = 0
+                 d--
               break
             case 2:
-                var u = 0
+                 u--
               break
             case 3:
-                var d = 0
+                 g--
               break
           }
           switch (data.status_id) {
             case 1:
-                var g = 1
+                 d++
               break
             case 3:
-                var d = 1
+                 g++
               break
           }
           $rootScope.$emit(lecture_id, data)
@@ -48,14 +61,12 @@
           $scope.vote[2] = { 'c': [ { 'v':  'I get it'}, {'v' : g } ] }
           $scope.$apply()
         }
+        $rootScope.$emit(lecture_id, { students: students, d: d, u: u , g: g})
       })
 
-      ChartFactory.graphData().then( function(data) {
+      ChartFactory.getGraphData().then( function(data) {
         var dat = data.students
         if (!(dat === null)) {
-          var g = 0 ;
-          var u = 0 ;
-          var d = 0 ;
           for (var user in dat ) {
             switch (dat[user][dat[user].length - 1].status_id) {
               case 1:
