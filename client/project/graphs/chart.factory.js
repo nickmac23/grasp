@@ -14,11 +14,8 @@
 
     console.log(socket);
     socket.on($state.params.id, function (data) {
-      console.log(service.dataCache);
       service.dataCache.students[data.user_id].push(data)
       service.graphData = createTally(service.dataCache);
-      $rootScope.$broadcast(data.lecture_id, {'hi':"hi"})
-      console.log('socket');
     })
 
     var service = {
@@ -53,6 +50,7 @@
     var timeArray =[]
     var timeData = {};
     var tally = {};
+    var highestDif = 0;
     for (var user in students ) {
       var oldDif = 1;
       for (var i = 0; i < students[user].length; i++) {
@@ -70,19 +68,32 @@
           oldDif = dif;
         }
       }
-      if(tally[dif]){
-        tally[dif][timeData[dif]]++;
-      }else{
-        tally[dif] = {1:0, 2:0, 3:0}
-        tally[dif][timeData[dif]]++;
+
+      // if(tally[dif]){
+      //   tally[dif][timeData[dif]]++;
+      // }else{
+      //   tally[dif] = {1:0, 2:0, 3:0}
+      //   tally[dif][timeData[dif]]++;
+      // }
+
+      highestDif = highestDif <= dif ? dif : highestDif;
+
+      for (var k = dif; k < highestDif; k++) {
+        if(tally[k]){
+          tally[k][timeData[oldDif]]++;
+        }else{
+          tally[k] = tally[k-1];
+        }
       }
+
     }
-    if (lastDif === '...') {
-      tally["..."] = tally[Object.keys(tally).length];
-       tally["end of lecture"] = tally["..."]
-    } else {
-      tally['now'] = tally[Object.keys(tally).length]
-    }
+    // if (lastDif === '...') {
+    //   tally["..."] = tally[Object.keys(tally).length];
+    //    tally["end of lecture"] = tally["..."]
+    // } else {
+    //   tally['now'] = tally[Object.keys(tally).length]
+    // }
+    console.log('ta', tally);
 
     return tally
   }
