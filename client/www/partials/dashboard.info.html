@@ -9,10 +9,13 @@
     <h4 ng-bind="lecture.attributes.name"></h4>
     <p ng-bind="lecture.attributes.description"></p>
     <p ng-bind="lecture.attributes.created_at | amCalendar"></p>
-    <button ng-show="lecture.attributes.is_active" ui-sref="student({id:lecture.attributes.lecture_id})" ng-click="vm.setPreviousPage(vm.currentClass.attributes.id)">Join Lecture</button>
+
+    <button ng-show="lecture.attributes.is_active && !vm.currentClass.attributes.instructor" ui-sref="student({id:lecture.attributes.lecture_id})" ng-click="vm.setPreviousPage(vm.currentClass.attributes.id)">Join Lecture</button>
+
+    <button ng-show="vm.currentClass.attributes.instructor" ng-click="vm.startLecture(lecture)">Start lecture</button>
   </div>
 
-  <h3 ng-show="vm.info.participants">All Students:</h3>
+  <h3 ng-show="vm.info.participants">All Participants:</h3>
   <div ng-repeat="students in vm.info.participants">
     <h4 ng-bind="students.attributes.name"></h4>
     <p ng-bind="students.attributes.email"></p>

@@ -60,6 +60,7 @@ router.get('/:id/understandings', function(req, res, next) {
 
 router.post('/:id/start', function (req, res, next) {
   var toReturn = {};
+  console.log("STARTING");
   knex('lectures')
       .where({'id': req.params.id})
       .then(function (lectureCheck) {
@@ -69,7 +70,7 @@ router.post('/:id/start', function (req, res, next) {
         } else {
           return knex('lectures')
               .where({'id': req.params.id})
-              .update({ 'started_at': new Date(Date.now()) })
+              .update({ 'started_at': new Date(Date.now()), 'is_active': true })
               .returning('*')
         }
       })
@@ -95,7 +96,7 @@ router.post('/:id/stop', function (req, res, next) {
         } else {
           return knex('lectures')
               .where({'id': req.params.id})
-              .update({ 'ended_at': new Date(Date.now()) })
+              .update({ 'ended_at': new Date(Date.now()), 'is_active': false })
               .returning('*')
         }
       })

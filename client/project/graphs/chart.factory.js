@@ -8,7 +8,8 @@
 
   function factory ($rootScope, $location, $state, $http, API_URL) {
     $rootScope.$on( "$stateChangeSuccess", function(event, next, current) {
-      console.log('chart.factory', $route.current.params);
+      ///Nick- do you mean $state.params ... ?
+      // console.log('chart.factory', $route.current.params);
     })
 
     var service = {
