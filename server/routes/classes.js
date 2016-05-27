@@ -178,10 +178,11 @@ router.post('/:id/participants', isInstructor, function (req, res, next) {
     newParticipant = newParticipant[0];
     result = {
       attributes: {email: req.body.email,
-                  name: req.body.name
+                  name: req.body.name,
+                  user_id: newParticipant.user_id
                 },
       links: {
-        delete: req.v1ApiURL + '/'+req.params.id+'/participants/'+newParticipant.id
+        delete: req.v1ApiURL + '/classes/'+req.params.id+'/participants/'+newParticipant.id
       }
     }
     res.json(result)
@@ -202,6 +203,7 @@ router.delete('/:id/participants/:participantId', isInstructor, function(req,res
             .del()
             .returning('*')
   }).then(function (participant) {
+    console.log('IN DELETE',participant);
     toReturn = {
       attributes: participant,
     }
