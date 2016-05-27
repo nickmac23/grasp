@@ -104,7 +104,8 @@
     }
 
     function endLecture (url) {
-      return $http.post(url).then(function (res){
+      var newUrl = API_URL+'/lectures/'+url+'/stop'
+      return $http.post(newUrl).then(function (res){
         return res
       })
     }

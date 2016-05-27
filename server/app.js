@@ -23,7 +23,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Set api url
 app.use(function(req, res, next){
-  req.v1ApiURL = req.protocol+'://'+req.get('host')+'/api/v1';
+  var host = req.get('host');
+  console.log(host);
+  var protocol = (host === 'localhost:3000') ? 'http://' : 'https://'
+  req.v1ApiURL = protocol+req.get('host')+'/api/v1';
   next();
 });
 

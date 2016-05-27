@@ -21,7 +21,11 @@
 
     <button ng-show="lecture.attributes.is_active && !vm.currentClass.attributes.instructor" ui-sref="student({id:lecture.attributes.lecture_id})" ng-click="vm.setPreviousPage(vm.currentClass.attributes.id)">Join Lecture</button>
 
-    <button ng-show="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null" ng-click="vm.startLecture(lecture)">Start Lecture</button>
+    <button ng-show="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null" ng-click="vm.startLecture(lecture)">
+      <span ng-show="vm.currentClass.attributes.is_active">Start </span>
+      <span ng-show="!vm.currentClass.attributes.is_active">Enter Started </span>
+      Lecture
+    </button>
     <p ng-show="lecture.attributes.ended_at !== null">This lecture has ended.</p>
   </div>
 
@@ -42,7 +46,7 @@
         <div class="col-md-4">
           <h5 ng-bind="students.attributes.email"></h5>
         </div>
-        <div class="col-md-2 text-center"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ng-click="vm.deleteParticipant(students)"></span></div>
+        <div class="col-md-2 text-center" ng-if="vm.currentClass.attributes.instructor"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ng-click="vm.deleteParticipant(students)"></span></div>
       </div>
   </div>
 
@@ -107,9 +111,9 @@
                 </fieldset>
                 <fieldset class="form-group" ng-class="{'has-error': studentForm.instructor.$invalid && studentForm.instructor.$touched, 'has-success': studentForm.instructor.$valid}">
                 <label for="instructor">instructor</label>
-                <input type="radio" class="form-control" name="instructor" ng-model="vm.student.instructor" required value="true">
+                <input type="radio" class="form-control" name="instructor" ng-model="vm.student.instructor" required value=true>
                 <label for="student">Student</label>
-                  <input type="radio" class="form-control" name="instructor" ng-model="vm.student.instructor" required value="false">
+                  <input type="radio" class="form-control" name="instructor" ng-model="vm.student.instructor" required value=false>
                 <div ng-messages="studentForm.instructor.$error" ng-if="studentForm.instructor.$touched">
                     <p ng-message="required" class="control-label">Required.</p>
                 </div>
