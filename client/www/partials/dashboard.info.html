@@ -4,7 +4,13 @@
   </h3>
 
   <h3 ng-show="vm.info.lectures">All Your Lectures:</h3>
-    <button ng-if="vm.currentClass.attributes.instructor" type="button" class="primaryButton" data-toggle="modal" data-target="#lectureModal">Add A Lecture</button>
+    <button ng-if="vm.currentClass.attributes.instructor" type="button" class="primaryButton" data-toggle="modal" data-target="#lectureModal">
+      Add A Lecture
+    </button>
+
+    <button ng-if="vm.currentClass.attributes.instructor" type="button" class="primaryButton" data-toggle="modal" data-target="#studentModal">
+      Add A Student
+    </button>
   <div ng-repeat="lecture in vm.info.lectures" class="well">
     <h4 ng-bind="lecture.attributes.name"></h4>
     <p ng-bind="lecture.attributes.description"></p>
@@ -28,7 +34,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="lectureModalLabel">Add A Class</h4>
+            <h4 class="modal-title" id="lectureModalLabel">Add A Lecture</h4>
           </div>
           <div class="modal-body">
             <form name="frm" novalidate ng-submit="vm.addLecture(frm)">
@@ -50,6 +56,49 @@
                 <div class="modal-footer">
                   <button type="button" class="btn" data-dismiss="modal" ng-click="vm.formClose(frm)">Close</button>
                   <button type="submit" class="btn" data-toggle="modal" data-target="#lectureModal" ng-disabled="frm.$invalid">Add a Lecture</button>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="studentModal" tabindex="-1" role="dialog" aria-labelledby="studentModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="studentModalLabel">Add A Student</h4>
+          </div>
+          <div class="modal-body">
+            <form name="studentForm" novalidate ng-submit="vm.addParticipant(studentForm)">
+                <fieldset class="form-group" ng-class="{'has-error': studentForm.name.$invalid && studentForm.name.$touched, 'has-success': studentForm.name.$valid}">
+                <label class="control-label">Name</label>
+                <input type="text" class="form-control" name="name" ng-model="vm.student.name" required placeholder="Please enter a name">
+                <div ng-messages="studentForm.name.$error" ng-if="studentForm.name.$touched">
+                    <p ng-message="required" class="control-label">A name is required.</p>
+                </div>
+                </fieldset>
+                <fieldset class="form-group" ng-class="{'has-error': studentForm.email.$invalid && studentForm.email.$touched, 'has-success': studentForm.email.$valid}">
+                <label class="control-label">Email</label>
+                <input type="email" class="form-control" name="email" ng-model="vm.student.email" required ng-minlength="3" placeholder="Email please.">
+                <div ng-messages="studentForm.email.$error" ng-if="studentForm.email.$touched">
+                    <p ng-message="required" class="control-label">Email is required.</p>
+                </div>
+                </fieldset>
+                <fieldset class="form-group" ng-class="{'has-error': studentForm.instructor.$invalid && studentForm.instructor.$touched, 'has-success': studentForm.instructor.$valid}">
+                <label for="instructor">instructor</label>
+                <input type="radio" class="form-control" name="instructor" ng-model="vm.student.instructor" required value="true">
+                <label for="student">Student</label>
+                  <input type="radio" class="form-control" name="instructor" ng-model="vm.student.instructor" required value="false">
+                <div ng-messages="studentForm.instructor.$error" ng-if="studentForm.instructor.$touched">
+                    <p ng-message="required" class="control-label">Required.</p>
+                </div>
+                </fieldset>
+                <div class="modal-footer">
+                  <button type="button" class="btn" data-dismiss="modal" ng-click="vm.formClose(studentForm)">Close</button>
+                  <button type="submit" class="btn" data-toggle="modal" data-target="#studentModal" ng-disabled="studentForm.$invalid">Add a Student</button>
                 </div>
               </form>
           </div>

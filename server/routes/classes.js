@@ -153,6 +153,7 @@ router.get('/:id/summary', function(req, res, next){
 
 
 router.post('/:id/participants', isInstructor, function (req, res, next) {
+  console.log('in server', req.body);
   var participant = req.body
   var errors = [];
   var personToAdd;
