@@ -1,16 +1,22 @@
 <section class="col-xs-10 col-xs-offset-1">
-  <h3 ng-if="vm.currentClass.attributes.instructor">Class Code:
-    <span ng-bind="vm.currentClass.attributes.id"></span>
-  </h3>
 
-  <h3 ng-show="vm.info.lectures">All Your Lectures:</h3>
-    <button ng-if="vm.currentClass.attributes.instructor" type="button" class="primaryButton" data-toggle="modal" data-target="#lectureModal">
-      Add A Lecture
-    </button>
+  <div class="row">
+    <div class="col-md-9">
+      <h3 id="classCode" ng-show="vm.info.lectures">Lectures for {{vm.currentClass.attributes.class_name}}</h3>
+    </div>
+    <div class="col-md-3 text-right">
+      <h4 ng-if="vm.currentClass.attributes.instructor">Class Code:<span ng-bind="vm.currentClass.attributes.id"></span></h4>
+    </div>
+  </div>
 
-    <button ng-if="vm.currentClass.attributes.instructor" type="button" class="primaryButton" data-toggle="modal" data-target="#studentModal">
-      Add A Student
-    </button>
+  <button ng-if="vm.currentClass.attributes.instructor" type="button" class="primaryButton" data-toggle="modal" data-target="#lectureModal">
+    Add A Lecture
+  </button>
+
+  <button ng-if="vm.currentClass.attributes.instructor" type="button" class="primaryButton" data-toggle="modal" data-target="#studentModal">
+    Add A Student
+  </button>
+
   <div ng-repeat="lecture in vm.info.lectures" class="well">
     <h4 ng-bind="lecture.attributes.name"></h4>
     <p ng-bind="lecture.attributes.description"></p>
@@ -27,9 +33,24 @@
   </div>
 
   <h3 ng-show="vm.info.participants">All Participants:</h3>
-  <div ng-repeat="students in vm.info.participants">
-    <h4><span  ng-bind="students.attributes.name"></span><span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ng-click="vm.deleteParticipant(students)"></span></h4>
-    <p ng-bind="students.attributes.email"></p>
+
+  <div class="well currentStudents">
+      <div class="col-md-5">
+        <h4>Name</h4>
+      </div>
+      <div class="col-md-4">
+        <h4>Email</h4>
+      </div>
+      <div class="col-md-2"></div>
+      <div ng-repeat="students in vm.info.participants">
+        <div class="col-md-5">
+          <h5><span  ng-bind="students.attributes.name"></span></h5>
+        </div>
+        <div class="col-md-4">
+          <h5 ng-bind="students.attributes.email"></h5>
+        </div>
+        <div class="col-md-2 text-center"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ng-click="vm.deleteParticipant(students)"></span></div>
+      </div>
   </div>
 
     <!-- Modal -->
@@ -58,8 +79,8 @@
                 </div>
                 </fieldset>
                 <div class="modal-footer">
-                  <button type="button" class="btn" data-dismiss="modal" ng-click="vm.formClose(frm)">Close</button>
-                  <button type="submit" class="btn" data-toggle="modal" data-target="#lectureModal" ng-disabled="frm.$invalid">Add a Lecture</button>
+                  <button type="button" class="secondaryButton" data-dismiss="modal" ng-click="vm.formClose(frm)">Close</button>
+                  <button type="submit" class="primaryButton" data-toggle="modal" data-target="#lectureModal" ng-disabled="frm.$invalid">Add a Lecture</button>
                 </div>
               </form>
           </div>
@@ -101,8 +122,10 @@
                 </div>
                 </fieldset>
                 <div class="modal-footer">
-                  <button type="button" class="btn" data-dismiss="modal" ng-click="vm.formClose(studentForm)">Close</button>
-                  <button type="submit" class="btn" data-toggle="modal" data-target="#studentModal" ng-disabled="studentForm.$invalid">Add a Student</button>
+                  <!-- <button type="button" class="btn" data-dismiss="modal" ng-click="vm.formClose(studentForm)">Close</button>
+                  <button type="submit" class="btn" data-toggle="modal" data-target="#studentModal" ng-disabled="studentForm.$invalid">Add a Student</button> -->
+                  <button type="button" class="secondaryButton" data-dismiss="modal" ng-click="vm.formClose(studentForm)">Close</button>
+                  <button type="submit" class="primaryButton" data-toggle="modal" data-target="#studentModal" ng-disabled="studentForm.$invalid">Add a Student</button>
                 </div>
               </form>
           </div>
