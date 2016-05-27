@@ -1,11 +1,6 @@
 <main class="container-fluid">
   <section class="dashboard-section">
-    <div class="row">
-      <div class="col-md-10"><h2>Welcome, <span ng-bind="vm.session.currentUser.name"></span></h2></div>
-      <div class="col-md-2"><button class="secondaryButton" id="logout-button" ng-click="vm.logout()">Logout</button></div>
-    </div>
-    <div class="col-xs-2">
-      <button type="button" class="primaryButton" data-toggle="modal" data-target="#myModal">Add a Class</button>
+    <div class="col-md-2">
       <h3>Teaching</h3>
       <ul>
         <li ng-repeat="class in vm.teaching">
@@ -15,15 +10,21 @@
           </a>
         </li>
       </ul>
+      <button type="button" id="new-class" class="primaryButton col-md-12" data-toggle="modal" data-target="#myModal">Create a Class</button>
       <h3>Attending</h3>
       <ul>
         <li ng-repeat="class in vm.attending"><a ui-sref="classInfo({ classId: class.attributes.id})"><h4 ng-bind="class.attributes.class_name" ng-click="vm.getInfo(class)" ui-sref-opts="{reload:true}"></h4></a></li>
       </ul>
     </div>
-    <div class="col-xs-8">
-
+    <div class="col-md-8">
       <div ui-view></div>
     </div>
+    <div class="col-md-2 text-center">
+      <h3>Welcome, <span ng-bind="vm.session.currentUser.name"></span></h3>
+      <!-- <a ng-click="vm.logout()">Logout</a> -->
+      <button class="secondaryButton col-md-12" id="logout-button" ng-click="vm.logout()">Logout</button>
+    </div>
+
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
