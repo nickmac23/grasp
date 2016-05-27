@@ -246,7 +246,9 @@ router.post('/:id/lectures', isInstructor, function (req, res, next) {
     delete newLecture.class_id;
     delete newLecture.instructor_id;
     toReturn.links = {
-      understandings: req.v1ApiURL + '/lectures/' + newLecture.lecture_id + '/understandings'
+      understandings: req.v1ApiURL + '/lectures/' + newLecture.lecture_id + '/understandings',
+      start: req.v1ApiURL + '/lectures/' + newLecture.lecture_id + '/start',
+      stop: req.v1ApiURL + '/lectures/' + newLecture.lecture_id + '/stop'
     }
     toReturn.attributes = newLecture
     res.json(toReturn);
