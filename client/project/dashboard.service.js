@@ -97,15 +97,13 @@
 
     function startLecture (url) {
       return $http.post(url).then(function (res) {
-        console.log('Got back from lecture start', res)
-        return;
+        return res
       })
     }
 
     function endLecture (url) {
       return $http.post(url).then(function (res){
-        console.log('Got back from lecture end', res);
-        return
+        return res
       })
     }
 

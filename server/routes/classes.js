@@ -102,6 +102,7 @@ router.get('/:id/summary', function(req, res, next){
             'lectures.name',
             'lectures.description',
             'lectures.created_at',
+            'lectures.ended_at',
             'lectures.is_active')
     .where('classes.id', req.params.id)
     .innerJoin('lectures', 'classes.id', 'lectures.class_id')
