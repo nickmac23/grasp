@@ -4,6 +4,8 @@ exports.up = function(knex, Promise) {
     table.string('name').notNullable();
     table.text('description').defaultTo(null);
     table.timestamp('created_at').defaultTo(knex.fn.now());
+    table.timestamp('started_at').defaultTo(null);
+    table.timestamp('ended_at').defaultTo(null);
     table.boolean('is_active').defaultTo(false);
 
     table.integer('instructor_id')

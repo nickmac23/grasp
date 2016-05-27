@@ -16,17 +16,17 @@ router.get('/:id/understandings', function(req, res, next) {
   var usersStatus = {students: {}};
   var isInstructor = false;
   knex('lectures')
-    .select('participants.user_id', 'lectures.created_at as lecture_start')
+    .select('participants.user_id', 'lectures.started_at as lecture_start', 'lectures.ended_at as lecture_end')
     .where({"lectures.id": req.params.id, 'participants.instructor': true})
     .innerJoin('classes', 'lectures.class_id', 'classes.id')
     .innerJoin('participants', 'classes.id', 'participants.class_id')
     .then(function (instructors) {
       for (var i = 0; i < instructors.length; i++) {
         usersStatus.lecture_start = instructors[0].lecture_start;
+        usersStatus.lecture_end = instructors[0].lecture_end;
         isInstructor = instructors[i].user_id === req.user.id
         if(isInstructor) break;
       }
-
 
       return knex('understandings')
               .select("understandings.*", 'understanding_statuses.status')
@@ -47,6 +47,7 @@ router.get('/:id/understandings', function(req, res, next) {
         var toReturn = {students:{}};
         toReturn.students[req.user.id] = usersStatus.students[req.user.id]
         toReturn.lecture_start = usersStatus.lecture_start
+        toReturn.lecture_end = usersStatus.lecture_end
         // console.log('tore', toReturn.lecture_start);
         usersStatus = toReturn;
       }

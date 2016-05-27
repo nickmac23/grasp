@@ -5,10 +5,10 @@ exports.seed = function(knex, Promise) {
   ).then(function(){
 
     return Promise.join(
-      addLectureWithClassNameInstructorName("Steve", "Angular 0001", { name: "Angular Stuff" , description: 'All about angular stuff.'} ),
-      addLectureWithClassNameInstructorName("Bob", "Angular 0001", { name: "More Angular Stuff" , description: 'All about angular stuff.'} ),
-      addLectureWithClassNameInstructorName("Bob", "JS 101", { name: "javascript Stuff" , description: 'All about js stuff.'} ),
-      addLectureWithClassNameInstructorName("Dave", "Sockets 400", { name: "Sockets Stuff" , description: 'All about sockets stuff.'} )
+      addLectureWithClassNameInstructorName("Steve", "Angular 0001", { name: "Angular Stuff" , description: 'All about angular stuff.', ended_at: new Date(Date.now()+50000000), started_at: new Date(Date.now())} ),
+      addLectureWithClassNameInstructorName("Bob", "Angular 0001", { name: "More Angular Stuff" , description: 'All about angular stuff.', ended_at: null, started_at: new Date(Date.now())} ),
+      addLectureWithClassNameInstructorName("Bob", "JS 101", { name: "javascript Stuff" , description: 'All about js stuff.', ended_at: null, started_at: new Date(Date.now())} ),
+      addLectureWithClassNameInstructorName("Dave", "Sockets 400", { name: "Sockets Stuff" , description: 'All about sockets stuff.', ended_at: null, started_at: new Date(Date.now())} )
     )
   });
 
