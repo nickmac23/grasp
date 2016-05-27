@@ -13,7 +13,7 @@ io.on('connection', function (socket) {
     knex('understandings').insert(data)
     .returning('*')
     .then( function (res) {
-      io.sockets.emit(data.lecture_id, res)
+      io.sockets.emit(data.lecture_id, res[0])
     })
   })
 

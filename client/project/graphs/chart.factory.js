@@ -10,23 +10,38 @@
     $rootScope.$on( "$stateChangeSuccess", function(event, next, current) {
       console.log('chart.factory', $route.current.params);
     })
+    var socket = io.connect('http://Nick-MacBook-Air.local:3000');
+
+    console.log(socket);
+    socket.on($state.params.id, function (data) {
+      console.log(service.dataCache);
+      service.dataCache.students[data.user_id].push(data)
+      service.graphData = createTally(service.dataCache);
+      $rootScope.$broadcast(data.lecture_id, {'hi':"hi"})
+      console.log('socket');
+    })
 
     var service = {
       lecture_start: null,
       lecture_id: $state.params.id,
+      dataCache: null,
       graphData: null,
       getGraphData: getGraphData,
     }
     return service
-
     function getGraphData () {
       return $http.get(API_URL + '/lectures/'+service.lecture_id+'/understandings')
       .then( function (res) {
         service.lecture_start = res.data.lecture_start;
+        service.dataCache = res.data
         service.graphData = createTally(res.data)
         return service.graphData
       })
     }
+
+    $scope.$on('$destroy', function (event) {
+      socket.removeAllListeners();
+    });
   }
 
   function createTally (data) {
