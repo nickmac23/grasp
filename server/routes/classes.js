@@ -153,7 +153,6 @@ router.get('/:id/summary', function(req, res, next){
 
 
 router.post('/:id/participants', isInstructor, function (req, res, next) {
-  console.log('in server', req.body);
   var participant = req.body
   var errors = [];
   var personToAdd;
@@ -178,7 +177,7 @@ router.post('/:id/participants', isInstructor, function (req, res, next) {
     newParticipant = newParticipant[0];
     result = {
       attributes: {email: req.body.email,
-                  name: req.body.name,
+                  name: personToAdd.name,
                   user_id: newParticipant.user_id
                 },
       links: {
