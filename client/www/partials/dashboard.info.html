@@ -49,7 +49,7 @@
         <div class="col-md-4">
           <h5 ng-bind="students.attributes.email"></h5>
         </div>
-        <div class="col-md-2 text-center"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ng-click="vm.deleteParticipant(students)"></span></div>
+        <div class="col-md-2 text-center" ng-if="vm.currentClass.attributes.instructor"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true" ng-click="vm.deleteParticipant(students)"></span></div>
       </div>
   </div>
 
@@ -114,9 +114,9 @@
                 </fieldset>
                 <fieldset class="form-group" ng-class="{'has-error': studentForm.instructor.$invalid && studentForm.instructor.$touched, 'has-success': studentForm.instructor.$valid}">
                 <label for="instructor">instructor</label>
-                <input type="radio" class="form-control" name="instructor" ng-model="vm.student.instructor" required value="true">
+                <input type="radio" class="form-control" name="instructor" ng-model="vm.student.instructor" required value=true>
                 <label for="student">Student</label>
-                  <input type="radio" class="form-control" name="instructor" ng-model="vm.student.instructor" required value="false">
+                  <input type="radio" class="form-control" name="instructor" ng-model="vm.student.instructor" required value=false>
                 <div ng-messages="studentForm.instructor.$error" ng-if="studentForm.instructor.$touched">
                     <p ng-message="required" class="control-label">Required.</p>
                 </div>
