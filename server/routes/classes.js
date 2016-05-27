@@ -174,8 +174,12 @@ router.post('/:id/participants', isInstructor, function (req, res, next) {
     }
   }).then(function (newParticipant) {
     newParticipant = newParticipant[0];
+    console.log(newParticipant)
     result = {
-      attributes: newParticipant,
+      attributes: {
+        name: req.body.name,
+        email: req.body.email
+      },
       links: {
         delete: req.v1ApiURL + '/'+req.params.id+'/participants/'+newParticipant.id
       }
@@ -201,7 +205,7 @@ router.delete('/:id/participants/:participantId', isInstructor, function(req,res
     toReturn = {
       attributes: participant,
     }
-    res.json(participant);
+    res.json(toReturn);
   }).catch(function(err){
     console.log(err);
     res.status(400).send({ errors:err })
