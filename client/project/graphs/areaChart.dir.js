@@ -28,6 +28,8 @@
           var students = Object.keys(data).length
           var students = data.students
           var timeStart = new Date(data.lecture_start);
+          var timeEnd = data.lecture_end
+          var lastDif = timeEnd === null ? new Date(Date.now()) : '...';
           var timeArray =[]
           var timeData = {};
           var tally = {};
@@ -35,7 +37,7 @@
             var oldDif = 1;
             console.log("NEW USER*******");
             for (var i = 0; i < students[user].length; i++) {
-              var dif = (Math.floor((new Date(students[user][i].created_at) - timeStart)/6000)) +1
+              var dif = (Math.floor((new Date(students[user][i].created_at) - timeStart)/10000)) +1
               timeData[dif] = students[user][i].status_id
 
               if(dif - oldDif > 0){
@@ -69,9 +71,21 @@
             // timeArray.push(timeData)
           }
 
+          if (lastDif === '...') {
+            console.log("hello");
+            tally["..."] = tally[Object.keys(tally).length];
+            console.log('tally ********', tally);
+             tally["end of lecture"] = tally["..."]
+          } else {
+            tally[/*(Math.floor((lastDif - timeStart)/10000)) +1*/'now'] = tally[Object.keys(tally).length]
+          }
+
+
+
           console.log('tally', tally);
 
           for (var time in tally) {
+            console.log(tally[time], time);
             var d = tally[time][1]/Object.keys(students).length * 100
             var u = tally[time][2]/Object.keys(students).length * 100
             var g = tally[time][3]/Object.keys(students).length * 100
