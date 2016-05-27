@@ -8,18 +8,12 @@ var data = null;
 
 io.on('connection', function (socket) {
 
-  socket.on('set', function (data) {
+  socket.on('chart', function(data){
     console.log(data);
     knex('understandings').insert(data)
+    .returning('*')
     .then( function (res) {
-      io.sockets.emit(data.lecture_id, {class: data.user_id})
-    })
-  })
-  socket.on('chart', function(data){
-
-    knex('understandings').insert({user_id: data.user_id, lecture_id: data.lecture_id, status_id: data.status_id})
-    .then( function (res) {
-      io.sockets.emit(data.lecture_id, data)
+      io.sockets.emit(data.lecture_id, res)
     })
   })
 

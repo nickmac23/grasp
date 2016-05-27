@@ -18,10 +18,10 @@
       var g = 0;
       var d = 0;
       var u = 0;
-      ChartFactory.graphData();
 
 
       socket.on(lecture_id, function (data) {
+        console.log(data);
         if (data.class) {
           var check = true
           for (let i = 0; i < students.length; i++) {
@@ -64,7 +64,7 @@
         $rootScope.$emit(lecture_id, { students: students, d: d, u: u , g: g})
       })
 
-      ChartFactory.graphData().then( function(data) {
+      ChartFactory.getGraphData().then( function(data) {
         var dat = data.students
         if (!(dat === null)) {
           for (var user in dat ) {
