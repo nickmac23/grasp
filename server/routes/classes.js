@@ -171,7 +171,7 @@ router.post('/:id/participants', isInstructor, function (req, res, next) {
       return Promise.reject("This user is already participating in the class.")
     }else{
       return knex('participants')
-              .insert({ user_id: personToAdd.id, class_id: req.params.id, instructor: !!req.body.instructor })
+              .insert({ user_id: personToAdd.id, class_id: req.params.id, instructor: req.body.instructor })
               .returning('*');
     }
   }).then(function (newParticipant) {
