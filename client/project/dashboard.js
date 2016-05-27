@@ -23,7 +23,6 @@
       ];
 
       function dashboardController($log, $state, dashboardService, authService, $window) {
-        // var socket = io.connect('http://bud.local:3000');
         var vm = this;
         vm.info = {};
         vm.session = authService.session;

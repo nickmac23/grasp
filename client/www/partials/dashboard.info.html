@@ -12,7 +12,7 @@
 
     <button ng-show="lecture.attributes.is_active" ui-sref="student({id:lecture.attributes.lecture_id})" ng-click="vm.setPreviousPage(vm.currentClass.attributes.id)">Join Lecture</button>
 
-    <button ng-show="vm.currentClass.attributes.instructor && vm.currentClass.attributes.instructor === null" ng-click="vm.startLecture(lecture)">Start lecture</button>
+    <button ng-show="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null" ng-click="vm.startLecture(lecture)">Start Lecture</button>
   </div>
 
   <h3 ng-show="vm.info.participants">All Participants:</h3>
