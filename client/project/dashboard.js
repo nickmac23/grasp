@@ -33,6 +33,7 @@
         vm.currentClass;
         vm.logout = logout;
         vm.setPreviousPage = setPreviousPage;
+        vm.startLecture = startLecture;
 
         dashboardService.getClasses()
         .then(function (res){
@@ -108,6 +109,11 @@
           return
         }
 
+        function startLecture(lecture){
+          console.log('lecture', lecture);
+          dashboardService.startLecture(lecture.attributes.lecture_id);
+          $state.go('teacher', {id: lecture.attributes.lecture_id});
+        }
 
       }
 }());

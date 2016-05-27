@@ -36,7 +36,9 @@
       addClass: addClass,
       addLecture: addLecture,
       setPreviousPage: setPreviousPage,
-      getPreviousPage: getPreviousPage
+      getPreviousPage: getPreviousPage,
+      startLecture: startLecture,
+      endLecture: endLecture
     }
 
     return dashboardFactory
@@ -60,6 +62,7 @@
 
     function getClassInfo (url) {
       return $http.get(url).then(function (res) {
+        console.log('lecture info',res);
         return res.data
       })
     }
@@ -88,6 +91,14 @@
 
     function getPreviousPage () {
       return _previousPage
+    }
+
+    function startLecture (lectureId) {
+      return $http
+    }
+
+    function endLecture (lectureId, timeStamp) {
+      return $http
     }
 
   }
