@@ -35,6 +35,7 @@
         vm.setPreviousPage = setPreviousPage;
         vm.startLecture = startLecture;
         vm.addParticipant = addParticipant;
+        vm.deleteParticipant = deleteParticipant;
 
         dashboardService.getClasses()
         .then(function (res){
@@ -125,6 +126,19 @@
             form.$setPristine();
             form.$setUntouched();
           });
+        }
+
+        function deleteParticipant (participant){
+          dashboardService.deleteParticipant(participant.links.delete)
+          .then(function (res){
+            for (var i = 0; i < vm.info.participants.length; i++) {
+              if(vm.info.participants[i].attributes.user_id == res.data[0].user_id){
+                 vm.info.participants.splice(i, 1);
+              }
+            }
+            return vm.info
+          })
+
         }
 
       }
