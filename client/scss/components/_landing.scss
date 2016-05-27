@@ -61,6 +61,7 @@ header {
   height: 350px;
   font-size: 50px;
   text-shadow:0px 2px 0px rgba(0,0,0,.5);
+  font-family: "Montserrat";
 }
 
 #understand{
@@ -68,6 +69,11 @@ header {
   height: 350px;
   font-size: 50px;
   text-shadow:0px 2px 0px rgba(0,0,0,.5);
+  font-family: "Montserrat";
+}
+
+#teacherEndLecture {
+  margin: 30px 15px 0px 0px;
 }
 
 .signup-forms {
@@ -107,11 +113,6 @@ h3 {
 
 h4 {
   display: inline;
-}
-
-#new-class {
-  // font-size: 10px;
-  // margin: 0px 0px 0px 20px;
 }
 
 .currentStudents{
