@@ -111,7 +111,9 @@ router.get('/:id/summary', function(req, res, next){
         return {
           attributes: lecture,
           links: {
-            understandings: req.v1ApiURL + "/lectures/" + lecture.lecture_id + '/understandings'
+            understandings: req.v1ApiURL + "/lectures/" + lecture.lecture_id + '/understandings',
+            start: req.v1ApiURL + "/lectures/" + lecture.lecture_id + '/start',
+            stop: req.v1ApiURL + "/lectures/" + lecture.lecture_id + '/stop'
           }
         }
       })
