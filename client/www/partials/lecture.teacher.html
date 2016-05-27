@@ -1,7 +1,19 @@
 <main class="container-fluid">
-  <h1>in teacher view</h1>
-  <button ng-click="vm.endLecture()">End Lecture</button>
-  <pie-chart></pie-chart>
-  <area-chart></area-chart>
+  <section class="dashboard-section">
 
+    <div class="row">
+      <div class="col-md-10">
+        <div id="lecture-name"></div>
+      </div>
+
+      <div class="col-md-2 text-right">
+        <button class="primaryButton" ng-click="vm.endLecture()">End Lecture</button>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <pie-chart></pie-chart>
+      <area-chart></area-chart>
+    </div>
+  </section>
 </main>
