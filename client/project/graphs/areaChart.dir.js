@@ -22,6 +22,7 @@
 
       function graph (tally) {
         areaChart.data.rows = []
+        areaChart.data.rows.push({c: [{v: 0},{v: 0},{v: 100},{v: 0} ] })
         for (var time in tally) {
           var total = tally[time]['1'] + tally[time]['2'] + tally[time]['3']
           var d = tally[time][1]/total * 100
@@ -37,7 +38,6 @@
       areaChart.data = {};
       areaChart.data.rows = []
 
-      areaChart.data.rows.push({c: [{v: "Lecture start"},{v: 0},{v: 100},{v: 0} ] })
 
       areaChart.data.cols = [
           {id: "month",label: "Month",type: "string"},
