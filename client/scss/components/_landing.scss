@@ -16,6 +16,7 @@ section {
   padding: 5px;
   background-color: $background;
   margin: 0px;
+  overflow-x: hidden;
 }
 
 .border1 {
@@ -47,6 +48,21 @@ header {
 #logout-button {
   margin: 25px 0px 0px 0px;
 }
+
+#dontUnderstand{
+  width: 49%;
+  height: 350px;
+  font-size: 50px;
+  text-shadow:0px 2px 0px rgba(0,0,0,.5);
+}
+
+#understand{
+  width: 49%;
+  height: 350px;
+  font-size: 50px;
+  text-shadow:0px 2px 0px rgba(0,0,0,.5);
+}
+
 .signup-forms {
   margin: 25vh 0px 0px 0px;
 }
@@ -61,6 +77,12 @@ header {
 
 #classCode {
   line-height: 0px;
+}
+
+#lecture-name {
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
 }
 
 h1 {
