@@ -8,15 +8,14 @@
 
   function factory ($rootScope, $location, $state, $http, API_URL) {
     $rootScope.$on( "$stateChangeSuccess", function(event, next, current) {
-      console.log('chart.factory', $route.current.params);
     })
     var socket = io.connect('http://Nick-MacBook-Air.local:3000');
 
-    console.log(socket);
     socket.on($state.params.id, function (data) {
       if (!service.dataCache.students[data.user_id]) service.dataCache.students[data.user_id] = []
         service.dataCache.students[data.user_id].push(data)
         service.graphData = createTally(service.dataCache);
+        $rootScope.$apply()
     })
 
     var service = {
@@ -28,6 +27,9 @@
     }
     return service
     function getGraphData () {
+
+      if(service.graphData) return service.graphData;
+
       return $http.get(API_URL + '/lectures/'+service.lecture_id+'/understandings')
       .then( function (res) {
         service.lecture_start = res.data.lecture_start;
