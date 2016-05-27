@@ -13,7 +13,7 @@ main {
 section {
   min-height: 100vh;
   overflow: auto;
-  padding: 5px;
+  padding: 30px;
   background-color: $background;
   margin: 0px;
   overflow-x: hidden;
@@ -24,9 +24,16 @@ section {
 }
 
 .dashboard-section {
-
-  margin: 100px;
+  margin: 30px;
   border-radius: 5px;
+}
+
+.names {
+  position: absolute;
+  color: #F49432;
+  font-family: "Montserrat", sans-serif;
+  right: 40px;
+  top: 20px;
 }
 
 header {
@@ -76,7 +83,7 @@ header {
 }
 
 #classCode {
-  line-height: 0px;
+  margin: -10px 0px 20px;
 }
 
 #lecture-name {
@@ -100,6 +107,11 @@ h3 {
 
 h4 {
   display: inline;
+}
+
+#new-class {
+  // font-size: 10px;
+  // margin: 0px 0px 0px 20px;
 }
 
 .currentStudents{
