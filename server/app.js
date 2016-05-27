@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Set api url
 app.use(function(req, res, next){
-  req.v1ApiURL = req.protocol+'://'+req.get('host')+'/api/v1';
+  req.v1ApiURL = 'https://'+req.get('host')+'/api/v1';
   next();
 });
 
