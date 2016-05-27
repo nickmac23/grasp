@@ -9,18 +9,18 @@ exports.up = function(knex, Promise) {
     table.boolean('is_active').defaultTo(false);
 
     table.integer('instructor_id')
-         .unsigned()
-         .notNullable()
-         .references("id")
-         .inTable('participants')
-         .onDelete('cascade');
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable('participants')
+        .onDelete('cascade');
 
     table.integer('class_id')
-         .unsigned()
-         .notNullable()
-         .references("id")
-         .inTable('classes')
-         .onDelete('cascade');
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable('classes')
+        .onDelete('cascade');
 
     table.index(['instructor_id', 'class_id'], 'lecture');
 

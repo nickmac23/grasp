@@ -66,4 +66,57 @@ router.get('/:id/understandings', function(req, res, next) {
 });
 
 
+router.post('/:id/start', function (req, res, next) {
+  var toReturn = {};
+  console.log("STARTING");
+  knex('lectures')
+      .where({'id': req.params.id})
+      .then(function (lectureCheck) {
+        if(lectureCheck[0].started_at) {
+          console.log(lectureCheck)
+          return Promise.reject(["Lecture has already started :(."])
+        } else {
+          return knex('lectures')
+              .where({'id': req.params.id})
+              .update({ 'started_at': new Date(Date.now()), 'is_active': true })
+              .returning('*')
+        }
+      })
+      .then(function (lecture) {
+        console.log(lecture)
+        toReturn.attributes = lecture[0];
+        toReturn.links = {}
+        res.json(toReturn)
+      }).catch(function (err) {
+        console.log(err);
+        res.status(400).send({ errors:err })
+  })
+});
+
+router.post('/:id/stop', function (req, res, next) {
+  var toReturn = {};
+  knex('lectures')
+      .where({'id': req.params.id})
+      .then(function (lectureCheck) {
+        if(lectureCheck[0].ended_at) {
+          console.log(lectureCheck)
+          return Promise.reject(["Lecture has already started :(."])
+        } else {
+          return knex('lectures')
+              .where({'id': req.params.id})
+              .update({ 'ended_at': new Date(Date.now()), 'is_active': false })
+              .returning('*')
+        }
+      })
+      .then(function (lecture) {
+        console.log(lecture)
+        toReturn.attributes = lecture[0];
+        toReturn.links = {}
+        res.json(toReturn)
+      }).catch(function (err) {
+    console.log(err);
+    res.status(400).send({ errors:err })
+  })
+});
+
 module.exports = router;
