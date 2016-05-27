@@ -26,8 +26,6 @@
         vm.currentLecture = dashboardService.getCurrentLecture();
 
         function endLecture () {
-          console.log("LINKS HOMIE");
-          console.log(vm.currentLecture.links.stop);
           dashboardService.endLecture(vm.currentLecture.links.stop);
           $state.go('dashboard');
         }
