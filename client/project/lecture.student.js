@@ -21,7 +21,8 @@
       ];
 
       function lectureController($log, $state, authService, dashboardService) {
-        var socket = io.connect('http://localhost:3000/');
+        var url = (window.location.origin === "http://localhost:5000") ? 'http://localhost:3000' : 'https://panic-button-g20.herokuapp.com'
+        var socket = io.connect(url);
         var vm = this;
         var lecture_id = $state.params.id
         vm.session = authService.session;

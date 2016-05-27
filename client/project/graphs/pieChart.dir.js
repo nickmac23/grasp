@@ -11,7 +11,7 @@
       controller: controller,
     }
     function controller ($scope, $rootScope, $state, ChartFactory) {
-      var socket = io.connect('http://Nick-MacBook-Air.local:3000');
+      
       var pieChart = {};
       var lecture_id = $state.params.id;
       var students = [];

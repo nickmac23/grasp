@@ -9,7 +9,9 @@
   function factory ($rootScope, $location, $state, $http, API_URL) {
     $rootScope.$on( "$stateChangeSuccess", function(event, next, current) {
     })
-    var socket = io.connect('http://Nick-MacBook-Air.local:3000');
+
+    var url = (window.location.origin === "http://localhost:5000") ? 'http://localhost:3000' : 'https://panic-button-g20.herokuapp.com'
+    var socket = io.connect(url);
 
     socket.on($state.params.id, function (data) {
       if (!service.dataCache.students[data.user_id]) service.dataCache.students[data.user_id] = []
