@@ -1,14 +1,14 @@
 exports.seed = function(knex, Promise) {
   return Promise.join(
-    // Deletes ALL existing entries
-    knex('lectures').del()
+      // Deletes ALL existing entries
+      knex('lectures').del()
   ).then(function(){
 
     return Promise.join(
-      addLectureWithClassNameInstructorName("Steve", "Angular 0001", { name: "Angular Stuff" , description: 'All about angular stuff.'} ),
-      addLectureWithClassNameInstructorName("Bob", "Angular 0001", { name: "More Angular Stuff" , description: 'All about angular stuff.'} ),
-      addLectureWithClassNameInstructorName("Bob", "JS 101", { name: "javascript Stuff" , description: 'All about js stuff.'} ),
-      addLectureWithClassNameInstructorName("Dave", "Sockets 400", { name: "Sockets Stuff" , description: 'All about sockets stuff.'} )
+        addLectureWithClassNameInstructorName("Steve", "Angular 0001", { name: "Angular Stuff" , description: 'All about angular stuff.', started_at: new Date(Date.now()), ended_at: new Date(Date.now()+50000000)} ),
+        addLectureWithClassNameInstructorName("Bob", "Angular 0001", { name: "More Angular Stuff" , description: 'All about angular stuff.', started_at: null, ended_at: null} ),
+        addLectureWithClassNameInstructorName("Bob", "JS 101", { name: "javascript Stuff" , description: 'All about js stuff.', started_at: null, ended_at: null} ),
+        addLectureWithClassNameInstructorName("Dave", "Sockets 400", { name: "Sockets Stuff" , description: 'All about sockets stuff.', started_at: null, ended_at: null} )
     )
   });
 

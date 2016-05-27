@@ -200,7 +200,6 @@ router.delete('/:id/participants/:participantId', isInstructor, function(req,res
   }).then(function (participant) {
     toReturn = {
       attributes: participant,
-
     }
     res.json(participant);
   }).catch(function(err){
