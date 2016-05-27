@@ -118,12 +118,9 @@
         }
 
         function addParticipant(form){
-          console.log('in participants', vm.links);
           var newParticipant = angular.copy(vm.student);
           dashboardService.addParticipant(vm.links.participants.post, newParticipant).then(function(res){
-            console.log(res);
-            console.log("post add participant");
-            vm.info.participants.push(res);
+            vm.info.participants.push(res.data);
             vm.student = {};
             form.$setPristine();
             form.$setUntouched();
