@@ -21,7 +21,7 @@
       ];
 
       function lectureController($log, $state, authService, dashboardService) {
-        var socket = io.connect('http://localhost:3000/');
+        var socket = io.connect('http://Nick-MacBook-Air.local:3000/');
         var vm = this;
         var lecture_id = $state.params.id
         vm.session = authService.session;
@@ -30,7 +30,7 @@
         vm.previousPage = dashboardService.getPreviousPage();
 
         function vote (status_id) {
-          socket.emit('chart', {lecture_id: +lecture_id, user_id: 1, status_id: status_id} )
+          socket.emit('chart', {lecture_id: +lecture_id, user_id: authService.session.currentUser.id, status_id: status_id} )
         }
 
       }
