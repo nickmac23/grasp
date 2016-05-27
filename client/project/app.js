@@ -7,7 +7,8 @@
     'googlechart',
     'ngAnimate',
     'ngMessages',
-    'angularMoment'
+    'angularMoment',
+    'duScroll'
   ]
 
   angular.module('panic', dependencies)

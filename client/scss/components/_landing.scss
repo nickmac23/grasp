@@ -3,13 +3,42 @@
 body {
   font-family: 'Source Sans Pro';
   background-image: url('../img/background_black.jpg');
-  margin: 10px;
+  margin: 0px;
 }
 
-.container-fluid {
-  min-height: 80vh;
+section {
+  min-height: 100vh;
   padding: 5px;
   background-color: $background;
+  margin: 0px;
+}
+
+header {
+  min-height: 100vh;
+  padding: 5px;
+  background-image: url('../img/background_black.jpg');
+  margin: 0px;
+}
+
+#subtitle {
+  text-shadow: 0px 2px 5px rgba(0, 0, 0, 1);
+  margin: 0px 0px 100px 0px;
+}
+
+#down-arrow {
+  text-shadow: 0px 2px 5px rgba(0, 0, 0, .5);
+}
+
+.signup-forms {
+  margin: 25vh 0px 0px 0px;
+}
+
+.top-screen {
+  margin: 25vh 0px 0px 0px;
+}
+
+.top-logo {
+  margin: 0px 0px 0px -15px;
 }
 
 h1 {
@@ -74,4 +103,25 @@ input[type="text"]:focus ,input[type="email"]:focus, input[type="password"]:focu
     border-bottom: 2px solid $lightGreen;
     // transform-origin: 294px center 0px;
     transition: ease all 0.4s;
+}
+
+img {
+  height: 300px;
+}
+
+a:link {
+ color: #057965;
+ text-decoration: none;
+}
+a:visited {
+  color: #057965;
+  text-decoration: none;
+}
+a:hover {
+  color: #057965;
+  text-decoration: none;
+}
+a:active {
+  color: #057965;
+  text-decoration: none;
 }
