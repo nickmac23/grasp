@@ -23,9 +23,12 @@
       function lectureTeacherController($log, $state, dashboardService) {
         var vm = this;
         vm.endLecture = endLecture;
+        vm.currentLecture = dashboardService.getCurrentLecture();
 
         function endLecture () {
-          dashboardService.endLecture($state.params.id, new Date())
+          console.log("LINKS HOMIE");
+          console.log(vm.currentLecture.links.stop);
+          dashboardService.endLecture(vm.currentLecture.links.stop);
           $state.go('dashboard');
         }
 

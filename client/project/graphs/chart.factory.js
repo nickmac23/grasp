@@ -6,7 +6,7 @@
 
   // factory.$inject = [ '$rootScope', '$location']
 
-  function factory ($rootScope, $location, $state, $http, API_URL,) {
+  function factory ($rootScope, $location, $state, $http, API_URL) {
     $rootScope.$on( "$stateChangeSuccess", function(event, next, current) {
       ///Nick- do you mean $state.params ... ?
       // console.log('chart.factory', $route.current.params);

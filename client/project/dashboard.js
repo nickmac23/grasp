@@ -110,8 +110,8 @@
         }
 
         function startLecture(lecture){
-          console.log('lecture', lecture);
-          dashboardService.startLecture(lecture.attributes.lecture_id);
+          dashboardService.startLecture(lecture.links.start);
+          dashboardService.setCurrentLecture(lecture);
           $state.go('teacher', {id: lecture.attributes.lecture_id});
         }
 

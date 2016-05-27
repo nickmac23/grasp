@@ -28,6 +28,7 @@
     _classes._attending = [];
 
     var _previousPage;
+    var _currentLecture;
 
 
     var dashboardFactory = {
@@ -38,7 +39,9 @@
       setPreviousPage: setPreviousPage,
       getPreviousPage: getPreviousPage,
       startLecture: startLecture,
-      endLecture: endLecture
+      endLecture: endLecture,
+      setCurrentLecture: setCurrentLecture,
+      getCurrentLecture: getCurrentLecture
     }
 
     return dashboardFactory
@@ -62,7 +65,6 @@
 
     function getClassInfo (url) {
       return $http.get(url).then(function (res) {
-        console.log('lecture info',res);
         return res.data
       })
     }
@@ -84,7 +86,7 @@
       })
     }
 
-    function setPreviousPage (id){
+    function setPreviousPage (id) {
       _previousPage = id;
       return
     }
@@ -93,12 +95,27 @@
       return _previousPage
     }
 
-    function startLecture (lectureId) {
-      return $http
+    function startLecture (url) {
+      return $http.post(url).then(function (res) {
+        console.log('Got back from lecture start', res)
+        return;
+      })
     }
 
-    function endLecture (lectureId, timeStamp) {
-      return $http
+    function endLecture (url) {
+      return $http.post(url).then(function (res){
+        console.log('Got back from lecture end', res);
+        return
+      })
+    }
+
+    function setCurrentLecture(lecture){
+      _currentLecture = lecture;
+      return
+    }
+
+    function getCurrentLecture(){
+      return _currentLecture;
     }
 
   }
