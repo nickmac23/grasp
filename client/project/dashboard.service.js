@@ -41,7 +41,9 @@
       startLecture: startLecture,
       endLecture: endLecture,
       setCurrentLecture: setCurrentLecture,
-      getCurrentLecture: getCurrentLecture
+      getCurrentLecture: getCurrentLecture,
+      addParticipant: addParticipant,
+      deleteParticipant: deleteParticipant
     }
 
     return dashboardFactory
@@ -114,6 +116,18 @@
 
     function getCurrentLecture(){
       return _currentLecture;
+    }
+
+    function addParticipant(url, newParticipant){
+      return $http.post(url, newParticipant).then(function(res){
+        return res
+      })
+    }
+
+    function deleteParticipant (url){
+      return $http.delete(url).then(function(res){
+        return res
+      })
     }
 
   }

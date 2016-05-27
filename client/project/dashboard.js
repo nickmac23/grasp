@@ -34,6 +34,8 @@
         vm.logout = logout;
         vm.setPreviousPage = setPreviousPage;
         vm.startLecture = startLecture;
+        vm.addParticipant = addParticipant;
+        vm.deleteParticipant = deleteParticipant;
 
         dashboardService.getClasses()
         .then(function (res){
@@ -100,6 +102,7 @@
           form.$setUntouched();
           vm.class = {};
           vm.lecture = {};
+          vm.student = {};
           return
         }
 
@@ -113,6 +116,29 @@
           dashboardService.startLecture(lecture.links.start);
           dashboardService.setCurrentLecture(lecture);
           $state.go('teacher', {id: lecture.attributes.lecture_id});
+        }
+
+        function addParticipant(form){
+          var newParticipant = angular.copy(vm.student);
+          dashboardService.addParticipant(vm.links.participants.post, newParticipant).then(function(res){
+            vm.info.participants.push(res.data);
+            vm.student = {};
+            form.$setPristine();
+            form.$setUntouched();
+          });
+        }
+
+        function deleteParticipant (participant){
+          dashboardService.deleteParticipant(participant.links.delete)
+          .then(function (res){
+            for (var i = 0; i < vm.info.participants.length; i++) {
+              if(vm.info.participants[i].attributes.user_id == res.data[0].user_id){
+                 vm.info.participants.splice(i, 1);
+              }
+            }
+            return vm.info
+          })
+
         }
 
       }

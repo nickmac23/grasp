@@ -153,6 +153,7 @@ router.get('/:id/summary', function(req, res, next){
 
 
 router.post('/:id/participants', isInstructor, function (req, res, next) {
+  console.log('in server', req.body);
   var participant = req.body
   var errors = [];
   var personToAdd;
@@ -176,7 +177,9 @@ router.post('/:id/participants', isInstructor, function (req, res, next) {
   }).then(function (newParticipant) {
     newParticipant = newParticipant[0];
     result = {
-      attributes: newParticipant,
+      attributes: {email: req.body.email,
+                  name: req.body.name
+                },
       links: {
         delete: req.v1ApiURL + '/'+req.params.id+'/participants/'+newParticipant.id
       }
