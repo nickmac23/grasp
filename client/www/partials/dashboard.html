@@ -1,59 +1,66 @@
 <main class="container-fluid">
-  <button ng-click="vm.logout()">LOGOUT</button>
-  <h2>Hey <span ng-bind="vm.session.currentUser.name"></span></h2>
-  <div class="col-xs-3">
-    <button type="button" class="primaryButton" data-toggle="modal" data-target="#myModal">Add A Class</button>
-    <h3>Teaching</h3>
-    <ul>
-      <li ng-repeat="class in vm.teaching">
-        <a ui-sref="classInfo({ classId: class.attributes.id})">
-          <h4 ng-bind="class.attributes.class_name" ng-click="vm.getInfo(class)" ui-sref-opts="{reload:true}">
-          </h4>
-        </a>
-      </li>
-    </ul>
-    <h3>Attending</h3>
-    <ul>
-      <li ng-repeat="class in vm.attending"><a ui-sref="classInfo({ classId: class.attributes.id})"><h4 ng-bind="class.attributes.class_name" ng-click="vm.getInfo(class)" ui-sref-opts="{reload:true}"></h4></a></li>
-    </ul>
-  </div>
-  <div class="col-xs-5">
+  <section class="dashboard-section">
+    <div class="row">
+      <div class="col-md-10"><h2>Welcome, <span ng-bind="vm.session.currentUser.name"></span></h2></div>
+      <div class="col-md-2"><button class="secondaryButton" id="logout-button" ng-click="vm.logout()">Logout</button></div>
+    </div>
+    <div class="col-xs-2">
+      <button type="button" class="primaryButton" data-toggle="modal" data-target="#myModal">Add a Class</button>
+      <h3>Teaching</h3>
+      <ul>
+        <li ng-repeat="class in vm.teaching">
+          <a ui-sref="classInfo({ classId: class.attributes.id})">
+            <h4 ng-bind="class.attributes.class_name" ng-click="vm.getInfo(class)" ui-sref-opts="{reload:true}">
+            </h4>
+          </a>
+        </li>
+      </ul>
+      <h3>Attending</h3>
+      <ul>
+        <li ng-repeat="class in vm.attending"><a ui-sref="classInfo({ classId: class.attributes.id})"><h4 ng-bind="class.attributes.class_name" ng-click="vm.getInfo(class)" ui-sref-opts="{reload:true}"></h4></a></li>
+      </ul>
+    </div>
+    <div class="col-xs-8">
 
-    <div ui-view></div>
-  </div>
+      <div ui-view></div>
+    </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Add A Class</h4>
-        </div>
-        <div class="modal-body">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add A Class</h4>
+          </div>
+          <div class="modal-body">
             <form name="myForm" novalidate ng-submit="vm.addClass(myForm)">
               <fieldset class="form-group" ng-class="{'has-error': myForm.name.$invalid && myForm.name.$touched, 'has-success': myForm.name.$valid}">
-              <label class="control-label">Name</label>
-              <input type="text" class="form-control" name="name" ng-model="vm.class.name" required placeholder="Enter the name of your posting.">
-              <div ng-messages="myForm.name.$error" ng-if="myForm.name.$touched">
+                <label class="control-label">Name</label>
+                <input type="text" class="form-control" name="name" ng-model="vm.class.name" required placeholder="Enter the name of your posting.">
+                <div ng-messages="myForm.name.$error" ng-if="myForm.name.$touched">
                   <p ng-message="required" class="control-label">A name is required.</p>
-              </div>
+                </div>
               </fieldset>
               <fieldset class="form-group" ng-class="{'has-error': myForm.description.$invalid && myForm.description.$touched, 'has-success': myForm.description.$valid}">
-              <label class="control-label">Description</label>
-              <input type="text" class="form-control" name="description" ng-model="vm.class.description" required ng-minlength="3" placeholder="Enter the description of the posting.">
-              <div ng-messages="myForm.description.$error" ng-if="myForm.description.$touched">
+                <label class="control-label">Description</label>
+                <input type="text" class="form-control" name="description" ng-model="vm.class.description" required ng-minlength="3" placeholder="Enter the description of the posting.">
+                <div ng-messages="myForm.description.$error" ng-if="myForm.description.$touched">
                   <p ng-message="minlength" class="control-label">Description is too short.</p>
                   <p ng-message="required" class="control-label">Desription is required.</p>
-              </div>
+                </div>
               </fieldset>
               <div class="modal-footer">
-                <button type="button" class="btn" data-dismiss="modal" ng-click="vm.formClose(myForm)">Close</button>
-                <button type="submit" class="btn" data-toggle="modal" data-target="#myModal" ng-disabled="myForm.$invalid">Add Class</button>
+                <!-- <button type="button" class="btn" data-dismiss="modal" ng-click="vm.formClose(myForm)">Close</button>
+                <button type="submit" class="btn" data-toggle="modal" data-target="#myModal" ng-disabled="myForm.$invalid">Add Class</button> -->
+                <!--TODO Fix buttons!  -->
+                <button type="button" class="secondaryButton" data-dismiss="modal" ng-click="vm.formClose(myForm)">Close</button>
+                <button type="submit" class="primaryButton" data-toggle="modal" data-target="#myModal" ng-disabled="myForm.$invalid">Add Class</button>
               </div>
             </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </main>

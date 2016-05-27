@@ -6,11 +6,26 @@ body {
   margin: 0px;
 }
 
+main {
+
+}
+
 section {
   min-height: 100vh;
+  overflow: auto;
   padding: 5px;
   background-color: $background;
   margin: 0px;
+}
+
+.border1 {
+  border: 1px solid black;
+}
+
+.dashboard-section {
+
+  margin: 100px;
+  border-radius: 5px;
 }
 
 header {
@@ -29,6 +44,9 @@ header {
   text-shadow: 0px 2px 5px rgba(0, 0, 0, .5);
 }
 
+#logout-button {
+  margin: 25px 0px 0px 0px;
+}
 .signup-forms {
   margin: 25vh 0px 0px 0px;
 }
@@ -39,6 +57,10 @@ header {
 
 .top-logo {
   margin: 0px 0px 0px -15px;
+}
+
+#classCode {
+  line-height: 0px;
 }
 
 h1 {
@@ -52,6 +74,14 @@ h2 {
 
 h3 {
   font-family: "Montserrat", sans-serif;
+}
+
+h4 {
+  display: inline;
+}
+
+.currentStudents{
+  overflow:auto;
 }
 
 .btn {
@@ -86,6 +116,10 @@ h3 {
 	position:relative;
   text-decoration:none;
 	top:1px;
+}
+.btn:disabled{
+  position:relative;
+  text-decoration:none;
 }
 
 input[type="text"],input[type="email"], input[type="password"]  {
