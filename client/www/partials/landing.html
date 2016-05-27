@@ -1,48 +1,64 @@
 <main class="container-fluid">
-  <div class="row">
-    <aside class="col-md-4 col-md-offset-4">
-      <img src="../img/grasp_logo.png" alt="">
-    </aside>
-  </div>
+  <header>
+    <div class="row top-screen">
 
-  <section class="row">
-    <div class="col-md-5 col-md-offset-1">
-      <form name="loging" ng-submit="vm.loginSubmit()">
-        <ul ng-if="vm.login.errors">
-          <li ng-repeat="error in vm.login.errors" ng-bind="error"></li>
-        </ul>
-        <h1 class="text-center">LogIn</h1>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" placeholder="Email" name="name" ng-model="vm.login.email">
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" placeholder="Password" name="password" ng-model="vm.login.password">
-        </div>
-        <button type="submit" class="btn">Submit</button>
-      </form>
+      <aside class="col-md-4 col-md-offset-4 text-center">
+        <img src="../img/Grasp_Logo1.png" class="top-logo" alt="">
+      </aside>
     </div>
-    <div class="col-md-5 side">
-      <form name="signup" ng-submit="vm.signupSubmit()">
-        <ul ng-if="vm.signup.errors">
-          <li ng-repeat="error in vm.signup.errors" ng-bind="error"></li>
-        </ul>
-        <h1 class="text-center">SignUp</h1>
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" placeholder="Name" name="name" ng-model="vm.signup.name">
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" placeholder="Email" name="email" ng-model="vm.signup.email">
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" placeholder="Password" name="password" ng-model="vm.signup.password">
-        </div>
-        <button type="submit" class="btn">Submit</button>
-      </form>
+
+    <div class="row text-center col-md-12">
+      <h2 id="subtitle">Get a grip on learning.</h2>
+    </div>
+
+    <div class="row text-center col-md-12">
+      <h1><a href="#signup" id="down-arrow"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a></h1>
+    </div>
+
+  </header>
+
+  <section class="row" id="signup">
+    <div class="signup-forms">
+      <div class="col-md-5 col-md-offset-1">
+        <form name="loging" ng-submit="vm.loginSubmit()">
+          <ul ng-if="vm.login.errors">
+            <li ng-repeat="error in vm.login.errors" ng-bind="error"></li>
+          </ul>
+          <!-- <h1 class="text-center">LogIn</h1> -->
+          <h1 class="page-header">Log in</h1>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" placeholder="Email" name="name" ng-model="vm.login.email">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" placeholder="Password" name="password" ng-model="vm.login.password">
+          </div>
+          <button type="submit" class="btn">Submit</button>
+        </form>
+      </div>
+      <div class="col-md-5 side">
+        <form name="signup" ng-submit="vm.signupSubmit()">
+          <ul ng-if="vm.signup.errors">
+            <li ng-repeat="error in vm.signup.errors" ng-bind="error"></li>
+          </ul>
+          <!-- <h1 class="text-center">SignUp</h1> -->
+          <h1 class="page-header">Sign up</h1>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" placeholder="Name" name="name" ng-model="vm.signup.name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" placeholder="Email" name="email" ng-model="vm.signup.email">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" placeholder="Password" name="password" ng-model="vm.signup.password">
+          </div>
+          <button type="submit" class="btn">Submit</button>
+        </form>
+      </div>
     </div>
   </section>
 
