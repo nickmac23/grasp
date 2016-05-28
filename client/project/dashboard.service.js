@@ -28,6 +28,7 @@
     _classes._attending = [];
 
     var _previousPage;
+    var _currentLecture;
 
 
     var dashboardFactory = {
@@ -36,7 +37,13 @@
       addClass: addClass,
       addLecture: addLecture,
       setPreviousPage: setPreviousPage,
-      getPreviousPage: getPreviousPage
+      getPreviousPage: getPreviousPage,
+      startLecture: startLecture,
+      endLecture: endLecture,
+      setCurrentLecture: setCurrentLecture,
+      getCurrentLecture: getCurrentLecture,
+      addParticipant: addParticipant,
+      deleteParticipant: deleteParticipant
     }
 
     return dashboardFactory
@@ -81,13 +88,47 @@
       })
     }
 
-    function setPreviousPage (id){
+    function setPreviousPage (id) {
       _previousPage = id;
       return
     }
 
     function getPreviousPage () {
       return _previousPage
+    }
+
+    function startLecture (url) {
+      return $http.post(url).then(function (res) {
+        return res
+      })
+    }
+
+    function endLecture (url) {
+      var newUrl = API_URL+'/lectures/'+url+'/stop'
+      return $http.post(newUrl).then(function (res){
+        return res
+      })
+    }
+
+    function setCurrentLecture(lecture){
+      _currentLecture = lecture;
+      return
+    }
+
+    function getCurrentLecture(){
+      return _currentLecture;
+    }
+
+    function addParticipant(url, newParticipant){
+      return $http.post(url, newParticipant).then(function(res){
+        return res
+      })
+    }
+
+    function deleteParticipant (url){
+      return $http.delete(url).then(function(res){
+        return res
+      })
     }
 
   }

@@ -11,70 +11,34 @@
       controller: controller,
     }
     function controller ($scope, $rootScope, $state, ChartFactory) {
-      var socket = io.connect('http://Nick-MacBook-Air.local:3000');
+      
       var pieChart = {};
       var lecture_id = $state.params.id;
-      var students = 0;
-      ChartFactory.graphData();
+      var students = [];
+      var g = 0;
+      var d = 0;
+      var u = 0;
 
 
-      socket.on(lecture_id, function (data) {
-        if (data.class) {
+      $scope.$watch(function(){
+        return ChartFactory.graphData
+      },
+      function (newValue) {
+        if (newValue) graph(newValue);
+      }, true);
 
-          console.log(data);
-        } else {
-          switch (data.lastStatus) {
-            case 1:
-                var g = 0
-              break
-            case 2:
-                var u = 0
-              break
-            case 3:
-                var d = 0
-              break
-          }
-          switch (data.status_id) {
-            case 1:
-                var g = 1
-              break
-            case 3:
-                var d = 1
-              break
-          }
-          $rootScope.$emit(lecture_id, data)
+      function graph (tally) {
+        console.log('time****', tally);
+        var time = Object.keys(tally).length
+          var d = tally[time][1]
+          var u = tally[time][2]
+          var g = tally[time][3]
           $scope.vote[0]= { 'c': [ { 'v': 'I dont get it' }, {'v' : d} ] }
           $scope.vote[1] = { 'c': [ { 'v': 'undecided'}, {'v' : u} ] }
           $scope.vote[2] = { 'c': [ { 'v':  'I get it'}, {'v' : g } ] }
-          $scope.$apply()
-        }
-      })
+      }
 
-      ChartFactory.graphData().then( function(data) {
-        var dat = data.students
-        if (!(dat === null)) {
-          var g = 0 ;
-          var u = 0 ;
-          var d = 0 ;
-          for (var user in dat ) {
-            switch (dat[user][dat[user].length - 1].status_id) {
-              case 1:
-                d++
-                break;
-              case 2:
-                u++
-                break;
-              case 3:
-                g++;
-                break;
-            }
-          }
-            $scope.vote[0]= { 'c': [ { 'v': 'I dont get it' }, {'v' : d} ] }
-            $scope.vote[1] = { 'c': [ { 'v': 'undecided'}, {'v' : u} ] }
-            $scope.vote[2] = { 'c': [ { 'v':  'I get it'}, {'v' : g } ] }
-          $rootScope.$emit(lecture_id, data)
-        }
-      })
+      ChartFactory.getGraphData().then( function(data) { console.log('##########', data);})
 
       $scope.$on('$destroy', function (event) {
         socket.removeAllListeners();

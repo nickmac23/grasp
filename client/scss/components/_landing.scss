@@ -3,13 +3,99 @@
 body {
   font-family: 'Source Sans Pro';
   background-image: url('../img/background_black.jpg');
-  margin: 10px;
+  margin: 0px;
 }
 
-.container-fluid {
-  min-height: 80vh;
-  padding: 5px;
+main {
+
+}
+
+section {
+  min-height: 100vh;
+  overflow: auto;
+  padding: 30px;
   background-color: $background;
+  margin: 0px;
+  overflow-x: hidden;
+}
+
+.border1 {
+  border: 1px solid black;
+}
+
+.dashboard-section {
+  margin: 30px;
+  border-radius: 5px;
+}
+
+.names {
+  position: absolute;
+  color: #F49432;
+  font-family: "Montserrat", sans-serif;
+  right: 40px;
+  top: 20px;
+}
+
+header {
+  min-height: 100vh;
+  padding: 5px;
+  background-image: url('../img/background_black.jpg');
+  margin: 0px;
+}
+
+#subtitle {
+  text-shadow: 0px 2px 5px rgba(0, 0, 0, 1);
+  margin: 0px 0px 100px 0px;
+}
+
+#down-arrow {
+  text-shadow: 0px 2px 5px rgba(0, 0, 0, .5);
+}
+
+#logout-button {
+  margin: 25px 0px 0px 0px;
+}
+
+#dontUnderstand{
+  width: 49%;
+  height: 350px;
+  font-size: 50px;
+  text-shadow:0px 2px 0px rgba(0,0,0,.5);
+  font-family: "Montserrat";
+}
+
+#understand{
+  width: 49%;
+  height: 350px;
+  font-size: 50px;
+  text-shadow:0px 2px 0px rgba(0,0,0,.5);
+  font-family: "Montserrat";
+}
+
+#teacherEndLecture {
+  margin: 30px 15px 0px 0px;
+}
+
+.signup-forms {
+  margin: 25vh 0px 0px 0px;
+}
+
+.top-screen {
+  margin: 25vh 0px 0px 0px;
+}
+
+.top-logo {
+  margin: 0px 0px 0px -15px;
+}
+
+#classCode {
+  margin: -10px 0px 20px;
+}
+
+#lecture-name {
+  font-size: 25px;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
 }
 
 h1 {
@@ -23,6 +109,14 @@ h2 {
 
 h3 {
   font-family: "Montserrat", sans-serif;
+}
+
+h4 {
+  display: inline;
+}
+
+.currentStudents{
+  overflow:auto;
 }
 
 .btn {
@@ -58,6 +152,10 @@ h3 {
   text-decoration:none;
 	top:1px;
 }
+.btn:disabled{
+  position:relative;
+  text-decoration:none;
+}
 
 input[type="text"],input[type="email"], input[type="password"]  {
     border: 0;
@@ -74,4 +172,25 @@ input[type="text"]:focus ,input[type="email"]:focus, input[type="password"]:focu
     border-bottom: 2px solid $lightGreen;
     // transform-origin: 294px center 0px;
     transition: ease all 0.4s;
+}
+
+img {
+  height: 300px;
+}
+
+a:link {
+ color: #057965;
+ text-decoration: none;
+}
+a:visited {
+  color: #057965;
+  text-decoration: none;
+}
+a:hover {
+  color: #057965;
+  text-decoration: none;
+}
+a:active {
+  color: #057965;
+  text-decoration: none;
 }

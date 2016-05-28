@@ -1,12 +1,12 @@
-<main class="container-fluid">
-  <div class="col-xs-5 col-xs-offset-4">
+<main class="container-fluid col-lg-12">
+  <section class="dashboard-section">
     <h2>Hey <span ng-bind="vm.session.currentUser.name"></span></h2>
-    <button class="secondaryButton" ng-click='vm.vote(1)'>I dont undestand</button>
-    <br>
-    <button class="primaryButton" ng-click='vm.vote(3)'>Got it!</button>
-    <button class="primaryButton" ui-sref='classInfo({classId: vm.previousPage})'>
+    <button id="dontUnderstand" class="col-lg-6 secondaryButton " ng-click='vm.vote(1)'>I don't understand</button>
+    <button id="understand" class="col-lg-6 primaryButton " ng-click='vm.vote(3)'>Got it!</button>
+
+    <button class="col-lg-2 primaryButton" ui-sref='classInfo({classId: vm.previousPage})'>
       <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
       Dashboard
     </button>
-  </div>
+  </section>
 </main>

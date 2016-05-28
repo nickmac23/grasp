@@ -12,31 +12,25 @@
     }
 
     function controller ($scope, $rootScope, ChartFactory) {
-      var i = 0;
-      var lecture_id = ChartFactory.lecture_id
-      $scope.className = 'class'
 
-      $rootScope.$on(lecture_id, function (event, data) {
-          // var students = Object.keys(data).length
-        var students = data.students
-        var timeStart = new Date(data.lecture_start).getTime();
-        var timeArray =[]
-        var timeData = {};
+      $scope.$watch(function(){
+        return ChartFactory.graphData;
+      },
+      function (newValue) {
+        graph(newValue);
+      }, true);
 
-        for (var user in students ) {
-          for (var i = 0; i < students[user].length; i++) {
-            var dif = (Math.floor((+timeStart - +new Date(students[user][i].created_at).getTime())/6))
-            timeData[dif] = students[user][i].status_id
-          }
-          timeArray.push(timeData)
+      function graph (tally) {
+        areaChart.data.rows = []
+        areaChart.data.rows.push({c: [{v: 0},{v: 0},{v: 100},{v: 0} ] })
+        for (var time in tally) {
+          var total = tally[time]['1'] + tally[time]['2'] + tally[time]['3']
+          var d = tally[time][1]/total * 100
+          var u = tally[time][2]/total * 100
+          var g = tally[time][3]/total * 100
+          areaChart.data.rows.push({c: [{v: time }, {v: d}, {v: u}, {v: g}] })
         }
-        console.log(timeArray);
-        // for (var time in timeData) {
-        //   areaChart.data.rows.push({c: [{v: time }, {v: d}, {v: u}, {v: g}] })
-        //
-        // }
-        areaChart.data.rows.push({c: [{v: time }, {v: timeData[time].d}, {v: timeData[time].u}, {v: timeData[time].g}] })
-      })
+      }
 
       var areaChart = {};
       areaChart.type = "AreaChart";
@@ -44,7 +38,6 @@
       areaChart.data = {};
       areaChart.data.rows = []
 
-      areaChart.data.rows.push({c: [{v: "Lecture start"},{v: 0},{v: 100},{v: 0} ] })
 
       areaChart.data.cols = [
           {id: "month",label: "Month",type: "string"},
@@ -70,9 +63,10 @@
         }
       };
       $scope.areaChart = areaChart;
-
     }
   }
+
+
 
 
 }());

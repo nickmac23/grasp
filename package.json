@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./server/bin/www"
+    "start": "node ./server/bin/www",
+    "test": "mocha"
   },
   "dependencies": {
     "babel-cli": "^6.9.0",
@@ -20,5 +21,9 @@
     "pg": "^4.5.5",
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.4.6"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3"
   }
 }

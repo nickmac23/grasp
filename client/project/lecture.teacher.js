@@ -16,11 +16,20 @@
 
       lectureTeacherController.$inject = [
         '$log',
-        '$state'
+        '$state',
+        'dashboardService'
       ];
 
-      function lectureTeacherController($log, $state) {
+      function lectureTeacherController($log, $state, dashboardService) {
         var vm = this;
+        vm.endLecture = endLecture;
+        vm.currentLecture = dashboardService.getCurrentLecture();
+
+        function endLecture () {
+          // dashboardService.endLecture(vm.currentLecture.links.stop);
+          dashboardService.endLecture($state.params.id);
+          $state.go('dashboard');
+        }
 
       }
 
