@@ -37,8 +37,7 @@
         }
 
         function classCodeSubmit () {
-          console.log('class code', vm.classCode);
-          vm.frm = {}
+            vm.frm = {}
           $state.go('student');
         }
 
@@ -55,21 +54,6 @@
             $state.go('dashboard');
           })
         }
-
-
-        // window.scrollTo({ 0, 0, behavior });
-
-        // var scrollDown = document.querySelector('#scroll-button');
-        // var Destination = document.querySelector('#signup');
-        //
-        // // This function can easily be an onClick handler in React components
-        // var handleClick = function(event) {
-        //   event.preventDefault();
-        //
-        //   smoothScroll(Destination);
-        // };
-        //
-        // scrollDown.addEventListener('click', handleClick);
 
       }
 

@@ -26,7 +26,7 @@
         var vm = this;
         vm.info = {};
         vm.session = authService.session;
-        vm.getInfo = getInfo;
+        vm.getLectures = getLectures;
         vm.addClass = addClass;
         vm.formClose = formClose;
         vm.addLecture = addLecture;
@@ -45,7 +45,7 @@
             for (var i = 0; i < res._teaching.length; i++) {
               if(+res._teaching[i].attributes.id === +$state.params.classId) {
                 vm.currentClass = res._teaching[i];
-                return getInfo(res._teaching[i]);
+                return getLectures(res._teaching[i]);
               }
             }
           }
@@ -53,15 +53,16 @@
             for (var i = 0; i < res._attending.length; i++) {
               if(+res._attending[i].attributes.id === +$state.params.classId) {
                 vm.currentClass = res._attending[i];
-                return getInfo(res._attending[i]);
+                return getLectures(res._attending[i]);
               }
             }
           }
         })
 
-        function getInfo (currentClass){
+        function getLectures (currentClass){
           vm.currentClass = currentClass;
-          return dashboardService.getClassInfo(currentClass.links.summary)
+          // console.log(currentClass);
+          return dashboardService.getLectures(currentClass.links.summary)
           .then(function(res) {
             vm.links = res.links;
             vm.info = res.attributes;
