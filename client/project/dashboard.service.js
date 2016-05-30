@@ -33,7 +33,7 @@
 
     var dashboardFactory = {
       getClasses: getClasses,
-      getClassInfo: getClassInfo,
+      getLectures: getLectures,
       addClass: addClass,
       addLecture: addLecture,
       setPreviousPage: setPreviousPage,
@@ -65,8 +65,12 @@
         })
     }
 
-    function getClassInfo (url) {
+//get lectures
+    function getLectures (url) {
       return $http.get(url).then(function (res) {
+        console.log('back in service');
+        console.log(_classes);
+        console.log(res.data);
         return res.data
       })
     }
