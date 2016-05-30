@@ -26,7 +26,6 @@
         vm.currentLecture = dashboardService.getCurrentLecture();
 
         function endLecture () {
-          // dashboardService.endLecture(vm.currentLecture.links.stop);
           dashboardService.endLecture($state.params.id);
           $state.go('dashboard');
         }

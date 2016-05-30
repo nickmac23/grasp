@@ -23,16 +23,16 @@
         loggedOutOnly: true
       })
       .state('student', {
-        url: '/lecture/:id',
+        url: '/lectures/:lectureId/students',
         template: "<lecture-student></lecture-student>",
         resolve: {
           user: getMe
         }
       })
       .state('teacher', {
-        url: '/teacher/:id',
+        url: '/lectures/:lectureId/instructor',
         template: "<lecture-teacher></lecture-teacher>",
-        // loggedInOnly: true
+        // instructorOnly: true
       })
       .state('dashboard', {
         url: '/dashboard',

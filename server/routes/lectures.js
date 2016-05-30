@@ -118,4 +118,20 @@ router.post('/:id/stop', function (req, res, next) {
   })
 });
 
+router.get('/:id', function(req, res, next){
+  var toReturn = {};
+  knex('lectures')
+    .where({'id': req.params.id})
+    .first()
+    .then(function(lecture){
+      toReturn.attributes = lecture;
+      toReturn.links = {
+          post: req.v1ApiURL + "/lectures/" + lecture.id + "/start",
+          stop: req.v1ApiURL + "/lectures/" + lecture.id + "/stop",
+          understandings: req.v1ApiURL + "/lectures/" + lecture.id + "/understandings",
+      }
+      res.json(toReturn)
+    })
+})
+
 module.exports = router;
