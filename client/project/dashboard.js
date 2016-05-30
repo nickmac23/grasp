@@ -61,11 +61,11 @@
 
         function getLectures (currentClass){
           vm.currentClass = currentClass;
-          // console.log(currentClass);
-          return dashboardService.getLectures(currentClass.links.summary)
-          .then(function(res) {
-            vm.links = res.links;
-            vm.info = res.attributes;
+          return dashboardService.getLectures(currentClass.attributes.id, currentClass.links.summary)
+          .then(function(currentClass) {
+            vm.currentClass = currentClass
+            vm.links = currentClass.attributes.lectures.links;
+            vm.info = currentClass.attributes.lectures.attributes;
             return
           })
         }
@@ -114,9 +114,11 @@
         }
 
         function startLecture(lecture){
-          dashboardService.startLecture(lecture.links.start);
-          dashboardService.setCurrentLecture(lecture);
-          $state.go('teacher', {id: lecture.attributes.lecture_id});
+          // dashboardService.startLecture(lecture.links.start);
+          dashboardService.setCurrentLecture(lecture.attributes.lecture_id);
+          console.log('directive. current lecture',lecture.attributes.lecture_id);
+
+          $state.go('teacher', {lectureId: lecture.attributes.lecture_id});
         }
 
         function addParticipant(form){

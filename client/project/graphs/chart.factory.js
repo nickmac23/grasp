@@ -47,7 +47,7 @@
   }
 
   function createTally (data) {
-    console.log(data);
+    // console.log(data);
     var students = Object.keys(data).length
     var students = data.students
     var timeStart = new Date(data.lecture_start);
@@ -107,7 +107,7 @@
     // } else {
     //   tally['now'] = tally[Object.keys(tally).length]
     // }
-    console.log('ta', tally);
+    // console.log('ta', tally);
 
     return tally
   }

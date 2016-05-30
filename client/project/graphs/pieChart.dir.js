@@ -11,7 +11,7 @@
       controller: controller,
     }
     function controller ($scope, $rootScope, $state, ChartFactory) {
-      
+
       var pieChart = {};
       var lecture_id = $state.params.id;
       var students = [];
@@ -28,7 +28,7 @@
       }, true);
 
       function graph (tally) {
-        console.log('time****', tally);
+        // console.log('time****', tally);
         var time = Object.keys(tally).length
           var d = tally[time][1]
           var u = tally[time][2]

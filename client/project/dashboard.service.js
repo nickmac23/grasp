@@ -65,13 +65,20 @@
         })
     }
 
-//get lectures
-    function getLectures (url) {
+    function getLectures (classId, url) {
       return $http.get(url).then(function (res) {
-        console.log('back in service');
-        console.log(_classes);
-        console.log(res.data);
-        return res.data
+        for (var i = 0; i < _classes._teaching.length; i++) {
+          if (_classes._teaching[i].attributes.id == classId) {
+          _classes._teaching[i].attributes.lectures = res.data;
+          return   _classes._teaching[i]
+          }
+        }
+        for (var i = 0; i < _classes._attending.length; i++) {
+          if (_classes._attending[i].attributes.id == classId){
+            _classes._attending[i].attributes.lectures = res.data;
+            return _classes._attending[i]
+          }
+        }
       })
     }
 
@@ -108,18 +115,43 @@
     }
 
     function endLecture (url) {
-      var newUrl = API_URL+'/lectures/'+url+'/stop'
+      var newUrl = API_URL + '/lectures/'+ url +'/stop'
       return $http.post(newUrl).then(function (res){
         return res
       })
     }
 
-    function setCurrentLecture(lecture){
-      _currentLecture = lecture;
-      return
+    function setCurrentLecture(lectureId){
+      // for (var i = 0; i < _classes._teaching.length; i++) {
+      //   if (_classes._teaching[i].attributes.id == nowClass.attributes.id) {
+      //     var currentClass = _classes._teaching[i].attributes.lectures.attributes
+      //     for (var j = 0; j < currentClass.lectures.length; j++) {
+      //       if (currentClass.lectures[j].attributes.lecture_id ==  lecture.attributes.lecture_id) {
+      //       return _currentLecture =  currentClass.lectures[j]
+      //       }
+      //     }
+      //
+      //   }
+      // }
+      // for (var x = 0; x < _classes._attending.length; x++) {
+      //   if (_classes._attending[x].attributes.id == nowClass.attributes.id){
+      //     var currentClass = _classes._attending[x].attributes
+      //     for (var y = 0; y < currentClass.lectures.length; y++) {
+      //       if (currentClass.lectures[y].attributes.lecture_id ==  lecture.attributes.lecture_id) {
+      //       return _currentLecture =  currentClass.lectures[y]
+      //       }
+      //     }
+      //   }
+      // }
+
+      //user new end point for finding specific lecture
+      var newUrl = API_URL + '/lectures/'+ lectureId
+      $http.get(newUrl).then(function (res){
+        return _currentLecture = res.data;
+      })
     }
 
-    function getCurrentLecture(){
+    function getCurrentLecture() {
       return _currentLecture;
     }
 
