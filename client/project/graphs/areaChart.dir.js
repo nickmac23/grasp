@@ -19,24 +19,10 @@
       function (newValue) {
         graph(newValue);
       }, true);
-      $scope.$on(2, function ( data){
-        console.log('i amd from socket', data);
-      })
-      // $scope.$watch(
-      //   // This function returns the value being watched. It is called for each turn of the $digest loop
-      //   function() { return ChartFactory.graphData; },
-      //   // This is the change listener, called when the value returned from the above function changes
-      //   function(newValue, oldValue) {
-      //     if ( newValue !== oldValue ) {
-      //       // Only increment the counter if the value changed
-      //       graph(ChartFactory.graphData);
-      //       console.log("Graph reloaded");
-      //     }
-      //   }
-      // );
 
       function graph (tally) {
         areaChart.data.rows = []
+        areaChart.data.rows.push({c: [{v: 0},{v: 0},{v: 100},{v: 0} ] })
         for (var time in tally) {
           var total = tally[time]['1'] + tally[time]['2'] + tally[time]['3']
           var d = tally[time][1]/total * 100
@@ -52,7 +38,6 @@
       areaChart.data = {};
       areaChart.data.rows = []
 
-      areaChart.data.rows.push({c: [{v: "Lecture start"},{v: 0},{v: 100},{v: 0} ] })
 
       areaChart.data.cols = [
           {id: "month",label: "Month",type: "string"},

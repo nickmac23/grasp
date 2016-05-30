@@ -171,17 +171,18 @@ router.post('/:id/participants', isInstructor, function (req, res, next) {
       return Promise.reject("This user is already participating in the class.")
     }else{
       return knex('participants')
-              .insert({ user_id: personToAdd.id, class_id: req.params.id, instructor: !!req.body.instructor })
+              .insert({ user_id: personToAdd.id, class_id: req.params.id, instructor: req.body.instructor })
               .returning('*');
     }
   }).then(function (newParticipant) {
     newParticipant = newParticipant[0];
     result = {
       attributes: {email: req.body.email,
-                  name: req.body.name
+                  name: req.body.name,
+                  user_id: newParticipant.user_id
                 },
       links: {
-        delete: req.v1ApiURL + '/'+req.params.id+'/participants/'+newParticipant.id
+        delete: req.v1ApiURL + '/classes/'+req.params.id+'/participants/'+newParticipant.id
       }
     }
     res.json(result)
@@ -202,6 +203,7 @@ router.delete('/:id/participants/:participantId', isInstructor, function(req,res
             .del()
             .returning('*')
   }).then(function (participant) {
+    console.log('IN DELETE',participant);
     toReturn = {
       attributes: participant,
     }
@@ -244,7 +246,9 @@ router.post('/:id/lectures', isInstructor, function (req, res, next) {
     delete newLecture.class_id;
     delete newLecture.instructor_id;
     toReturn.links = {
-      understandings: req.v1ApiURL + '/lectures/' + newLecture.lecture_id + '/understandings'
+      understandings: req.v1ApiURL + '/lectures/' + newLecture.lecture_id + '/understandings',
+      start: req.v1ApiURL + '/lectures/' + newLecture.lecture_id + '/start',
+      stop: req.v1ApiURL + '/lectures/' + newLecture.lecture_id + '/stop'
     }
     toReturn.attributes = newLecture
     res.json(toReturn);

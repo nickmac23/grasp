@@ -8,15 +8,16 @@
 
   function factory ($rootScope, $location, $state, $http, API_URL) {
     $rootScope.$on( "$stateChangeSuccess", function(event, next, current) {
-      ///Nick- do you mean $state.params ... ?
-      // console.log('chart.factory', $route.current.params);
     })
-    var socket = io.connect('http://Nick-MacBook-Air.local:3000');
 
-    console.log(socket);
+    var url = (window.location.origin === "http://localhost:5000") ? 'http://localhost:3000' : 'https://panic-button-g20.herokuapp.com'
+    var socket = io.connect(url);
+
     socket.on($state.params.id, function (data) {
-      service.dataCache.students[data.user_id].push(data)
-      service.graphData = createTally(service.dataCache);
+      if (!service.dataCache.students[data.user_id]) service.dataCache.students[data.user_id] = []
+        service.dataCache.students[data.user_id].push(data)
+        service.graphData = createTally(service.dataCache);
+        $rootScope.$apply()
     })
 
     var service = {
@@ -28,6 +29,9 @@
     }
     return service
     function getGraphData () {
+
+      if(service.graphData) return service.graphData;
+
       return $http.get(API_URL + '/lectures/'+service.lecture_id+'/understandings')
       .then( function (res) {
         service.lecture_start = res.data.lecture_start;
@@ -42,17 +46,69 @@
     });
   }
 
-  // function createTally (data) {
-  //   var functionStart = Date.now();
-  //   var students = Object.keys(data).length
-  //   var students = data.students
-  //   var timeStart = new Date(data.lecture_start);
-  //   var timeEnd = data.lecture_end
-  //   var lastDif = timeEnd === null ? new Date(Date.now()) : '...';
-  //   var timeArray =[]
-  //   var timeData = {};
-  //   var tally = {};
-  //   var highestDif = 0;
+
+function createTally (data) {
+  var functionStart = Date.now();
+  var students = Object.keys(data).length
+  var students = data.students
+  var timeStart = new Date(data.lecture_start);
+  var timeEnd = data.lecture_end
+  var lastDif = timeEnd === null ? new Date(Date.now()) : '...';
+  var timeArray =[]
+  var timeData = {};
+  var tally = {};
+  var highestDif = 0;
+  for (var user in students ) {
+    for (var i = 0; i < students[user].length; i++) {
+      var dif = (Math.floor((new Date(students[user][i].created_at) - timeStart)/10000)) +1
+      highestDif = highestDif < dif ? dif : highestDif;
+    }
+  }
+  for (var user in students ) {
+    var oldDif = 1;
+    for (var i = 0; i < students[user].length; i++) {
+      var dif = (Math.floor((new Date(students[user][i].created_at) - timeStart)/10000)) +1
+      timeData[dif] = students[user][i].status_id
+      if(dif - oldDif > 0){
+        for(var j = oldDif; j < dif; j++){
+          if(tally[j]){
+            tally[j][timeData[oldDif]]++;
+          }else{
+            tally[j] = {1:0, 2:0, 3:0}
+            tally[j][timeData[oldDif]]++;
+          }
+        }
+        oldDif = dif;
+      }
+    }
+
+    for (var k = dif; k <= highestDif; k++) {
+      if(tally[k]){
+        tally[k][timeData[oldDif]]++;
+      }else{
+        tally[k] = {1:0, 2:0, 3:0}
+        tally[k][timeData[oldDif]]++;
+      }
+    }
+
+    highestDif = highestDif <= dif ? dif : highestDif;
+    //
+    //   }
+    //   if (lastDif === '...') {
+    //     tally["..."] = tally[Object.keys(tally).length];
+    //      tally["end of lecture"] = tally["..."]
+    //   } else {
+    //     tally['now'] = tally[Object.keys(tally).length]
+    //   }
+    //   console.log('ta', tally);
+    //   console.log( "Graphing took: ", Date.now() - functionStart, " milliseconds");
+    //   return tally
+    // }
+  }
+}
+
+
+
   //   for (var user in students ) {
   //     var oldDif = 1;
   //     for (var i = 0; i < students[user].length; i++) {
@@ -78,27 +134,7 @@
   //     //   tally[dif][timeData[dif]]++;
   //     // }
   //
-  //     highestDif = highestDif <= dif ? dif : highestDif;
   //
-  //     for (var k = dif; k < highestDif; k++) {
-  //       if(tally[k]){
-  //         tally[k][timeData[oldDif]]++;
-  //       }else{
-  //         tally[k] = tally[k-1];
-  //       }
-  //     }
-  //
-  //   }
-  //   if (lastDif === '...') {
-  //     tally["..."] = tally[Object.keys(tally).length];
-  //      tally["end of lecture"] = tally["..."]
-  //   } else {
-  //     tally['now'] = tally[Object.keys(tally).length]
-  //   }
-  //   console.log('ta', tally);
-  //   console.log( "Graphing took: ", Date.now() - functionStart, " milliseconds");
-  //   return tally
-  // }
 
   function createTally(data) {
     var functionStart = Date.now();
