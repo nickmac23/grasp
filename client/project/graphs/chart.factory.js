@@ -43,6 +43,7 @@
   }
 
   // function createTally (data) {
+  //   var functionStart = Date.now();
   //   var students = Object.keys(data).length
   //   var students = data.students
   //   var timeStart = new Date(data.lecture_start);
@@ -88,31 +89,33 @@
   //     }
   //
   //   }
-    // if (lastDif === '...') {
-    //   tally["..."] = tally[Object.keys(tally).length];
-    //    tally["end of lecture"] = tally["..."]
-    // } else {
-    //   tally['now'] = tally[Object.keys(tally).length]
-    // }
+  //   if (lastDif === '...') {
+  //     tally["..."] = tally[Object.keys(tally).length];
+  //      tally["end of lecture"] = tally["..."]
+  //   } else {
+  //     tally['now'] = tally[Object.keys(tally).length]
+  //   }
   //   console.log('ta', tally);
-  //
+  //   console.log( "Graphing took: ", Date.now() - functionStart, " milliseconds");
   //   return tally
   // }
 
   function createTally(data) {
+    var functionStart = Date.now();
     var students = Object.keys(data).length
-    console.log(data);
+    //console.log(data);
     var students = data.students
     data.lecture_end = null;
     var timeStart = new Date(data.lecture_start);
     var timeEnd = data.lecture_end ? new Date(data.lecture_end) : new Date(Date.now());
     // var timeEnd = new Date(data.lecture_end) || new Date(Date.now());
-    var POINTS_ON_GRAPH = 100;
-    var tally = {}
-
     var timeChangeInMilliseconds = (timeEnd.getTime() - timeStart.getTime());
 
-    console.log( "TimeChangeInMilliseconds: ", timeChangeInMilliseconds);
+    var POINTS_ON_GRAPH = timeChangeInMilliseconds / 6000;
+    var tally = {}
+
+
+    //console.log( "TimeChangeInMilliseconds: ", timeChangeInMilliseconds);
 
     // Determine graph interval
     var interval = timeChangeInMilliseconds / POINTS_ON_GRAPH;
@@ -122,7 +125,7 @@
       tally[i] = {1:0, 2:0, 3:0};
     }
 
-    console.log("Initial tally", tally);
+    //console.log("Initial tally", tally);
 
     for (var studentId in students) {
       var student = students[studentId];
@@ -137,32 +140,32 @@
           var status = student[i];
 
           var created_at = new Date(status.created_at);
-          console.log('bucketTime: ', bucketTime);
-          console.log('created_at: ', created_at);
-          console.log('bucketTime - created_at', (bucketTime - created_at).toString());
+          // console.log('bucketTime: ', bucketTime);
+          // console.log('created_at: ', created_at);
+          // console.log('bucketTime - created_at', (bucketTime - created_at).toString());
 
           if (created_at.getTime() < bucketTime.getTime()){
-            console.log('Setting Prev Status: ', status);
+            //console.log('Setting Prev Status: ', status);
             previousStatus = status;
             continue;
           }else{
-            // console.log(previousStatus);
             bucket[previousStatus.status_id]++;
             previousStatus = null;
             break;
           }
-          console.log("created_at < bucketTime: ", created_at < bucketTime);
+          // console.log("created_at < bucketTime: ", created_at < bucketTime);
         }
 
         if (previousStatus) {
           bucket[previousStatus.status_id]++;
         }
 
-        console.log('Bucket', bucket);
+        //console.log('Bucket', bucket);
       }
     }
 
     console.log("***** Final Tally ", tally);
+    console.log( "Graphing took: ", Date.now() - functionStart, " milliseconds");
 
     return tally;
 
@@ -170,7 +173,7 @@
 
 
   function convertToMinutes(milliseconds){
-    console.log(milliseconds);
+    //console.log(milliseconds);
     return (((milliseconds) / 1000) / 60);
   }
 }());
