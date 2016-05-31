@@ -34,10 +34,33 @@
         template: "<lecture-teacher></lecture-teacher>",
         // instructorOnly: true
       })
+      .state('app', {
+        abstract: true,
+        template: "<dashboard></dashboard>"
+      })
       .state('dashboard', {
         url: '/dashboard',
-        template: "<dashboard></dashboard>",
+        parent: 'app',
+        templateUrl: "partials/dashboard.main.html",
         loggedInOnly: true,
+        resolve: {
+          user: getMe
+        }
+      })
+      .state('teaching', {
+        url: '/dashboard/teaching',
+        templateUrl: "partials/dashboard.attending.html",
+        loggedInOnly: true,
+        parent: 'app',
+        resolve: {
+          user: getMe
+        }
+      })
+      .state('attending', {
+        url: '/dashboard/attending',
+        templateUrl: "partials/dashboard.teaching.html",
+        loggedInOnly: true,
+        parent: 'app',
         resolve: {
           user: getMe
         }
@@ -46,7 +69,7 @@
         url: '/:classId',
         templateUrl: "partials/dashboard.info.html",
         loggedInOnly: true,
-        parent: 'dashboard',
+        parent: 'app',
         resolve: {
           user: getMe
         }

@@ -1,6 +1,26 @@
 <main class="container-fluid">
   <section class="dashboard-section">
-    <div class="col-md-2">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <ul class="nav navbar-nav">
+            <li ng-class="{ activepath: isActive('/dashboard')}">
+              <a ui-sref="dashboard">Dashboard</a>
+            </li>
+            <li ng-class="{ activepath: isActive('/dashboard/teaching')}">
+              <a ui-sref="teaching">Teaching</a>
+            </li>
+            <li ng-class="{ activepath: isActive('/dashboard/attending')}">
+              <a ui-sref="attending">Attending</a>
+            </li>
+          </ul>
+        </div>
+          <button class="secondaryButton col-md-1" id="logout-button" ng-click="vm.logout()">Logout</button>
+          <h4>Welcome, <span ng-bind="vm.session.currentUser.name"></span></h4>
+      </div>
+    </nav>
+  
+    <!-- <div class="col-md-2">
       <h3>Teaching</h3>
       <ul>
         <li ng-repeat="class in vm.teaching">
@@ -15,14 +35,14 @@
       <ul>
         <li ng-repeat="class in vm.attending"><a ui-sref="classInfo({ classId: class.attributes.id})"><h4 ng-bind="class.attributes.class_name" ng-click="vm.getLectures(class)" ui-sref-opts="{reload:true}"></h4></a></li>
       </ul>
-    </div>
+    </div> -->
     <div class="col-md-8">
       <div ui-view></div>
     </div>
-    <div class="col-md-2 text-center">
+    <!-- <div class="col-md-2 text-center">
       <h3>Welcome, <span ng-bind="vm.session.currentUser.name"></span></h3>
       <button class="secondaryButton col-md-12" id="logout-button" ng-click="vm.logout()">Logout</button>
-    </div>
+    </div> -->
 
 
     <!-- Modal -->
