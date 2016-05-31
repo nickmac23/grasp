@@ -1,0 +1,13 @@
+<div class="col-md-2">
+  <h3>Teaching</h3>
+  <ul>
+    <li ng-repeat="class in vm.teaching">
+      <a ui-sref="classInfo({ classId: class.attributes.id})">
+        <h4 ng-bind="class.attributes.class_name" ng-click="vm.getLectures(class)" ui-sref-opts="{reload:true}">
+        </h4>
+      </a>
+    </li>
+  </ul>
+  
+  <div ui-view></div>
+</div>
