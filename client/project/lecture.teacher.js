@@ -23,6 +23,7 @@
       function lectureTeacherController($log, $state, dashboardService) {
         var vm = this;
         vm.endLecture = endLecture;
+        vm.previousPage = dashboardService.getPreviousPage();
 
         dashboardService.currentLecture($state.params.lectureId).then(function(res){
           vm.currentLecture = res;

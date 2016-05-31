@@ -1,6 +1,10 @@
 <main class="container-fluid">
   <section class="dashboard-section">
   <h2 ng-bind="vm.currentLecture.attributes.name"></h2>
+  <button class="col-lg-2 primaryButton" ui-sref='teachingLectures({classId: vm.previousPage})'>
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    Dashboard
+  </button>
 
     <div class="col-md-12">
       <pie-chart></pie-chart>
