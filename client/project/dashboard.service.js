@@ -28,7 +28,7 @@
     _classes._attending = [];
 
     var _previousPage;
-    var _currentLecture;
+    // var _currentLecture;
 
 
     var dashboardFactory = {
@@ -40,8 +40,7 @@
       getPreviousPage: getPreviousPage,
       startLecture: startLecture,
       endLecture: endLecture,
-      setCurrentLecture: setCurrentLecture,
-      getCurrentLecture: getCurrentLecture,
+      currentLecture: currentLecture,
       addParticipant: addParticipant,
       deleteParticipant: deleteParticipant
     }
@@ -121,38 +120,11 @@
       })
     }
 
-    function setCurrentLecture(lectureId){
-      // for (var i = 0; i < _classes._teaching.length; i++) {
-      //   if (_classes._teaching[i].attributes.id == nowClass.attributes.id) {
-      //     var currentClass = _classes._teaching[i].attributes.lectures.attributes
-      //     for (var j = 0; j < currentClass.lectures.length; j++) {
-      //       if (currentClass.lectures[j].attributes.lecture_id ==  lecture.attributes.lecture_id) {
-      //       return _currentLecture =  currentClass.lectures[j]
-      //       }
-      //     }
-      //
-      //   }
-      // }
-      // for (var x = 0; x < _classes._attending.length; x++) {
-      //   if (_classes._attending[x].attributes.id == nowClass.attributes.id){
-      //     var currentClass = _classes._attending[x].attributes
-      //     for (var y = 0; y < currentClass.lectures.length; y++) {
-      //       if (currentClass.lectures[y].attributes.lecture_id ==  lecture.attributes.lecture_id) {
-      //       return _currentLecture =  currentClass.lectures[y]
-      //       }
-      //     }
-      //   }
-      // }
-
-      //user new end point for finding specific lecture
+    function currentLecture(lectureId){
       var newUrl = API_URL + '/lectures/'+ lectureId
-      $http.get(newUrl).then(function (res){
-        return _currentLecture = res.data;
+      return $http.get(newUrl).then(function (res){
+        return res.data;
       })
-    }
-
-    function getCurrentLecture() {
-      return _currentLecture;
     }
 
     function addParticipant(url, newParticipant){

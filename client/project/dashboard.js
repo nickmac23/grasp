@@ -113,11 +113,10 @@
           return
         }
 
+//create a button for teacher to go to ended lecture and see the old data
+//maybe add another view to dashboard
         function startLecture(lecture){
-          // dashboardService.startLecture(lecture.links.start);
-          dashboardService.setCurrentLecture(lecture.attributes.lecture_id);
-          console.log('directive. current lecture',lecture.attributes.lecture_id);
-
+          dashboardService.startLecture(lecture.links.start);
           $state.go('teacher', {lectureId: lecture.attributes.lecture_id});
         }
 
