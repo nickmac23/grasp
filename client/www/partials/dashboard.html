@@ -4,14 +4,14 @@
       <div class="container-fluid">
         <div class="navbar-header">
           <ul class="nav navbar-nav">
-            <li ng-class="{ activepath: isActive('/dashboard')}">
-              <a ui-sref="dashboard"><h4>Dashboard</h4></a>
+            <li ui-sref-active="active" class="col-md-4">
+              <a ui-sref="dashboard" ui-sref-opts="{reload:true}"><h4>Dashboard</h4></a>
             </li>
-            <li ng-class="{ activepath: isActive('/dashboard/teaching')}">
-              <a ui-sref="teaching"><h4>Teaching</h4></a>
+            <li ui-sref-active="active" class="col-md-4">
+              <a ui-sref="teaching" ui-sref-opts="{reload:true}"><h4>Teaching</h4></a>
             </li>
-            <li ng-class="{ activepath: isActive('/dashboard/attending')}">
-              <a ui-sref="attending"><h4>Attending</h4></a>
+            <li ui-sref-active="active" class="col-md-4">
+              <a ui-sref="attending" ui-sref-opts="{reload:true}"><h4>Attending</h4></a>
             </li>
           </ul>
         </div>
