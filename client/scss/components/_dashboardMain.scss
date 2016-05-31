@@ -7,3 +7,11 @@
 .active {
 border-bottom: 2px solid $lightGreen;
 }
+
+.nav-text {
+  color: $lightGreen;
+}
+
+.nav > li > a:hover{
+    background-color: $background;
+}
