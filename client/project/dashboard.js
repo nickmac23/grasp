@@ -35,7 +35,6 @@
         vm.previousPage;
         vm.logout = logout;
         vm.setPreviousPage = setPreviousPage;
-        vm.getPreviousPage = getPreviousPage;
         vm.startLecture = startLecture;
         vm.addParticipant = addParticipant;
         vm.deleteParticipant = deleteParticipant;
@@ -87,11 +86,8 @@
 /// fixed this previousPage problem!!!
         function setPreviousPage(classId){
           vm.previousPage = classId ;
+          dashboardService.setPreviousPage(classId);
           return
-        }
-
-        function getPreviousPage(){
-          return vm.previousPage;
         }
 
         function addLecture (form) {
