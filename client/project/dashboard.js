@@ -114,9 +114,14 @@
           return
         }
 
-        function startLecture(lecture){
-          dashboardService.startLecture(lecture.links.start);
-          $state.go('teacher', {lectureId: lecture.attributes.lecture_id});
+        function startLecture(lecture, lectureId){
+          setPreviousPage(lectureId)
+          dashboardService.startLecture(lecture.links.start)
+          .then(function (res){
+            if(res.status === 200){
+              $state.go('teacher', {lectureId: lecture.attributes.lecture_id});
+            }
+          })
         }
 
         function addParticipant(form){

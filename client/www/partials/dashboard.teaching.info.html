@@ -19,7 +19,7 @@
     <p ng-bind="lecture.attributes.created_at | amCalendar"></p>
 
 
-    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null && !lecture.attributes.is_active" ng-click="vm.startLecture(lecture)" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})" class="primaryButton" ng-click="vm.setPreviousPage(vm.currentClass.attributes.id)">
+    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null && !lecture.attributes.is_active" ng-click="vm.startLecture(lecture, vm.currentClass.attributes.id)" class="primaryButton" >
       Start Lecture
     </button>
 
