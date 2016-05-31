@@ -8,6 +8,14 @@
 border-bottom: 2px solid $lightGreen;
 }
 
+.navbar-header {
+  width:70%;
+}
+
+.navbar-nav>li>a {
+  width: 300px;
+}
+
 .nav-text {
   color: $lightGreen;
 }
