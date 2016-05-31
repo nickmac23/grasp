@@ -68,6 +68,7 @@ router.post('/login', function(req, res, next) {
 
 
 router.get('/me', function(req, res, next){
+  console.log('in server USER', req.user);
   if (req.user) {
     res.json(req.user);
   }else{

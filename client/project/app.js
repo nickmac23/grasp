@@ -34,10 +34,11 @@
          event.preventDefault();
          $state.go('dashboard');
        }
-      //  if($window.localStorage.getItem('token') && state.instructorOnly){
-      //    event.preventDefault();
-      //    $state.go('dashboard');
-      //  }
+       if($window.localStorage.getItem('token') && state.instructorOnly){
+         console.log('interceptor- instructorOnly///////////////');
+         event.preventDefault();
+         $state.go('dashboard');
+       }
      })
    }
 })();
