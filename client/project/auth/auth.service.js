@@ -50,7 +50,9 @@
       return AUTH_ENDPOINTS.then(function(AUTH_ENDPOINTS){
         AUTH_ENDPOINTS = AUTH_ENDPOINTS.data;
         return $http.get(AUTH_ENDPOINTS.me).then(function(res){
+          console.log('in me endoint',res);
           authFactory.session.currentUser = Object.keys(res.data).length > 0 ? res.data : null;
+          console.log('in me in factory', authFactory.session.currentUser );
           return Promise.resolve(authFactory.session);
         }).catch(function (err){
           return Promise.reject(err);

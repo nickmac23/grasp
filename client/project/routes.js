@@ -32,7 +32,8 @@
       .state('teacher', {
         url: '/lectures/:lectureId/instructor',
         template: "<lecture-teacher></lecture-teacher>",
-        // instructorOnly: true
+        loggedInOnly: true,
+        instructorOnly: true,
       })
       .state('app', {
         abstract: true,
