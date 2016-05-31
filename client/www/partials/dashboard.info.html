@@ -21,10 +21,11 @@
 
     <button ng-show="lecture.attributes.is_active && !vm.currentClass.attributes.instructor" ui-sref="student({id:lecture.attributes.lecture_id})" ng-click="vm.setPreviousPage(vm.currentClass.attributes.id)">Join Lecture</button>
 
-    <button ng-show="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null" ng-click="vm.startLecture(lecture)">
-      <span ng-hide="lecture.attributes.is_active">Start </span>
-      <span ng-show="lecture.attributes.is_active">Enter Started </span>
-      Lecture
+    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null && !lecture.attributes.is_active" ng-click="vm.startLecture(lecture)" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})">
+      Start Lecture
+    </button>
+    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null && lecture.attributes.is_active" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})">
+      Enter started lecture
     </button>
     <p ng-show="lecture.attributes.ended_at !== null">This lecture has ended.</p>
   </div>

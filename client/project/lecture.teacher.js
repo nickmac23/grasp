@@ -23,10 +23,14 @@
       function lectureTeacherController($log, $state, dashboardService) {
         var vm = this;
         vm.endLecture = endLecture;
-        vm.currentLecture = dashboardService.getCurrentLecture();
+
+        dashboardService.currentLecture($state.params.lectureId).then(function(res){
+          vm.currentLecture = res;
+          return
+        });
 
         function endLecture () {
-          dashboardService.endLecture($state.params.id);
+          dashboardService.endLecture($state.params.lectureId);
           $state.go('dashboard');
         }
 
