@@ -32,7 +32,7 @@
 
         function endLecture () {
           dashboardService.endLecture($state.params.lectureId);
-          $state.go('dashboard');
+          $state.go('teaching');
         }
 
       }
