@@ -49,7 +49,7 @@
       })
       .state('teaching', {
         url: '/dashboard/teaching',
-        templateUrl: "partials/dashboard.attending.html",
+        templateUrl: "partials/dashboard.teaching.html",
         loggedInOnly: true,
         parent: 'app',
         resolve: {
@@ -58,18 +58,27 @@
       })
       .state('attending', {
         url: '/dashboard/attending',
-        templateUrl: "partials/dashboard.teaching.html",
+        templateUrl: "partials/dashboard.attending.html",
         loggedInOnly: true,
         parent: 'app',
         resolve: {
           user: getMe
         }
       })
-      .state('classInfo', {
+      .state('teachingLectures', {
         url: '/:classId',
         templateUrl: "partials/dashboard.info.html",
         loggedInOnly: true,
-        parent: 'app',
+        parent: 'teaching',
+        resolve: {
+          user: getMe
+        }
+      })
+      .state('attendingLectures', {
+        url: '/:classId',
+        templateUrl: "partials/dashboard.info.html",
+        loggedInOnly: true,
+        parent: 'attending',
         resolve: {
           user: getMe
         }
