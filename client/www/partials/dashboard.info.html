@@ -19,15 +19,15 @@
     <p ng-bind="lecture.attributes.description"></p>
     <p ng-bind="lecture.attributes.created_at | amCalendar"></p>
 
-    <button ng-show="lecture.attributes.is_active && !vm.currentClass.attributes.instructor" ui-sref="student({id:lecture.attributes.lecture_id})" ng-click="vm.setPreviousPage(vm.currentClass.attributes.id)">Join Lecture</button>
+    <button ng-show="lecture.attributes.is_active && !vm.currentClass.attributes.instructor" ui-sref="student({id:lecture.attributes.lecture_id})" ng-click="vm.setPreviousPage(vm.currentClass.attributes.id)" class="secondaryButton">Join Lecture</button>
 
-    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null && !lecture.attributes.is_active" ng-click="vm.startLecture(lecture)" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})">
+    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null && !lecture.attributes.is_active" ng-click="vm.startLecture(lecture)" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})" class="primaryButton">
       Start Lecture
     </button>
-    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null && lecture.attributes.is_active" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})">
+    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null && lecture.attributes.is_active" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})" class="secondaryButton">
       Enter started lecture
     </button>
-    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at !== null && !lecture.attributes.is_active" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})">
+    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at !== null && !lecture.attributes.is_active" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})" class="secondaryButton">
       View lecture history
     </button>
     <p ng-show="lecture.attributes.ended_at !== null">This lecture has ended.</p>
