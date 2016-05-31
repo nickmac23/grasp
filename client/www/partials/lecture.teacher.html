@@ -1,18 +1,22 @@
 <main class="container-fluid">
   <section class="dashboard-section">
   <h2 ng-bind="vm.currentLecture.attributes.name"></h2>
-  <button class="col-lg-2 primaryButton" ui-sref='teachingLectures({classId: vm.previousPage})'>
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    Dashboard
-  </button>
 
     <div class="col-md-12">
       <pie-chart></pie-chart>
       <area-chart></area-chart>
     </div>
     <div class="row">
-      <div class="col-md-12 text-right">
-        <button class="primaryButton"  id="teacherEndLecture" ng-click="vm.endLecture()">End Lecture</button>
+      <div class="col-md-12 text-right btns-teacher">
+        <div class="row">
+          <button ng-show="vm.currentLecture.attributes.ended_at === null && vm.currentLecture.attributes.is_active" class="primaryButton teacherEndLecture"  ng-click="vm.endLecture()">
+            End Lecture
+          </button>
+        </div>
+        <button class="primaryButton dashboardTeacherBtn" ui-sref='teachingLectures({classId: vm.previousPage})'>
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          Dashboard
+        </button>
       </div>
     </div>
   </section>
