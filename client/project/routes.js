@@ -67,7 +67,7 @@
       })
       .state('teachingLectures', {
         url: '/:classId',
-        templateUrl: "partials/dashboard.info.html",
+        templateUrl: "partials/dashboard.teaching.info.html",
         loggedInOnly: true,
         parent: 'teaching',
         resolve: {
@@ -76,7 +76,7 @@
       })
       .state('attendingLectures', {
         url: '/:classId',
-        templateUrl: "partials/dashboard.info.html",
+        templateUrl: "partials/dashboard.attending.info.html",
         loggedInOnly: true,
         parent: 'attending',
         resolve: {
