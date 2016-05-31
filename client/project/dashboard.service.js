@@ -28,8 +28,6 @@
     _classes._attending = [];
 
     var _previousPage;
-    // var _currentLecture;
-
 
     var dashboardFactory = {
       getClasses: getClasses,
