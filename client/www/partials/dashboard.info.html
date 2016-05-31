@@ -27,6 +27,9 @@
     <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null && lecture.attributes.is_active" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})">
       Enter started lecture
     </button>
+    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at !== null && !lecture.attributes.is_active" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})">
+      View lecture history
+    </button>
     <p ng-show="lecture.attributes.ended_at !== null">This lecture has ended.</p>
   </div>
 
