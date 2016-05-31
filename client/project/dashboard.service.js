@@ -96,8 +96,8 @@
       })
     }
 
-    function setPreviousPage (id) {
-      _previousPage = id;
+    function setPreviousPage (classId) {
+      _previousPage = classId;
       return
     }
 

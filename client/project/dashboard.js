@@ -32,7 +32,6 @@
         vm.formClose = formClose;
         vm.addLecture = addLecture;
         vm.currentClass;
-        vm.previousPage;
         vm.logout = logout;
         vm.setPreviousPage = setPreviousPage;
         vm.startLecture = startLecture;
@@ -83,9 +82,7 @@
           });
         }
 
-/// fixed this previousPage problem!!!
         function setPreviousPage(classId){
-          vm.previousPage = classId ;
           dashboardService.setPreviousPage(classId);
           return
         }

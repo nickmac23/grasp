@@ -19,15 +19,15 @@
     <p ng-bind="lecture.attributes.created_at | amCalendar"></p>
 
 
-    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null && !lecture.attributes.is_active" ng-click="vm.startLecture(lecture)" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})" class="primaryButton">
+    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null && !lecture.attributes.is_active" ng-click="vm.startLecture(lecture)" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})" class="primaryButton" ng-click="vm.setPreviousPage(vm.currentClass.attributes.id)">
       Start Lecture
     </button>
 
-    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null && lecture.attributes.is_active" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})" class="secondaryButton">
+    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at === null && lecture.attributes.is_active" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})" class="secondaryButton" ng-click="vm.setPreviousPage(vm.currentClass.attributes.id)">
       Enter started lecture
     </button>
 
-    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at !== null && !lecture.attributes.is_active" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})" class="secondaryButton">
+    <button ng-if="vm.currentClass.attributes.instructor && lecture.attributes.ended_at !== null && !lecture.attributes.is_active" ui-sref="teacher({lectureId:lecture.attributes.lecture_id})" class="secondaryButton" ng-click="vm.setPreviousPage(vm.currentClass.attributes.id)">
       View lecture history
     </button>
 
