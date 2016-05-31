@@ -19,10 +19,11 @@
         '$state',
         'dashboardService',
         'authService',
-        '$window'
+        '$window',
+        '$location'
       ];
 
-      function dashboardController($log, $state, dashboardService, authService, $window) {
+      function dashboardController($log, $state, dashboardService, authService, $window, $location) {
         var vm = this;
         vm.info = {};
         vm.session = authService.session;

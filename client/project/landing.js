@@ -44,14 +44,14 @@
         function loginSubmit () {
           var user = angular.copy(vm.login)
           authService.login(user).then(function (res){
-            $state.go('dashboard');
+            $state.go('attending');
           })
         }
 
         function signupSubmit (){
           var user = angular.copy(vm.signup);
           authService.signup(user).then(function (res){
-            $state.go('dashboard');
+            $state.go('attending');
           })
         }
 
