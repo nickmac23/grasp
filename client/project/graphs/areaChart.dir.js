@@ -21,6 +21,8 @@
       }, true);
 
       function graph (tally) {
+        var units = tally.units;
+        var tally = tally.data;
         areaChart.data.rows = []
         areaChart.data.rows.push({c: [{v: 0},{v: 0},{v: 100},{v: 0} ] })
         for (var time in tally) {
@@ -29,6 +31,7 @@
           var u = tally[time][2]/total * 100
           var g = tally[time][3]/total * 100
           areaChart.data.rows.push({c: [{v: time }, {v: d}, {v: u}, {v: g}] })
+          areaChart.options.hAxis.title = "Time (" + units + ")";
         }
       }
 

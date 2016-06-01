@@ -31,7 +31,7 @@
         vm.previousPage = dashboardService.getPreviousPage();
 
         function vote (status_id) {
-          socket.emit('chart', {lecture_id: +lecture_id, user_id: authService.session.currentUser.id , status_id: status_id} )
+          socket.emit('chart', {lecture_id: +lecture_id, user_id: authService.session.currentUser.id, status_id: status_id} )
         }
 
       }
