@@ -59,7 +59,6 @@
         "hAxis": {
           "title": "Time",
           "scaleType": 'log'
-
         }
       };
       $scope.areaChart = areaChart;
