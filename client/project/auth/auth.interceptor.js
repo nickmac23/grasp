@@ -11,7 +11,6 @@
      'request': function(req) {
         var token = localStorage.getItem('token');
         if (token) req.headers.authentication = token;
-        // console.log('token, REQ', req);
         return req;
       },
 
