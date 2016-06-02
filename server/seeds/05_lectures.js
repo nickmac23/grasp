@@ -6,7 +6,7 @@ exports.seed = function(knex, Promise) {
 
     return Promise.join(
 
-      addLectureWithClassNameInstructorName("Steve", "Angular 0001", { name: "Angular Stuff" , description: 'All about angular stuff.', ended_at: new Date(Date.now()+50000000), started_at: new Date(Date.now()), is_active: true} ),
+      addLectureWithClassNameInstructorName("Steve", "Angular 0001", { name: "Angular Stuff" , description: 'All about angular stuff.', ended_at: new Date(Date.now()+5000000), started_at: new Date(Date.now()), is_active: true} ),
       addLectureWithClassNameInstructorName("Bob", "Angular 0001", { name: "More Angular Stuff" , description: 'All about angular stuff.', ended_at: null, started_at: new Date(Date.now()), is_active: true} ),
       addLectureWithClassNameInstructorName("Bob", "JS 101", { name: "javascript Stuff" , description: 'All about js stuff.', ended_at: null, started_at: new Date(Date.now()), is_active: true} ),
       addLectureWithClassNameInstructorName("Dave", "Sockets 400", { name: "Sockets Stuff" , description: 'All about sockets stuff.', ended_at: null, started_at: new Date(Date.now()), is_active: true} )

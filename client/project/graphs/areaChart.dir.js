@@ -21,6 +21,7 @@
       }, true);
 
       function graph (tally) {
+        if(!tally) return;
         var units = tally.units;
         var tally = tally.data;
         areaChart.data.rows = []
