@@ -13,32 +13,45 @@
 
   angular.module('panic', dependencies)
   .constant({'API_URL': resolveApiUrl() + '/api/v1'})
-   .run(routeEvent)
+  .run(routeEvent)
 
-   resolveApiUrl.$inject = ['$http']
+  resolveApiUrl.$inject = ['$http']
 
-   function resolveApiUrl($http){
-     if(window.location.origin === "http://localhost:5000") return 'http://localhost:3000';
-     return 'https://panic-button-g20.herokuapp.com'
-   }
+  function resolveApiUrl($http){
+    if(window.location.origin === "http://localhost:5000") return 'http://localhost:3000';
+    return 'https://panic-button-g20.herokuapp.com'
+  }
 
-   routeEvent.$inject = ['$rootScope', '$state', '$window'];
+  routeEvent.$inject = ['$rootScope', '$state', '$window', 'authService'];
 
-   function routeEvent($rootScope, $state, $window){
-     $rootScope.$on('$stateChangeStart', function(event, state){
-       if(!$window.localStorage.getItem('token') && state.loggedInOnly){
-         event.preventDefault();
-         $state.go('landing');
-       }
-       if($window.localStorage.getItem('token') && state.loggedOutOnly){
-         event.preventDefault();
-         $state.go('dashboard');
-       }
-       if($window.localStorage.getItem('token') && state.instructorOnly){
+  function routeEvent($rootScope, $state, $window, authService){
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+      if(!$window.localStorage.getItem('token') && toState.loggedInOnly){
+        event.preventDefault();
+        $state.go('landing');
+      }
+      if($window.localStorage.getItem('token') && toState.loggedOutOnly){
+        event.preventDefault();
+        $state.go('dashboard');
+      }
+      //TODO: create a http call to check if the person going to this page is the instructor
+      // if($window.localStorage.getItem('token') && toState.instructorOnly){
+        // authService.verifyInstructor($window.localStorage.getItem('email'), $window.localStorage.getItem('token')).then(function(result){
+        //   if (result === true) {
+        //     $state.go('teaching');
+        //   } else {
+        //     event.preventDefault();
+        //     $state.go('dashboard');
+        //   }
+        // })
         //  console.log('interceptor- instructorOnly///////////////');
-         event.preventDefault();
-         $state.go('dashboard');
-       }
-     })
-   }
+        // event.preventDefault();
+      //   $state.go('dashboard');
+      // }
+      // if(!$window.localStorage.getItem('token') && toState.instructorOnly){
+      //   event.preventDefault();
+      //   $state.go('landing');
+      // }
+    })
+  }
 })();
