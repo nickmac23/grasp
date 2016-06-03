@@ -1,8 +1,16 @@
 <main class="container-fluid col-lg-12">
   <section class="dashboard-section">
     <h2>Hey <span ng-bind="vm.session.currentUser.name"></span></h2>
-    <button id="dontUnderstand" class="col-lg-6 secondaryButton " ng-click='vm.vote(1)'>I don't understand</button>
-    <button id="understand" class="col-lg-6 primaryButton " ng-click='vm.vote(3)'>Got it!</button>
+    <h4 ng-if="vm.currentUnderstanding">You currently: <span ng-bind="vm.currentUnderstanding"></span></h4>
+
+    <div class="understanding-buttons">
+      <button ng-disabled="!vm.canClick" id="dontUnderstand" class="col-lg-6 secondaryButton " ng-click='vm.vote(1)'>I don't understand</button>
+      <button ng-disabled="!vm.canClick" id="understand" class="col-lg-6 primaryButton " ng-click='vm.vote(3)'>Got it!</button>
+    </div>
+
+    <div ng-if="!vm.canClick">
+      <h1>You can vote again in: <span ng-bind="vm.timer"></span> seconds</h1>
+    </div>
 
     <button class="col-lg-2 primaryButton" ui-sref='classInfo({classId: vm.previousPage})'>
       <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
