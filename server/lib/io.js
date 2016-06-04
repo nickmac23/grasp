@@ -10,6 +10,7 @@ io.on('connection', function (socket) {
 
   socket.on('chart', function(data){
     console.log(data);
+    
     knex('understandings').insert(data)
     .returning('*')
     .then( function (res) {
