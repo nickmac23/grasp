@@ -14,10 +14,10 @@
 
     // Update graph data every minute if nobody has clicked.
     var updateInterval = null;
-    var url = (window.location.origin === "http://localhost:5000") ? 'http://localhost:3000' : 'https://panic-button-g20.herokuapp.com'
+    var url = (window.location.origin === "http://localhost:5000") ? 'http://localhost:3000' : 'https://grasp-app.herokuapp.com'
     var socket = io.connect(url);
 
-    socket.on($state.params.id, function (data) {
+    socket.on($state.params.lectureId, function (data) {
       if (!service.dataCache.students[data.user_id]) service.dataCache.students[data.user_id] = []
         service.dataCache.students[data.user_id].push(data)
         service.graphData = createTally(service.dataCache);
@@ -26,7 +26,7 @@
 
     var service = {
       lecture_start: null,
-      lecture_id: $state.params.id,
+      lecture_id: $state.params.lectureId,
       dataCache: null,
       graphData: null,
       getGraphData: getGraphData,

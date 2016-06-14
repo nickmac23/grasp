@@ -23,11 +23,9 @@ function service($window, $scope, $stateParams){
     lecture.timer = new Date(lecture.timer)
   })
 
-  // SAVING DATA ISN'T WORKING!!!!
   var lectureStudentService = {
     canVote: canVote,
     voted: voted,
-    //decrementTimer: decrementTimer,
     resetTimer: resetTimer,
     getTimer: getTimer,
     getCurrentUnderstanding: getCurrentUnderstanding,
@@ -48,12 +46,6 @@ function service($window, $scope, $stateParams){
     return lecture.userCanVote;
   }
 
-  // function decrementTimer() {
-  //   lecture.timer--;
-  //   setLectures();
-  //   return lecture.timer;
-  // }
-
   function resetTimer() {
     lecture.timer = new Date(Date.now() - defaultTimerValue);
     lecture.userCanVote = true;
@@ -63,7 +55,6 @@ function service($window, $scope, $stateParams){
 
   function getTimer() {
     var timer = (lecture.timer.getTime() - Date.now())
-    console.log(timer);
     return Math.floor((lecture.timer.getTime() - Date.now()) / 1000);
   }
 
@@ -82,7 +73,6 @@ function service($window, $scope, $stateParams){
   }
 
   function setLectures() {
-    console.log(lectures);
     return $window.localStorage.setItem('lectures', JSON.stringify(lectures));
   }
 }

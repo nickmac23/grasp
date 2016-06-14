@@ -19,7 +19,7 @@
 
   function resolveApiUrl($http){
     if(window.location.origin === "http://localhost:5000") return 'http://localhost:3000';
-    return 'https://panic-button-g20.herokuapp.com'
+    return 'https://grasp-app.herokuapp.com'
   }
 
   routeEvent.$inject = ['$rootScope', '$state', '$window', 'authService'];

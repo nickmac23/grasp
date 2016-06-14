@@ -23,7 +23,7 @@
         loggedOutOnly: true
       })
       .state('student', {
-        url: '/lectures/:lectureId/students',
+        url: '/lectures/:lectureId/student',
         template: "<lecture-student></lecture-student>",
         resolve: {
           user: getMe
