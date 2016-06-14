@@ -1,4 +1,4 @@
-p(function() {
+(function() {
   'use strict';
 
 

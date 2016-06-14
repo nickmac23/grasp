@@ -33,7 +33,6 @@
         url: '/lectures/:lectureId/instructor',
         template: "<lecture-teacher></lecture-teacher>",
         loggedInOnly: true,
-        // instructorOnly: true
       })
       .state('app', {
         abstract: true,
