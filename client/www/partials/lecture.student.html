@@ -4,12 +4,12 @@
     <h4 ng-if="vm.currentUnderstanding">You currently: <span ng-bind="vm.currentUnderstanding"></span></h4>
 
     <div class="understanding-buttons">
-      <button ng-disabled="!vm.canClick" id="dontUnderstand" class="col-lg-6 secondaryButton " ng-click='vm.vote(1)'>I don't understand</button>
-      <button ng-disabled="!vm.canClick" id="understand" class="col-lg-6 primaryButton " ng-click='vm.vote(3)'>Got it!</button>
+      <button ng-disabled="!vm.canClick" id="dontUnderstand" class="col-md-6 secondaryButton " ng-click='vm.vote(1)'>I don't understand</button>
+      <button ng-disabled="!vm.canClick" id="understand" class="col-md-6 primaryButton " ng-click='vm.vote(3)'>Got it!</button>
     </div>
 
     <div ng-if="!vm.canClick">
-      <h1>You can vote again in: <span ng-bind="vm.timer"></span> seconds</h1>
+      <h1 class="timer-text">You can vote again in: <span ng-bind="vm.timer"></span> seconds</h1>
     </div>
 
     <button class="col-lg-2 primaryButton" ui-sref='attendingLectures({classId: vm.previousPage})'>
