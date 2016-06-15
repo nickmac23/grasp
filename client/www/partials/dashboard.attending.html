@@ -1,10 +1,9 @@
 <section class="row">
 
-<div class="col-md-2">
-  <h3>Attending</h3>
-  <ul>
-    <li ng-repeat="class in vm.attending"><a ui-sref="attendingLectures({ classId: class.attributes.id})"><h4 ng-bind="class.attributes.class_name" ng-click="vm.getLectures(class)" ui-sref-opts="{reload:true}"></h4></a></li>
+<div class="col-md-3">
+  <ul class="class-list">
+    <a ng-repeat="class in vm.attending" ui-sref="attendingLectures({ classId: class.attributes.id})"><li ng-class="{gactive: vm.currentClass.attributes.id == class.attributes.id}"><h4 ng-bind="class.attributes.class_name" ng-click="vm.getLectures(class)" ui-sref-opts="{reload:true}"></h4></li></a>
   </ul>
 </div>
-<div ui-view class="col-md-10"></div>
+<div ui-view class="col-md-9"></div>
 </section>

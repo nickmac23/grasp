@@ -32,7 +32,7 @@
       }
       if($window.localStorage.getItem('token') && toState.loggedOutOnly){
         event.preventDefault();
-        $state.go('dashboard');
+        $state.go('attending');
       }
       //TODO: create a http call to check if the person going to this page is the instructor
       // if($window.localStorage.getItem('token') && toState.instructorOnly){

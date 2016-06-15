@@ -30,7 +30,6 @@
         vm.signupSubmit = signupSubmit;
         vm.scrollDown = scrollDown;
 
-
         //Actually scrolls DOWN - renaming to scrollDown() breaks the animation.
         function scrollDown() {
           $document.scrollTopAnimated(730, 1500);

@@ -1,46 +1,6 @@
-<section>
-<div class="row">
-  <button type="button" id="new-class" class="primaryButton col-md-2" data-toggle="modal" data-target="#myModal">Create a Class</button>
-</div>
-<div class="row spaceAbove">
-  <h4 class="page-header">Your most recent lecture summary is comming soon</h4>
-</div>
-
-<!-- Modal Add Class-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add A Class</h4>
-      </div>
-      <div class="modal-body">
-        <form name="myForm" novalidate ng-submit="vm.addClass(myForm)">
-          <fieldset class="form-group" ng-class="{'has-error': myForm.name.$invalid && myForm.name.$touched, 'has-success': myForm.name.$valid}">
-            <label class="control-label">Name</label>
-            <input type="text" class="form-control" name="name" ng-model="vm.class.name" required placeholder="Enter the name of your posting.">
-            <div ng-messages="myForm.name.$error" ng-if="myForm.name.$touched">
-              <p ng-message="required" class="control-label">A name is required.</p>
-            </div>
-          </fieldset>
-          <fieldset class="form-group" ng-class="{'has-error': myForm.description.$invalid && myForm.description.$touched, 'has-success': myForm.description.$valid}">
-            <label class="control-label">Description</label>
-            <input type="text" class="form-control" name="description" ng-model="vm.class.description" required ng-minlength="3" placeholder="Enter the description of the posting.">
-            <div ng-messages="myForm.description.$error" ng-if="myForm.description.$touched">
-              <p ng-message="minlength" class="control-label">Description is too short.</p>
-              <p ng-message="required" class="control-label">Desription is required.</p>
-            </div>
-          </fieldset>
-          <div class="modal-footer">
-            <!-- <button type="button" class="btn" data-dismiss="modal" ng-click="vm.formClose(myForm)">Close</button>
-            <button type="submit" class="btn" data-toggle="modal" data-target="#myModal" ng-disabled="myForm.$invalid">Add Class</button> -->
-            <!--TODO Fix buttons!  -->
-            <button type="button" class="secondaryButton" data-dismiss="modal" ng-click="vm.formClose(myForm)">Close</button>
-            <button type="submit" class="primaryButton" data-toggle="modal" data-target="#myModal" ng-disabled="myForm.$invalid">Add Class</button>
-          </div>
-        </form>
-      </div>
-    </div>
+<!-- <section>
+  <div class="row spaceAbove">
+    <h4 class="page-header">Your most recent lecture summary is comming soon</h4>
   </div>
-</div>
-</section>
+
+</section> -->

@@ -2,22 +2,23 @@
   <section class="dashboard-section">
     <nav class="navbar">
       <div class="container-fluid">
+        <div class="navbar-right">
+          <h4>Welcome, <span ng-bind="vm.session.currentUser.name"></span></h4>
+          <button type="button" id="new-class" class="primaryButton" data-toggle="modal" data-target="#myModal">Create a Class</button>
+          <button class="secondaryButton" id="logout-button" ng-click="vm.logout()">Logout</button>
+        </div>
         <div class="navbar-header">
           <ul class="nav navbar-nav">
-            <li ui-sref-active="active" class="col-md-4">
+            <!-- <li ui-sref-active="active" class="col-md-4">
               <a ui-sref="dashboard" ui-sref-opts="{reload:true}"><h4 class="nav-text">Dashboard</h4></a>
-            </li>
-            <li ui-sref-active="active" class="col-md-4">
+            </li> -->
+            <li ui-sref-active="active" class="col-sm-6">
               <a ui-sref="teaching" ui-sref-opts="{reload:true}"><h4 class="nav-text"> Teaching</h4></a>
             </li>
-            <li ui-sref-active="active" class="col-md-4">
+            <li ui-sref-active="active" class="col-sm-6">
               <a ui-sref="attending" ui-sref-opts="{reload:true}"><h4 class="nav-text">Attending</h4></a>
             </li>
           </ul>
-        </div>
-        <div class="navbar-right">
-          <h4>Welcome, <span ng-bind="vm.session.currentUser.name"></span></h4>
-          <button class="secondaryButton" id="logout-button" ng-click="vm.logout()">Logout</button>
         </div>
       </div>
     </nav>
@@ -27,4 +28,42 @@
     </div>
 
   </section>
+
+  <!-- Modal Add Class-->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Add A Class</h4>
+        </div>
+        <div class="modal-body">
+          <form name="myForm" novalidate ng-submit="vm.addClass(myForm)">
+            <fieldset class="form-group" ng-class="{'has-error': myForm.name.$invalid && myForm.name.$touched, 'has-success': myForm.name.$valid}">
+              <label class="control-label">Name</label>
+              <input type="text" class="form-control" name="name" ng-model="vm.class.name" required placeholder="Enter the name of your posting.">
+              <div ng-messages="myForm.name.$error" ng-if="myForm.name.$touched">
+                <p ng-message="required" class="control-label">A name is required.</p>
+              </div>
+            </fieldset>
+            <fieldset class="form-group" ng-class="{'has-error': myForm.description.$invalid && myForm.description.$touched, 'has-success': myForm.description.$valid}">
+              <label class="control-label">Description</label>
+              <input type="text" class="form-control" name="description" ng-model="vm.class.description" required ng-minlength="3" placeholder="Enter the description of the posting.">
+              <div ng-messages="myForm.description.$error" ng-if="myForm.description.$touched">
+                <p ng-message="minlength" class="control-label">Description is too short.</p>
+                <p ng-message="required" class="control-label">Desription is required.</p>
+              </div>
+            </fieldset>
+            <div class="modal-footer">
+              <!-- <button type="button" class="btn" data-dismiss="modal" ng-click="vm.formClose(myForm)">Close</button>
+              <button type="submit" class="btn" data-toggle="modal" data-target="#myModal" ng-disabled="myForm.$invalid">Add Class</button> -->
+              <!--TODO Fix buttons!  -->
+              <button type="button" class="secondaryButton" data-dismiss="modal" ng-click="vm.formClose(myForm)">Close</button>
+              <button type="submit" class="primaryButton" data-toggle="modal" data-target="#myModal" ng-disabled="myForm.$invalid">Add Class</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>

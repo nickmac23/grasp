@@ -38,15 +38,15 @@
         abstract: true,
         template: "<dashboard></dashboard>"
       })
-      .state('dashboard', {
-        url: '/dashboard',
-        parent: 'app',
-        templateUrl: "partials/dashboard.main.html",
-        loggedInOnly: true,
-        resolve: {
-          user: getMe
-        }
-      })
+      // .state('dashboard', {
+      //   url: '/dashboard',
+      //   parent: 'app',
+      //   templateUrl: "partials/dashboard.main.html",
+      //   loggedInOnly: true,
+      //   resolve: {
+      //     user: getMe
+      //   }
+      // })
       .state('teaching', {
         url: '/dashboard/teaching',
         templateUrl: "partials/dashboard.teaching.html",
