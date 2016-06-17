@@ -1,5 +1,6 @@
 {
   "projects": {
-    "development": "panic-button-c784e"
+    "development": "panic-button-c784e",
+    "default": "grasp-app"
   }
 }
